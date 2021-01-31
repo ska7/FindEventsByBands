@@ -1,0 +1,151 @@
+// Fake API
+
+// https://fakeapi.com/api/events/{bandName}
+
+const data = [
+  {
+    bandName: "Metallica",
+    events: [
+      {
+        id: uuid(),
+        location: "New York, USA",
+        venue: "Maddison Square Garden",
+        date: "10-03-2021",
+        time: "7pm EST",
+      },
+      {
+        id: uuid(),
+        location: "Berlin, Germany",
+        venue: "Berlin Palace",
+        date: "15-03-2021",
+        time: "8pm CET",
+      },
+    ],
+  },
+  {
+    bandName: "The Rolling Stones",
+    events: [
+      {
+        id: uuid(),
+        location: "Toronto, Canada",
+        venue: "Toronto Stadium",
+        date: "21-02-2021",
+        time: "6pm EST",
+      },
+      {
+        id: uuid(),
+        location: "Bogota, Colombia",
+        venue: "Columbia Best Venue",
+        date: "30-05-2021",
+        time: "8pm COT",
+      },
+    ],
+  },
+];
+
+/*
+
+( 1 ). I'll need 
+
+Search component
+SearchResults component
+EventsList component - 
+EventLine component - like button
+EventDetails component - like button
+Favorites component
+
+FavoritesContext - React.createContext()
+
+return (
+    <FavoritesContext.Provider>
+    {children}
+    </FavoritesContext.Provider>
+)
+
+requests are done with axios
+<FavoritesContext>
+    <App>
+    <Search>
+    <SearchResults>
+    <Favorites /> 
+    </SearchResults>
+    </Search>
+    </App>
+<FavoritesContext >
+
+( 2 ). On page load, User should see the Search component. 
+
+const [inputValue, setInputValue] = useState('') - we'll need it to controll and store the input value
+
+User types in some band name and hits the button. Depending on the situation, it wouldn't hurt to implement some input validation.
+The input value is being saved to the state which in turn then goes to the SearchResults component via props.
+
+( 3 ). By default, SearchResults renders only Favorites which is going to be an icon somewhere in the corner that opens a modal. It has useState and useEffect hooks,
+useState is where all search results are gonna be stored, useEffect is where we're gonna fetch the data. 
+As soon as the component receives the input value, the fetch function within useEffect fires.
+
+something like ->
+
+const [favorites, setFavorites] = useState([]) - we'll need it later to store the events liked by User
+const [bands, setBands] = useState([])
+
+useEffect(() => {
+    setInterval(() => {
+        inputValue &&
+        axios.get(https://fakeapi.com/api/events/${inputValue}).
+        then(res => {
+            const matchedBands = res.data.filter(band => {
+                return band.name.includes(inputValue)
+            } )
+
+            setEvents(matchedEvents.slice(0,6))
+        })
+        .catch(e => {
+            and here we handle the error
+        })
+    }, 1000)
+    
+},[inputValue])
+
+return (
+    <div>
+        <ul>
+        {bands.map((band) => {
+            return <li>{band.name}</li>
+        }) }
+        </ul>
+    </div>
+)
+
+The array is empty to emulate ComponentDidMount lifecycle. To avoid unnecessary requests, we fetch only if the input value is provided.
+Then, there are two scenarios - 
+the request returns 200 code with the data which is being looped through and passed to the Event component or 
+the request returns 401 (or any other error) and we handle the error, the component keeps rendering only the Favorites component.
+
+                  <div>
+                    {results.length ? results.map(event => 
+                        {
+                            return <Event location={event.location} venue={event.venue} and so on />)
+                        }
+                        ) : null}
+                        <Favorites favoriteEvents={favoriteEvents} />
+                  </div>
+  
+( 4 ). Now the Event component. Besides storing the event info itself, the event component should have a heart-shaped button (or a star-shaped one, it doesn't matter)
+that allows adding it to the favorites. We should pass the id of the liked event up to the SearchResults component so we will have to lift up the state.
+We'll add the following function to the SearchResults component -> 
+
+                        const addToFavorites = (eventID) => {
+                            const result = events.filter(event => {
+                                return event.id === eventID
+                            })
+
+                            setFavorites(result)
+                        }
+
+We'll pass this function to each instance of the Event component via props like <Event location={event.location} venue={event.venue} ... onLike={addToFavorites} />
+                    
+
+
+
+  */
