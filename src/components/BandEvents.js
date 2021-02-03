@@ -1,17 +1,20 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
+import { GlobalContext } from "../context/FavoritesContext";
 
-export const BandEvents = ({ bandID }) => {
+export const BandEvents = () => {
   const [events, setEvents] = useState([]);
 
+  const { chosenBandID } = useContext(GlobalContext);
+
   useEffect(() => {
-    bandID &&
+    chosenBandID &&
       axios
         .get(
-          `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=K0cI0s0IC8ii7i2w`
+          `https://api.songkick.com/api/3.0/artists/${chosenBandID}/calendar.json?apikey=K0cI0s0IC8ii7i2w`
         )
         .then((res) => console.log(res));
-  }, [bandID]);
+  }, [chosenBandID]);
 
-  return <div>{bandID}</div>;
+  return <div>{chosenBandID}</div>;
 };

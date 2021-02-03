@@ -34,3 +34,37 @@ ul {
 li {
   text-align: center;
 }
+
+/* CSS Transition Group */
+
+.fade-enter {
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: translateX(200rem);
+}
+
+.fade-enter-active {
+  opacity: 0.5;
+  transition: all 0.3s ease;
+  transform: translateX(100rem);
+}
+.fade-enter-done {
+  opacity: 1;
+  transition: all 0.3s ease;
+  transform: translateX(0rem);
+}
+
+.fade-exit {
+  opacity: 1;
+  transform: translateX(0rem);
+}
+.fade-exit-active {
+  transition: all 0.5s ease-in;
+  transform: translateX(-200rem);
+  opacity: 0.5;
+}
+.fade-exit-done {
+  transition: all 0.5s ease-in;
+  transform: translateX(-350rem);
+  opacity: 0;
+}

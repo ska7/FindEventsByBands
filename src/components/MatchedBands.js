@@ -1,12 +1,14 @@
 import { throttle } from "lodash";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import { BandEvents } from "./BandEvents";
+import { GlobalContext } from "../context/FavoritesContext";
 
-export const SearchResults = ({ searchString }) => {
+export const MatchedBands = ({ searchString }) => {
+  const { showMatchedBands, setChosenBandID, showBandEvents } = useContext(
+    GlobalContext
+  );
   const [bands, setBands] = useState([]);
-  const [last, setLast] = useState(0);
-  const [clickedBandID, setClickedBandID] = useState("");
 
   const fetchBands = async (bandName) => {
     await axios
@@ -17,7 +19,9 @@ export const SearchResults = ({ searchString }) => {
         try {
           const matchedBands = res.data.resultsPage.results.artist.filter(
             (band) => {
-              return band.displayName.includes(bandName);
+              return band.displayName
+                .toLowerCase()
+                .includes(bandName.toLowerCase());
             }
           );
 
@@ -32,8 +36,14 @@ export const SearchResults = ({ searchString }) => {
   };
 
   const throttledFetchBands = useRef(
-    throttle((searchString) => fetchBands(searchString), 3000)
+    throttle((searchString) => fetchBands(searchString), 1500)
   );
+
+  const handleBandClick = (bandID) => {
+    setChosenBandID(bandID);
+    showBandEvents(true);
+    showMatchedBands(false);
+  };
 
   useEffect(() => {
     searchString && throttledFetchBands.current(searchString);
@@ -44,12 +54,11 @@ export const SearchResults = ({ searchString }) => {
       <ul>
         {bands.map((band) => {
           return (
-            <li key={band.id} onClick={() => setClickedBandID(band.id)}>
+            <li key={band.id} onClick={() => handleBandClick(band.id)}>
               {band.displayName}
             </li>
           );
         })}
-        {clickedBandID && <BandEvents bandID={clickedBandID} />}
       </ul>
     </>
   );

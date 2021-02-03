@@ -1,11 +1,24 @@
-import React, { useState } from "react";
-import { SearchResults } from "./SearchResults";
+import React, { useContext, useState } from "react";
+import { MatchedBands } from "./MatchedBands";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
+import { BandEvents } from "./BandEvents";
+import { GlobalContext } from "../context/FavoritesContext";
 
 export const Search = () => {
   const [inputValue, setInputValue] = useState("");
+  const {
+    matchedBandsVisible,
+    bandEventsVisible,
+    showMatchedBands,
+  } = useContext(GlobalContext);
+
   const handleChange = (e) => {
-    setInputValue(e.target.value);
+    const value = e.target.value;
+    setInputValue(value);
+    if (value && !bandEventsVisible) showMatchedBands(true);
+    else showMatchedBands(false);
   };
+
   return (
     <div className="search-wrapper">
       <input
@@ -13,9 +26,24 @@ export const Search = () => {
         value={inputValue}
         onChange={handleChange}
         placeholder="Type in a band name"
+        autoComplete="off"
       />
-
-      <SearchResults searchString={inputValue} />
+      <TransitionGroup component={null}>
+        {matchedBandsVisible && (
+          <CSSTransition
+            in={matchedBandsVisible}
+            classNames="fade"
+            timeout={500}
+          >
+            <MatchedBands searchString={inputValue} />
+          </CSSTransition>
+        )}
+        {bandEventsVisible && (
+          <CSSTransition in={bandEventsVisible} timeout={300} classNames="fade">
+            <BandEvents />
+          </CSSTransition>
+        )}
+      </TransitionGroup>
     </div>
   );
 };
