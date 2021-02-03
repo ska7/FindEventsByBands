@@ -12,7 +12,9 @@ export const Search = () => {
         name="searchInput"
         value={inputValue}
         onChange={handleChange}
-      ></input>
+        placeholder="Type in a band name"
+      />
+
       <SearchResults searchString={inputValue} />
     </div>
   );
