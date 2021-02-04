@@ -50,16 +50,17 @@ export const MatchedBands = ({ searchString }) => {
   }, [searchString]);
 
   return (
-    <>
-      <ul>
-        {bands.map((band) => {
-          return (
-            <li key={band.id} onClick={() => handleBandClick(band.id)}>
-              {band.displayName}
-            </li>
-          );
-        })}
-      </ul>
-    </>
+    <ul
+      className="matched-bands-wrapper"
+      style={{ position: "absolute", top: "200px" }}
+    >
+      {bands.map((band) => {
+        return (
+          <li key={band.id} onClick={() => handleBandClick(band.id)}>
+            {band.displayName}
+          </li>
+        );
+      })}
+    </ul>
   );
 };

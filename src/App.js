@@ -1,6 +1,5 @@
-
-import './App.css';
-import { Search } from './components/Search';
+import "./App.scss";
+import { Search } from "./components/Search";
 
 function App() {
   return (

@@ -10,13 +10,19 @@ export const Search = () => {
     matchedBandsVisible,
     bandEventsVisible,
     showMatchedBands,
+    showBandEvents,
   } = useContext(GlobalContext);
 
   const handleChange = (e) => {
     const value = e.target.value;
     setInputValue(value);
-    if (value && !bandEventsVisible) showMatchedBands(true);
-    else showMatchedBands(false);
+    if (value) {
+      showMatchedBands(true);
+      showBandEvents(false);
+    } else {
+      showMatchedBands(false);
+      showBandEvents(false);
+    }
   };
 
   return (
