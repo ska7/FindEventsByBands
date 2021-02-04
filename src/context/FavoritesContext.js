@@ -8,14 +8,21 @@ export const FavoritesContext = ({ children }) => {
   const [bandEventsVisible, showBandEvents] = useState(false);
 
   // Data
+  const [inputValue, setInputValue] = useState("");
   const [chosenBandID, setChosenBandID] = useState("");
   const [favorites, setFavorites] = useState([]);
 
+  const updateFavorites = (newFavoriteEvent) => {
+    setFavorites([...favorites, newFavoriteEvent]);
+  };
+
   const providerValues = {
-    setFavorites,
+    updateFavorites,
     showMatchedBands,
     showBandEvents,
     setChosenBandID,
+    setInputValue,
+    inputValue,
     chosenBandID,
     favorites,
     matchedBandsVisible,

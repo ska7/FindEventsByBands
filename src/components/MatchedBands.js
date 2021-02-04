@@ -5,9 +5,12 @@ import { BandEvents } from "./BandEvents";
 import { GlobalContext } from "../context/FavoritesContext";
 
 export const MatchedBands = ({ searchString }) => {
-  const { showMatchedBands, setChosenBandID, showBandEvents } = useContext(
-    GlobalContext
-  );
+  const {
+    showMatchedBands,
+    setChosenBandID,
+    showBandEvents,
+    setInputValue,
+  } = useContext(GlobalContext);
   const [bands, setBands] = useState([]);
 
   const fetchBands = async (bandName) => {
@@ -39,7 +42,8 @@ export const MatchedBands = ({ searchString }) => {
     throttle((searchString) => fetchBands(searchString), 1500)
   );
 
-  const handleBandClick = (bandID) => {
+  const handleBandClick = (bandID, bandName) => {
+    setInputValue(bandName);
     setChosenBandID(bandID);
     showBandEvents(true);
     showMatchedBands(false);
@@ -56,7 +60,10 @@ export const MatchedBands = ({ searchString }) => {
     >
       {bands.map((band) => {
         return (
-          <li key={band.id} onClick={() => handleBandClick(band.id)}>
+          <li
+            key={band.id}
+            onClick={() => handleBandClick(band.id, band.displayName)}
+          >
             {band.displayName}
           </li>
         );

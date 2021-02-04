@@ -3,14 +3,20 @@ import { MatchedBands } from "./MatchedBands";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { BandEvents } from "./BandEvents";
 import { GlobalContext } from "../context/FavoritesContext";
+import { Modal } from "./Modal";
+import heartIcon from "../img/heart.png";
 
 export const Search = () => {
-  const [inputValue, setInputValue] = useState("");
+  const [modalIsOpen, openModal] = useState(false);
+
+  // Context
   const {
     matchedBandsVisible,
     bandEventsVisible,
     showMatchedBands,
     showBandEvents,
+    inputValue,
+    setInputValue,
   } = useContext(GlobalContext);
 
   const handleChange = (e) => {
@@ -26,14 +32,28 @@ export const Search = () => {
   };
 
   return (
-    <div className="search-wrapper">
-      <input
-        name="searchInput"
-        value={inputValue}
-        onChange={handleChange}
-        placeholder="Type in a band name"
-        autoComplete="off"
+    <div className="search-container">
+      <div className="input-container">
+        <input
+          name="searchInput"
+          value={inputValue}
+          onChange={handleChange}
+          placeholder="Type in a band name"
+          autoComplete="off"
+        />
+        <button>GO</button>
+      </div>
+
+      {/* <button id="btn-favorites" onClick={() => openModal(!modalIsOpen)}> */}
+      {/* Favorites
+      </button> */}
+
+      <img
+        onClick={() => openModal(!modalIsOpen)}
+        id="btn-favorites"
+        src={heartIcon}
       />
+      <Modal modalIsOpen={modalIsOpen} />
       <TransitionGroup component={null}>
         {matchedBandsVisible && (
           <CSSTransition

@@ -1,36 +1,181 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap");
+
+@mixin centerColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@mixin centerRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+$app_green: #1d7d51;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Playfair Display", serif;
+}
+
 .App {
+  position: relative;
   width: 100vw;
   height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background: url("./img/concert-background.png");
+  background-size: 1600px 900px;
+  background-position: top;
+  background-repeat: no-repeat;
 }
-.search-wrapper {
+
+// Search Wrapper
+.search-container {
   width: 100%;
   height: 100%;
   display: flex;
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
+  .input-container {
+    margin-top: 100px;
+    width: 100%;
+    height: 100px;
+    @include centerRow;
+    input {
+      width: 90%;
+      border-radius: 25px;
+      height: 50px;
+      text-align: center;
+      box-shadow: 1px 1px 5px rgb(255, 255, 255);
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      &:focus {
+        border: none;
+        // box-shadow: 2px 2px 20px 5px rgb(34, 138, 103);
+        box-shadow: 2px 2px 20px 5px $app_green;
+        border: 2px solid black;
+        outline: none;
+      }
+      &::placeholder {
+        color: white;
+        opacity: 1;
+      }
+    }
+    button {
+      position: absolute;
+      right: 20px;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      font-size: 14px;
+      background: transparent;
+      color: white;
+      font-weight: bold;
+      // border: 1px solid white;
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+
+  #btn-favorites {
+    border: 1px solid $app_green;
+    border-radius: 10px;
+    padding: 5px;
+    position: absolute;
+    top: 40px;
+    left: 20px;
+    margin: 0 auto;
+    height: 50px;
+    width: 50px;
+    transition: all 0.3s ease;
+    &:focus,
+    &:active {
+      transform: scale(0.7);
+    }
+  }
 }
-input {
-  margin-top: 100px;
-  width: 30%;
+
+.favorites-modal {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 80%;
+  width: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+// Matched Bands Wrapper
+
+.matched-bands-wrapper {
   border-radius: 10px;
-  height: 30px;
-  text-align: center;
+  width: 90%;
+  color: white;
+  overflow: hidden;
+  li {
+    margin-top: 20px;
+    background: $app_green;
+    border-radius: 20px;
+    border-bottom: 2px solid black;
+    padding: 5px;
+    width: 100%;
+    height: 50px;
+    @include centerColumn;
+  }
+}
+
+// Band Events Wrapper
+
+.band-events-wrapper {
+  border-radius: 20px;
+  max-height: 550px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 85%;
+  overflow: auto;
+  .events-list-item {
+    display: flex;
+    flex-direction: row;
+    background: rgba(29, 125, 81, 0.9);
+    color: white;
+    align-items: center;
+    padding: 10px 0px;
+    width: 100%;
+    min-height: 100px;
+    text-align: left;
+    // border-bottom: 1px solid black;
+    .events-list-item-name {
+      padding-left: 20px;
+      width: 80%;
+      font-size: 15px;
+    }
+    button {
+      position: absolute;
+      right: 20px;
+      height: 30px;
+      width: 40px;
+      font-size: 8px;
+      padding: 5px;
+    }
+  }
+}
+
+.favorites-modal-overlay {
 }
 
 ul {
-  height: auto;
-  width: 500px;
-  border: 1px solid black;
-  border-radius: 10px;
-  padding: 15px;
   list-style: none;
 }
-
 li {
   text-align: center;
 }
