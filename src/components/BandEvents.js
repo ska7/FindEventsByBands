@@ -6,10 +6,16 @@ import { HeartIcon } from "./HeartIcon";
 export const BandEvents = () => {
   const [events, setEvents] = useState([]);
 
-  const { chosenBandID } = useContext(GlobalContext);
+  const { chosenBandID, updateFavorites, favorites } = useContext(
+    GlobalContext
+  );
 
   const formatEvent = (eventName) => {
     return eventName.length > 70 ? `${eventName.slice(0, 70)}...` : eventName;
+  };
+
+  const checkIfSaved = (eventID, favorites) => {
+    return favorites.find((event) => event.id === eventID);
   };
 
   useEffect(() => {
@@ -33,7 +39,22 @@ export const BandEvents = () => {
                 <span className="events-list-item-name">
                   {formatEvent(event.displayName)}
                 </span>
-                <button>SAVE</button>
+                {checkIfSaved(event.id, favorites) ? (
+                  <button
+                    id="save-btn-active"
+                    onClick={() => updateFavorites("delete", event)}
+                  />
+                ) : (
+                  <button
+                    id="save-btn"
+                    onClick={() =>
+                      updateFavorites("add", {
+                        name: event.displayName,
+                        id: event.id,
+                      })
+                    }
+                  />
+                )}
               </li>
             );
           })

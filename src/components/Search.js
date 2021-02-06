@@ -3,7 +3,7 @@ import { MatchedBands } from "./MatchedBands";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { BandEvents } from "./BandEvents";
 import { GlobalContext } from "../context/FavoritesContext";
-import { Modal } from "./Modal";
+import { FavoritesModal } from "./FavoritesModal";
 import heartIcon from "../img/heart.png";
 
 export const Search = () => {
@@ -43,17 +43,12 @@ export const Search = () => {
         />
         <button>GO</button>
       </div>
-
-      {/* <button id="btn-favorites" onClick={() => openModal(!modalIsOpen)}> */}
-      {/* Favorites
-      </button> */}
-
       <img
         onClick={() => openModal(!modalIsOpen)}
-        id="btn-favorites"
+        id="btn-favorites-icon"
         src={heartIcon}
       />
-      <Modal modalIsOpen={modalIsOpen} />
+      {modalIsOpen && <FavoritesModal />}
       <TransitionGroup component={null}>
         {matchedBandsVisible && (
           <CSSTransition

@@ -22,7 +22,17 @@ $app_green: #1d7d51;
   font-family: "Playfair Display", serif;
 }
 
+ul {
+  list-style: none;
+}
+li {
+  text-align: center;
+}
+
+// =======================
+
 .App {
+  @include centerColumn;
   position: relative;
   width: 100vw;
   height: 100vh;
@@ -51,13 +61,15 @@ $app_green: #1d7d51;
     input {
       width: 90%;
       border-radius: 25px;
+      border: 3px solid $app_green;
       height: 50px;
       text-align: center;
-      box-shadow: 1px 1px 5px rgb(255, 255, 255);
+      // box-shadow: 1px 1px 5px white;
       background: rgba(0, 0, 0, 0.3);
       color: white;
       transition: all 0.3s ease;
       font-weight: bold;
+      box-shadow: 2px 2px 10px 5px black;
       &:focus {
         border: none;
         // box-shadow: 2px 2px 20px 5px rgb(34, 138, 103);
@@ -68,6 +80,13 @@ $app_green: #1d7d51;
       &::placeholder {
         color: white;
         opacity: 1;
+      }
+      &:focus ~ button {
+        border: none;
+        // box-shadow: 2px 2px 20px 5px rgb(34, 138, 103);
+        // box-shadow: 2px 2px 20px 5px $app_green;
+        border: 2px solid black;
+        outline: none;
       }
     }
     button {
@@ -80,6 +99,9 @@ $app_green: #1d7d51;
       background: transparent;
       color: white;
       font-weight: bold;
+      // border: 5px solid rgb(192, 192, 192);
+      transition: all 0.3s ease;
+      border: 3px solid $app_green;
       // border: 1px solid white;
       &:focus {
         outline: none;
@@ -87,13 +109,15 @@ $app_green: #1d7d51;
     }
   }
 
-  #btn-favorites {
+  #btn-favorites-icon {
     border: 1px solid $app_green;
+    z-index: 3;
     border-radius: 10px;
     padding: 5px;
     position: absolute;
-    top: 40px;
-    left: 20px;
+    top: 50px;
+    left: 0px;
+    right: 0px;
     margin: 0 auto;
     height: 50px;
     width: 50px;
@@ -105,13 +129,76 @@ $app_green: #1d7d51;
   }
 }
 
-.favorites-modal {
+// Favorites Modal
+.favorites-modal-overlay {
+  z-index: 2;
   position: absolute;
-  left: 0;
-  right: 0;
-  height: 80%;
-  width: 50%;
-  background-color: rgba(0, 0, 0, 0.5);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+
+  @include centerColumn;
+  .favorites-modal {
+    @include centerColumn;
+    border-radius: 40px;
+    box-shadow: 2px 2px 30px 5px rgb(31, 30, 30);
+    overflow: auto;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    max-height: 600px;
+    width: 90%;
+
+    p {
+      @include centerColumn;
+      height: 200px;
+      background: linear-gradient(
+        180deg,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(12, 98, 59, 1) 0%,
+        rgba(40, 113, 81, 1) 42%,
+        rgba(26, 121, 78, 1) 55%,
+        rgba(20, 150, 91, 1) 100%
+      );
+      margin: auto auto;
+      text-align: center;
+      font-size: 20px;
+      padding: 20px;
+      color: white;
+    }
+    .favorites-item:nth-child(2n) {
+      background: rgba(25, 102, 67, 0.9);
+    }
+    .favorites-item:nth-child(3n + 1) {
+      background: rgba(22, 90, 59, 0.9);
+    }
+    .favorites-item:nth-child(2n + 1) {
+      background: rgba(29, 97, 68, 0.9);
+    }
+    .favorites-item {
+      position: relative;
+      padding: 20px 0px 20px 30px;
+      display: flex;
+      flex-direction: row;
+      // justify-content: center;
+      align-items: center;
+      width: 100%;
+      color: white;
+      text-align: start;
+      border-bottom: 1px solid black;
+      span {
+        width: 70%;
+      }
+      button {
+        position: absolute;
+        right: 30px;
+        border: none;
+        font-size: 40px;
+        color: red;
+        background: transparent;
+      }
+    }
+  }
 }
 
 // Matched Bands Wrapper
@@ -143,41 +230,64 @@ $app_green: #1d7d51;
   flex-direction: column;
   width: 85%;
   overflow: auto;
+  box-shadow: 2px 2px 20px 5px black;
+  .events-list-item:nth-child(2n) {
+    background: rgba(25, 102, 67, 0.9);
+  }
+  .events-list-item:nth-child(3n + 1) {
+    background: rgba(22, 90, 59, 0.9);
+  }
+  .events-list-item:nth-child(2n + 1) {
+    background: rgba(29, 97, 68, 0.9);
+  }
   .events-list-item {
     display: flex;
     flex-direction: row;
-    background: rgba(29, 125, 81, 0.9);
     color: white;
     align-items: center;
     padding: 10px 0px;
     width: 100%;
     min-height: 100px;
     text-align: left;
-    // border-bottom: 1px solid black;
+    #save-btn {
+      background: transparent;
+      border: none;
+      color: white;
+      &::after {
+        content: "♡";
+        font-size: 18px;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    #save-btn-active {
+      background: transparent;
+      border: none;
+      color: red;
+      &:focus {
+        outline: none;
+      }
+      &::after {
+        content: "♥️";
+        font-size: 18px;
+      }
+    }
     .events-list-item-name {
       padding-left: 20px;
-      width: 80%;
+      width: 75%;
       font-size: 15px;
     }
     button {
+      @include centerColumn;
       position: absolute;
-      right: 20px;
+      right: 10px;
       height: 30px;
-      width: 40px;
+      width: 60px;
       font-size: 8px;
       padding: 5px;
     }
   }
-}
-
-.favorites-modal-overlay {
-}
-
-ul {
-  list-style: none;
-}
-li {
-  text-align: center;
 }
 
 /* CSS Transition Group */

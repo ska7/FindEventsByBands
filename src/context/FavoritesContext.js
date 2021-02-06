@@ -12,8 +12,22 @@ export const FavoritesContext = ({ children }) => {
   const [chosenBandID, setChosenBandID] = useState("");
   const [favorites, setFavorites] = useState([]);
 
-  const updateFavorites = (newFavoriteEvent) => {
-    setFavorites([...favorites, newFavoriteEvent]);
+  const updateFavorites = (action, event) => {
+    switch (action) {
+      case "add":
+        setFavorites([...favorites, event]);
+        break;
+      case "delete":
+        console.log("deletion");
+        setFavorites(
+          favorites.filter((e) => {
+            return e.id !== event.id;
+          })
+        );
+        break;
+      default:
+        break;
+    }
   };
 
   const providerValues = {
