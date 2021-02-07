@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap");
 
 @mixin centerColumn {
   display: flex;
@@ -110,7 +110,7 @@ li {
   }
 
   #btn-favorites-icon {
-    border: 1px solid $app_green;
+    // border: 1px solid $app_green;
     z-index: 3;
     border-radius: 10px;
     padding: 5px;
@@ -229,7 +229,7 @@ li {
   display: flex;
   flex-direction: column;
   width: 85%;
-  overflow: auto;
+  overflow-y: scroll;
   box-shadow: 2px 2px 20px 5px black;
   .events-list-item:nth-child(2n) {
     background: rgba(25, 102, 67, 0.9);
@@ -290,6 +290,78 @@ li {
   }
 }
 
+// Event Info Modal
+
+.event-info-modal-layout {
+  z-index: 4;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  overflow-y: auto;
+  overflow-x: hidden;
+  .event-info-modal {
+    text-align: center;
+    border-radius: 40px;
+    box-shadow: 2px 2px 30px 5px rgb(5, 5, 5);
+    overflow: auto;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    max-height: 800px;
+    width: 90%;
+    color: white;
+    .location {
+      background: $app_green;
+      border-top: 2px solid white;
+      border-bottom: 2px solid white;
+      width: 100%;
+      margin: 15px 0;
+      padding: 30px;
+      h3,
+      h4 {
+        margin: 15px 0;
+        p {
+          color: gold;
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+      h3 {
+        font-style: italic;
+      }
+    }
+    .lineup {
+      h2 {
+        color: #ffd601;
+        margin: 30px 0;
+        font-weight: 900;
+      }
+      ul {
+        margin: 50px 0;
+      }
+    }
+    button {
+      width: 60%;
+      height: 50px;
+      margin-top: 50px;
+      border-radius: 20px;
+      background: transparent;
+      border: 3px solid $app_green;
+      color: $app_green;
+      font-weight: bold;
+    }
+    h1 {
+      margin: 50px 0;
+    }
+    h3 {
+    }
+  }
+}
+
 /* CSS Transition Group */
 
 .fade-enter {
@@ -322,4 +394,39 @@ li {
   transition: all 0.5s ease-in;
   transform: translateX(-350rem);
   opacity: 0;
+}
+
+.scale-enter {
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: scale(0);
+}
+
+.scale-enter-active {
+  transition: all 0.3s ease;
+  transform: scale(0.5);
+}
+.scale-enter-done {
+  opacity: 1;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.scale-exit {
+  opacity: 1;
+  transform: translateX(0rem);
+}
+.scale-exit-active {
+  transition: all 0.5s ease-in;
+  transform: translateX(-200rem);
+  opacity: 0.5;
+}
+.scale-exit-done {
+  transition: all 0.5s ease-in;
+  transform: translateX(-350rem);
+  opacity: 0;
+}
+
+.center {
+  @include centerRow;
 }

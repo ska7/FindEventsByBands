@@ -48,8 +48,12 @@ export const Search = () => {
         id="btn-favorites-icon"
         src={heartIcon}
       />
-      {modalIsOpen && <FavoritesModal />}
       <TransitionGroup component={null}>
+        {modalIsOpen && (
+          <CSSTransition in={modalIsOpen} timeout={300} classNames="scale">
+            <FavoritesModal />
+          </CSSTransition>
+        )}
         {matchedBandsVisible && (
           <CSSTransition
             in={matchedBandsVisible}

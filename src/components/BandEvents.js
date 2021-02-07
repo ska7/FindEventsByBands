@@ -1,10 +1,13 @@
 import React, { useContext, useEffect, useState } from "react";
 import axios from "axios";
 import { GlobalContext } from "../context/FavoritesContext";
-import { HeartIcon } from "./HeartIcon";
+import { EventInfoModal } from "./EventInfoModal";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 export const BandEvents = () => {
   const [events, setEvents] = useState([]);
+  const [chosenEvent, setChosenEvent] = useState({});
+  const [eventInfoModal, showEventInfoModal] = useState(false);
 
   const { chosenBandID, updateFavorites, favorites } = useContext(
     GlobalContext
@@ -17,6 +20,13 @@ export const BandEvents = () => {
   const checkIfSaved = (eventID, favorites) => {
     return favorites.find((event) => event.id === eventID);
   };
+
+  const handleBandNameClick = (event) => {
+    setChosenEvent(event);
+    showEventInfoModal(true);
+  };
+
+  const closeEventInfoModal = () => showEventInfoModal(false);
 
   useEffect(() => {
     chosenBandID &&
@@ -31,34 +41,49 @@ export const BandEvents = () => {
   }, [chosenBandID]);
 
   return (
-    <ul className="band-events-wrapper">
-      {events.length
-        ? events.map((event) => {
-            return (
-              <li className="events-list-item" key={event.id}>
-                <span className="events-list-item-name">
-                  {formatEvent(event.displayName)}
-                </span>
-                {checkIfSaved(event.id, favorites) ? (
-                  <button
-                    id="save-btn-active"
-                    onClick={() => updateFavorites("delete", event)}
-                  />
-                ) : (
-                  <button
-                    id="save-btn"
-                    onClick={() =>
-                      updateFavorites("add", {
-                        name: event.displayName,
-                        id: event.id,
-                      })
-                    }
-                  />
-                )}
-              </li>
-            );
-          })
-        : "loading"}
-    </ul>
+    <>
+      <ul className="band-events-wrapper">
+        {events.length
+          ? events.map((event) => {
+              return (
+                <li className="events-list-item" key={event.id}>
+                  <span
+                    onClick={() => handleBandNameClick(event)}
+                    className="events-list-item-name"
+                  >
+                    {formatEvent(event.displayName)}
+                  </span>
+                  {checkIfSaved(event.id, favorites) ? (
+                    <button
+                      id="save-btn-active"
+                      onClick={() => updateFavorites("delete", event)}
+                    />
+                  ) : (
+                    <button
+                      id="save-btn"
+                      onClick={() =>
+                        updateFavorites("add", {
+                          name: event.displayName,
+                          id: event.id,
+                        })
+                      }
+                    />
+                  )}
+                </li>
+              );
+            })
+          : "loading"}
+      </ul>
+      <TransitionGroup>
+        {eventInfoModal && (
+          <CSSTransition in={eventInfoModal} timeout={300} classNames="scale">
+            <EventInfoModal
+              event={chosenEvent}
+              closeModal={closeEventInfoModal}
+            />
+          </CSSTransition>
+        )}
+      </TransitionGroup>
+    </>
   );
 };
