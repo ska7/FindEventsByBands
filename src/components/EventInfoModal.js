@@ -1,4 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
+import { SaveButton } from "./SaveButton";
 
 export const EventInfoModal = ({ event, closeModal }) => {
   // If there's an end date and it's not the same as the start date, format as 'yyyy-mm-dd - yyyy-mm-dd'
@@ -11,7 +12,12 @@ export const EventInfoModal = ({ event, closeModal }) => {
   return (
     <div className="event-info-modal-layout">
       <div className="event-info-modal">
-        <button onClick={closeModal}>BACK</button>
+        <div className="event-info-modal-buttons">
+          <button id="event-info-modal-close-btn" onClick={closeModal}>
+            BACK
+          </button>
+          <SaveButton event={event} />
+        </div>
         <h1>{event.displayName}</h1>
         <div className="location">
           <h3>{event.location.city}</h3>

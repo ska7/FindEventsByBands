@@ -41,12 +41,12 @@ export const Search = () => {
           placeholder="Type in a band name"
           autoComplete="off"
         />
-        <button>GO</button>
       </div>
       <img
         onClick={() => openModal(!modalIsOpen)}
         id="btn-favorites-icon"
         src={heartIcon}
+        alt="favorites-icon"
       />
       <TransitionGroup component={null}>
         {modalIsOpen && (

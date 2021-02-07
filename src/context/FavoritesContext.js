@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 export const GlobalContext = React.createContext();
 
@@ -18,7 +18,6 @@ export const FavoritesContext = ({ children }) => {
         setFavorites([...favorites, event]);
         break;
       case "delete":
-        console.log("deletion");
         setFavorites(
           favorites.filter((e) => {
             return e.id !== event.id;

@@ -1,7 +1,6 @@
 import { throttle } from "lodash";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
-import { BandEvents } from "./BandEvents";
 import { GlobalContext } from "../context/FavoritesContext";
 
 export const MatchedBands = ({ searchString }) => {
@@ -28,8 +27,6 @@ export const MatchedBands = ({ searchString }) => {
             }
           );
 
-          console.log(matchedBands);
-
           setBands(matchedBands.slice(0, 5));
         } catch (e) {
           console.log(e);
@@ -54,10 +51,7 @@ export const MatchedBands = ({ searchString }) => {
   }, [searchString]);
 
   return (
-    <ul
-      className="matched-bands-wrapper"
-      style={{ position: "absolute", top: "200px" }}
-    >
+    <ul className="matched-bands-wrapper">
       {bands.map((band) => {
         return (
           <li
