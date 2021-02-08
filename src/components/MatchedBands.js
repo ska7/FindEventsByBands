@@ -1,7 +1,8 @@
-import { throttle } from "lodash";
+import { throttle, debounce } from "lodash";
 import React, { useState, useEffect, useRef, useContext } from "react";
 import axios from "axios";
 import { GlobalContext } from "../context/FavoritesContext";
+import { Loader } from "./Loader";
 
 export const MatchedBands = ({ searchString }) => {
   const {
@@ -39,6 +40,10 @@ export const MatchedBands = ({ searchString }) => {
     throttle((searchString) => fetchBands(searchString), 1500)
   );
 
+  const debouncedFetchBands = useRef(
+    debounce((searchString) => fetchBands(searchString), 1000)
+  );
+
   const handleBandClick = (bandID, bandName) => {
     setInputValue(bandName);
     setChosenBandID(bandID);
@@ -47,21 +52,28 @@ export const MatchedBands = ({ searchString }) => {
   };
 
   useEffect(() => {
-    searchString && throttledFetchBands.current(searchString);
+    if (searchString) {
+      throttledFetchBands.current(searchString);
+      debouncedFetchBands.current(searchString);
+    }
   }, [searchString]);
 
   return (
     <ul className="matched-bands-wrapper">
-      {bands.map((band) => {
-        return (
-          <li
-            key={band.id}
-            onClick={() => handleBandClick(band.id, band.displayName)}
-          >
-            {band.displayName}
-          </li>
-        );
-      })}
+      {bands.length ? (
+        bands.map((band) => {
+          return (
+            <li
+              key={band.id}
+              onClick={() => handleBandClick(band.id, band.displayName)}
+            >
+              {band.displayName}
+            </li>
+          );
+        })
+      ) : (
+        <Loader />
+      )}
     </ul>
   );
 };

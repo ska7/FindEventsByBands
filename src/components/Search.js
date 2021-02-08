@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState, useEffect } from "react";
 import { MatchedBands } from "./MatchedBands";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { BandEvents } from "./BandEvents";
@@ -8,6 +8,7 @@ import heartIcon from "../img/heart.png";
 
 export const Search = () => {
   const [modalIsOpen, openModal] = useState(false);
+  const inputRef = useRef(null);
 
   // Context
   const {
@@ -31,6 +32,10 @@ export const Search = () => {
     }
   };
 
+  useEffect(() => {
+    inputRef.current.focus();
+  }, []);
+
   return (
     <div className="search-container">
       <div className="input-container">
@@ -40,6 +45,7 @@ export const Search = () => {
           onChange={handleChange}
           placeholder="Type in a band name"
           autoComplete="off"
+          ref={inputRef}
         />
       </div>
       <img

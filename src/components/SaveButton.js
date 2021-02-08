@@ -16,12 +16,7 @@ export const SaveButton = ({ event }) => {
           onClick={() => updateFavorites("delete", event)}
         />
       ) : (
-        <button
-          id={`save-btn`}
-          onClick={() =>
-            updateFavorites("add", { name: event.displayName, id: event.id })
-          }
-        />
+        <button id={`save-btn`} onClick={() => updateFavorites("add", event)} />
       )}
     </>
   );

@@ -4,21 +4,22 @@ import { GlobalContext } from "../context/FavoritesContext";
 import { EventInfoModal } from "./EventInfoModal";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { SaveButton } from "./SaveButton";
+import { Loader } from "./Loader";
 
 export const BandEvents = () => {
   const [events, setEvents] = useState([]);
-  const [chosenEvent, setChosenEvent] = useState({});
-  const [eventInfoModal, showEventInfoModal] = useState(false);
 
-  const { chosenBandID } = useContext(GlobalContext);
+  const {
+    chosenBandID,
+    chosenEvent,
+    showEventInfoModal,
+    eventInfoModal,
+    setChosenEvent,
+    handleBandNameClick,
+  } = useContext(GlobalContext);
 
   const formatEvent = (eventName) => {
-    return eventName.length > 70 ? `${eventName.slice(0, 70)}...` : eventName;
-  };
-
-  const handleBandNameClick = (event) => {
-    setChosenEvent(event);
-    showEventInfoModal(true);
+    return eventName.length > 90 ? `${eventName.slice(0, 90)}...` : eventName;
   };
 
   const closeEventInfoModal = () => showEventInfoModal(false);
@@ -36,26 +37,28 @@ export const BandEvents = () => {
 
   return (
     <>
-      <div className="band-events-wrapper">
+      <ul className="band-events-wrapper">
         <ul className="band-events-list">
-          {events.length
-            ? events.map((event) => {
-                return (
-                  <li className="events-list-item" key={event.id}>
-                    <span
-                      onClick={() => handleBandNameClick(event)}
-                      className="events-list-item-name"
-                    >
-                      {formatEvent(event.displayName)}
-                    </span>
-                    <SaveButton event={event} />
-                  </li>
-                );
-              })
-            : "loading"}
+          {events.length ? (
+            events.map((event) => {
+              return (
+                <li className="events-list-item" key={event.id}>
+                  <span
+                    onClick={() => handleBandNameClick(event)}
+                    className="events-list-item-name"
+                  >
+                    {formatEvent(event.displayName)}
+                  </span>
+                  <SaveButton event={event} />
+                </li>
+              );
+            })
+          ) : (
+            <Loader />
+          )}
         </ul>
-      </div>
-      <TransitionGroup>
+      </ul>
+      <TransitionGroup component={null}>
         {eventInfoModal && (
           <CSSTransition in={eventInfoModal} timeout={300} classNames="scale">
             <EventInfoModal
