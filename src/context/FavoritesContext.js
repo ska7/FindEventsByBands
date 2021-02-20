@@ -9,10 +9,9 @@ export const FavoritesContext = ({ children }) => {
 
   // Data
   const [inputValue, setInputValue] = useState("");
+  const [placeholder, setPlaceholder] = useState("Type in a band name");
   const [chosenBandID, setChosenBandID] = useState("");
   const [favorites, setFavorites] = useState([]);
-  const [chosenEvent, setChosenEvent] = useState({});
-  const [eventInfoModal, showEventInfoModal] = useState(false);
 
   const updateFavorites = (action, event) => {
     switch (action) {
@@ -31,22 +30,14 @@ export const FavoritesContext = ({ children }) => {
     }
   };
 
-  const handleBandNameClick = (event) => {
-    setChosenEvent(event);
-    showEventInfoModal(true);
-  };
-
   const providerValues = {
     updateFavorites,
     showMatchedBands,
     showBandEvents,
     setChosenBandID,
     setInputValue,
-    setChosenEvent,
-    showEventInfoModal,
-    handleBandNameClick,
-    chosenEvent,
-    eventInfoModal,
+    setPlaceholder,
+    placeholder,
     inputValue,
     chosenBandID,
     favorites,

@@ -4,9 +4,10 @@ import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { BandEvents } from "./BandEvents";
 import { GlobalContext } from "../context/FavoritesContext";
 import { FavoritesModal } from "./FavoritesModal";
-import heartIcon from "../img/heart.png";
 
-export const Search = () => {
+import { FavoritesHeartButton } from "./FavoritesHeartButton";
+
+export const Search = (props) => {
   const [modalIsOpen, openModal] = useState(false);
   const inputRef = useRef(null);
 
@@ -18,6 +19,8 @@ export const Search = () => {
     showBandEvents,
     inputValue,
     setInputValue,
+    placeholder,
+    setPlaceholder,
   } = useContext(GlobalContext);
 
   const handleChange = (e) => {
@@ -26,6 +29,7 @@ export const Search = () => {
     if (value) {
       showMatchedBands(true);
       showBandEvents(false);
+      setPlaceholder("Type in a band name");
     } else {
       showMatchedBands(false);
       showBandEvents(false);
@@ -33,6 +37,7 @@ export const Search = () => {
   };
 
   useEffect(() => {
+    console.log(props);
     inputRef.current.focus();
   }, []);
 
@@ -43,38 +48,39 @@ export const Search = () => {
           name="searchInput"
           value={inputValue}
           onChange={handleChange}
-          placeholder="Type in a band name"
+          placeholder={placeholder}
           autoComplete="off"
           ref={inputRef}
         />
       </div>
-      <img
-        onClick={() => openModal(!modalIsOpen)}
-        id="btn-favorites-icon"
-        src={heartIcon}
-        alt="favorites-icon"
-      />
-      <TransitionGroup component={null}>
-        {modalIsOpen && (
-          <CSSTransition in={modalIsOpen} timeout={300} classNames="scale">
-            <FavoritesModal />
-          </CSSTransition>
-        )}
-        {matchedBandsVisible && (
-          <CSSTransition
-            in={matchedBandsVisible}
-            classNames="fade"
-            timeout={500}
-          >
-            <MatchedBands searchString={inputValue} />
-          </CSSTransition>
-        )}
-        {bandEventsVisible && (
-          <CSSTransition in={bandEventsVisible} timeout={300} classNames="fade">
-            <BandEvents />
-          </CSSTransition>
-        )}
-      </TransitionGroup>
+
+      {
+        <TransitionGroup component={null}>
+          {modalIsOpen && (
+            <CSSTransition in={modalIsOpen} timeout={300} classNames="scale">
+              <FavoritesModal />
+            </CSSTransition>
+          )}
+          {matchedBandsVisible && (
+            <CSSTransition
+              in={matchedBandsVisible}
+              classNames="fade"
+              timeout={500}
+            >
+              <MatchedBands searchString={inputValue} />
+            </CSSTransition>
+          )}
+          {bandEventsVisible && (
+            <CSSTransition
+              in={bandEventsVisible}
+              timeout={300}
+              classNames="fade"
+            >
+              <BandEvents />
+            </CSSTransition>
+          )}
+        </TransitionGroup>
+      }
     </div>
   );
 };

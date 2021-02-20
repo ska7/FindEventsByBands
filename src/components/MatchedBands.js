@@ -1,16 +1,12 @@
 import { throttle, debounce } from "lodash";
 import React, { useState, useEffect, useRef, useContext } from "react";
+import { Link } from "react-router-dom";
 import axios from "axios";
 import { GlobalContext } from "../context/FavoritesContext";
 import { Loader } from "./Loader";
+import History from "./History";
 
-export const MatchedBands = ({ searchString }) => {
-  const {
-    showMatchedBands,
-    setChosenBandID,
-    showBandEvents,
-    setInputValue,
-  } = useContext(GlobalContext);
+export const MatchedBands = ({ searchString, clearInput }) => {
   const [bands, setBands] = useState([]);
 
   const fetchBands = async (bandName) => {
@@ -44,36 +40,36 @@ export const MatchedBands = ({ searchString }) => {
     debounce((searchString) => fetchBands(searchString), 1000)
   );
 
-  const handleBandClick = (bandID, bandName) => {
-    setInputValue(bandName);
-    setChosenBandID(bandID);
-    showBandEvents(true);
-    showMatchedBands(false);
-  };
-
   useEffect(() => {
     if (searchString) {
       throttledFetchBands.current(searchString);
       debouncedFetchBands.current(searchString);
+    } else {
+      setBands([]);
     }
   }, [searchString]);
 
   return (
-    <ul className="matched-bands-wrapper">
-      {bands.length ? (
-        bands.map((band) => {
-          return (
-            <li
-              key={band.id}
-              onClick={() => handleBandClick(band.id, band.displayName)}
-            >
-              {band.displayName}
-            </li>
-          );
-        })
-      ) : (
-        <Loader />
-      )}
-    </ul>
+    <>
+      {searchString ? (
+        <ul className="matched-bands-wrapper">
+          {bands.length ? (
+            bands.map((band) => {
+              return (
+                <Link
+                  key={band.id}
+                  onClick={() => clearInput()}
+                  to={`/events/${band.id}`}
+                >
+                  {band.displayName}
+                </Link>
+              );
+            })
+          ) : (
+            <Loader />
+          )}
+        </ul>
+      ) : null}
+    </>
   );
 };
