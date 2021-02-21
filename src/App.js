@@ -11,13 +11,13 @@ import History from "./components/History";
 function App() {
   return (
     <div className="App">
-      <Router history={History}>
+      <Router>
         <FavoritesHeartButton />
-        <Switch>
-          <Route path="/events/:bandID" component={BandEvents} />
-          {/* <Route path="/events/:bandID/:eventID" component={EventInfoModal} /> */}
-        </Switch>
         <Input />
+        <Switch>
+          <Route path="/band/:bandID" component={BandEvents} />
+          <Route path="/event/:eventID" component={EventInfoModal} />
+        </Switch>
       </Router>
     </div>
   );

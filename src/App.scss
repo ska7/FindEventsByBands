@@ -49,59 +49,67 @@ li {
 // Input
 
 .input-container {
+  z-index: 2;
   margin-top: 150px;
-  width: 100%;
+  width: 90%;
   height: auto;
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  input {
-    width: 90%;
-    border-radius: 25px;
-    border: 3px solid $app_green;
-    height: 50px;
-    text-align: center;
-    // box-shadow: 1px 1px 5px white;
-    background: rgba(0, 0, 0, 0.3);
-    color: white;
-    transition: all 0.3s ease;
-    font-weight: bold;
-    box-shadow: 2px 2px 10px 5px black;
-    &:focus {
-      border: none;
-      // box-shadow: 2px 2px 20px 5px rgb(34, 138, 103);
-      box-shadow: 2px 2px 20px 5px $app_green;
-      border: 2px solid black;
-      outline: none;
-    }
-    &::placeholder {
+  border-radius: 10px;
+  overflow: hidden;
+  li {
+    width: 100%;
+    input {
+      border: 4px solid $app_green;
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
       color: white;
-      opacity: 1;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      box-shadow: 2px 2px 10px 5px black;
+      &:active {
+      }
+      &:focus {
+        // border-radius: 10px;
+
+        outline: none;
+      }
+      &::placeholder {
+        color: white;
+        opacity: 1;
+      }
     }
-    &:focus ~ button {
-      border: none;
-      // box-shadow: 2px 2px 20px 5px rgb(34, 138, 103);
-      // box-shadow: 2px 2px 20px 5px $app_green;
-      border: 2px solid black;
-      outline: none;
+    button {
+      position: absolute;
+      right: 20px;
+      height: 50px;
+      width: 50px;
+      border-radius: 50%;
+      font-size: 14px;
+      background: transparent;
+      color: white;
+      font-weight: bold;
+      transition: all 0.3s ease;
+      border: 3px solid $app_green;
+      &:focus {
+        outline: none;
+      }
     }
   }
-  button {
-    position: absolute;
-    right: 20px;
+  a {
+    @include centerColumn;
+    text-decoration: none;
+    width: 100%;
     height: 50px;
-    width: 50px;
-    border-radius: 50%;
-    font-size: 14px;
-    background: transparent;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
     color: white;
-    font-weight: bold;
     transition: all 0.3s ease;
-    border: 3px solid $app_green;
-    &:focus {
-      outline: none;
-    }
+    font-weight: bold;
   }
 }
 
@@ -131,6 +139,8 @@ li {
   height: 100vh;
   background: rgba(0, 0, 0, 0.8);
   @include centerColumn;
+  left: 0;
+  right: 0;
   .favorites-modal {
     @include centerColumn;
     border-radius: 40px;
@@ -231,7 +241,7 @@ li {
   right: 0;
   left: 0;
   max-height: 450px;
-  top: 35%;
+  top: 30%;
   width: 100%;
   @include centerColumn;
   .band-events-list {
@@ -263,13 +273,19 @@ li {
       width: 100%;
       min-height: 100px;
       text-align: left;
-
-      .events-list-item-name {
-        padding-left: 20px;
+      a {
+        text-decoration: none;
+        list-style: none;
         width: 75%;
-        font-size: 15px;
-        &:hover {
-          cursor: pointer;
+        padding-left: 20px;
+        .events-list-item-name {
+          color: white;
+
+          width: 100%;
+          font-size: 15px;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
       button {

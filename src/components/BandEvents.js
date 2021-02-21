@@ -1,6 +1,6 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { GlobalContext } from "../context/FavoritesContext";
+import { Link } from "react-router-dom";
 import { EventInfoModal } from "./EventInfoModal";
 import { CSSTransition, TransitionGroup } from "react-transition-group";
 import { SaveButton } from "./SaveButton";
@@ -11,7 +11,6 @@ export const BandEvents = ({ match }) => {
 
   const [events, setEvents] = useState([]);
   const [eventInfoModal, showEventInfoModal] = useState(false);
-  // const [chosenEvent, setChosenEvent] = useState({});
 
   const formatEvent = (eventName) => {
     return eventName.length > 90 ? `${eventName.slice(0, 90)}...` : eventName;
@@ -48,15 +47,11 @@ export const BandEvents = ({ match }) => {
             events.map((event) => {
               return (
                 <li className="events-list-item" key={event.id}>
-                  <span
-                    // onClick={() => {
-                    //   setChosenEvent(event);
-                    //   showEventInfoModal(true);
-                    // }}
-                    className="events-list-item-name"
-                  >
-                    {formatEvent(event.displayName)}
-                  </span>
+                  <Link key={event.id} to={`/event/${event.id}`}>
+                    <span className="events-list-item-name">
+                      {formatEvent(event.displayName)}
+                    </span>
+                  </Link>
                   <SaveButton event={event} />
                 </li>
               );

@@ -59,7 +59,7 @@ export const MatchedBands = ({ searchString, clearInput }) => {
                 <Link
                   key={band.id}
                   onClick={() => clearInput()}
-                  to={`/events/${band.id}`}
+                  to={`/band/${band.id}`}
                 >
                   {band.displayName}
                 </Link>
