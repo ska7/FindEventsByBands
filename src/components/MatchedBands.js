@@ -1,15 +1,22 @@
-import { throttle, debounce } from "lodash";
-import React, { useState, useEffect, useRef, useContext } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { throttle, debounce } from "lodash";
 import axios from "axios";
-import { GlobalContext } from "../context/FavoritesContext";
 import { Loader } from "./Loader";
-import History from "./History";
 
-export const MatchedBands = ({ searchString, clearInput }) => {
+export const MatchedBands = ({ searchString, onClick }) => {
   const [bands, setBands] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  const debouncedFetchBands = useRef(
+    debounce((searchString) => fetchBands(searchString), 1000)
+  );
+  const throttledFetchBands = useRef(
+    throttle((searchString) => fetchBands(searchString), 1500)
+  );
 
   const fetchBands = async (bandName) => {
+    setLoading(true);
     await axios
       .get(
         `https://api.songkick.com/api/3.0/search/artists.json?apikey=K0cI0s0IC8ii7i2w&query=${bandName}`
@@ -25,24 +32,20 @@ export const MatchedBands = ({ searchString, clearInput }) => {
           );
 
           setBands(matchedBands.slice(0, 5));
+          setLoading(false);
         } catch (e) {
           console.log(e);
+          setLoading(false);
         }
       })
-      .catch((e) => console.log(e));
+      .catch((e) => {
+        console.log(e);
+        setLoading(false);
+      });
   };
-
-  const throttledFetchBands = useRef(
-    throttle((searchString) => fetchBands(searchString), 1500)
-  );
-
-  const debouncedFetchBands = useRef(
-    debounce((searchString) => fetchBands(searchString), 1000)
-  );
 
   useEffect(() => {
     if (searchString) {
-      throttledFetchBands.current(searchString);
       debouncedFetchBands.current(searchString);
     } else {
       setBands([]);
@@ -51,25 +54,19 @@ export const MatchedBands = ({ searchString, clearInput }) => {
 
   return (
     <>
-      {searchString ? (
-        <ul className="matched-bands-wrapper">
-          {bands.length ? (
-            bands.map((band) => {
-              return (
-                <Link
-                  key={band.id}
-                  onClick={() => clearInput()}
-                  to={`/band/${band.id}`}
-                >
-                  {band.displayName}
-                </Link>
-              );
-            })
-          ) : (
-            <Loader />
-          )}
-        </ul>
-      ) : null}
+      {loading ? (
+        <li>
+          <Loader />
+        </li>
+      ) : (
+        bands.map((band) => {
+          return (
+            <Link key={band.id} onClick={onClick} to={`/band/${band.id}`}>
+              {band.displayName}
+            </Link>
+          );
+        })
+      )}
     </>
   );
 };

@@ -62,6 +62,8 @@ li {
   li {
     width: 100%;
     input {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
       border: 4px solid $app_green;
       width: 100%;
       height: 50px;
@@ -72,10 +74,9 @@ li {
       font-weight: bold;
       box-shadow: 2px 2px 10px 5px black;
       &:active {
+        // border-radius: 20px;
       }
       &:focus {
-        // border-radius: 10px;
-
         outline: none;
       }
       &::placeholder {
@@ -83,28 +84,12 @@ li {
         opacity: 1;
       }
     }
-    button {
-      position: absolute;
-      right: 20px;
-      height: 50px;
-      width: 50px;
-      border-radius: 50%;
-      font-size: 14px;
-      background: transparent;
-      color: white;
-      font-weight: bold;
-      transition: all 0.3s ease;
-      border: 3px solid $app_green;
-      &:focus {
-        outline: none;
-      }
-    }
   }
   a {
     @include centerColumn;
     text-decoration: none;
     width: 100%;
-    height: 50px;
+    height: 70px;
     text-align: center;
     background: rgba(0, 0, 0, 0.8);
     color: white;
@@ -202,33 +187,6 @@ li {
         color: red;
         background: transparent;
       }
-    }
-  }
-}
-
-// Matched Bands Wrapper
-
-.matched-bands-wrapper {
-  z-index: 3;
-  border-radius: 20px;
-  width: 90%;
-  color: white;
-  overflow: hidden;
-  margin: 7px auto;
-  border: 1px solid rgb(51, 51, 51);
-  box-shadow: 0 10px 50px 4px black;
-  a {
-    width: 100%;
-    text-decoration: none;
-    color: $app_green;
-    // margin-top: 20px;
-    background: rgb(214, 214, 214);
-    border-bottom: 2px solid rgb(230, 230, 230);
-    padding: 35px;
-    height: 50px;
-    @include centerColumn;
-    &:hover {
-      cursor: pointer;
     }
   }
 }
@@ -340,17 +298,42 @@ li {
 
 // Event Info Modal
 
+.single-event {
+  top: 50px;
+  margin: 0 auto;
+  position: absolute;
+  border-radius: 20px;
+  padding: 20px;
+  height: auto;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+  box-shadow: 2px 2px 20px 5px black;
+  background: rgba(25, 102, 67, 0.9);
+  color: white;
+  &:hover {
+    cursor: pointer;
+  }
+}
 .event-info-modal-layout {
   z-index: 5;
   position: absolute;
   top: 0;
+  bottom: 0;
+  margin: auto 0;
   left: 0;
   right: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.9);
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./img/concert-background.png");
   overflow-y: auto;
   overflow-x: hidden;
+  &::before {
+    background: url("./img/concert-background.png");
+    opacity: 0.6;
+  }
   .event-info-modal {
     text-align: center;
     border-radius: 40px;
@@ -360,19 +343,22 @@ li {
     left: 0;
     margin: 0 auto;
     max-height: 800px;
-    width: 90%;
+    width: 100%;
     color: white;
     .event-info-modal-buttons {
       @include centerColumn;
-      #event-info-modal-close-btn {
-        width: 60%;
-        height: 50px;
-        margin: 50px 0px 50px 0px;
-        border-radius: 20px;
-        background: transparent;
-        border: 3px solid $app_green;
-        color: $app_green;
-        font-weight: bold;
+      a {
+        width: 100%;
+        #event-info-modal-close-btn {
+          width: 60%;
+          height: 50px;
+          margin: 50px 0px 50px 0px;
+          border-radius: 20px;
+          background: transparent;
+          border: 3px solid $app_green;
+          color: $app_green;
+          font-weight: bold;
+        }
       }
       #save-btn,
       #save-btn-active {
@@ -537,38 +523,6 @@ li {
 }
 
 /* CSS Transition Group */
-
-.fade-enter {
-  opacity: 0;
-  transition: all 0.3s ease;
-  transform: translateX(200rem);
-}
-
-.fade-enter-active {
-  opacity: 0.5;
-  transition: all 0.3s ease;
-  transform: translateX(100rem);
-}
-.fade-enter-done {
-  opacity: 1;
-  transition: all 0.3s ease;
-  transform: translateX(0rem);
-}
-
-.fade-exit {
-  opacity: 1;
-  transform: translateX(0rem);
-}
-.fade-exit-active {
-  transition: all 0.5s ease-in;
-  transform: translateX(-200rem);
-  opacity: 0.5;
-}
-.fade-exit-done {
-  transition: all 0.5s ease-in;
-  transform: translateX(-350rem);
-  opacity: 0;
-}
 
 .scale-enter {
   opacity: 0;
