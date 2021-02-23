@@ -1,5 +1,5 @@
 import "./App.scss";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { EventInfoModalLayout } from "./components/EventInfoModalLayout";
 import { FavoritesHeartButton } from "./components/FavoritesHeartButton";
 import { Input } from "./components/Input";

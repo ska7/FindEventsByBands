@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { throttle, debounce } from "lodash";
+import { throttle } from "lodash";
 import axios from "axios";
 import { Loader } from "./Loader";
 
@@ -8,11 +8,10 @@ export const MatchedBands = ({ searchString, onClick }) => {
   const [bands, setBands] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const debouncedFetchBands = useRef(
-    debounce((searchString) => fetchBands(searchString), 1000)
-  );
   const throttledFetchBands = useRef(
-    throttle((searchString) => fetchBands(searchString), 1500)
+    throttle((searchString) => fetchBands(searchString), 1500, {
+      trailing: true,
+    })
   );
 
   const fetchBands = async (bandName) => {
@@ -46,7 +45,7 @@ export const MatchedBands = ({ searchString, onClick }) => {
 
   useEffect(() => {
     if (searchString) {
-      debouncedFetchBands.current(searchString);
+      throttledFetchBands.current(searchString);
     } else {
       setBands([]);
     }

@@ -5,6 +5,7 @@ import heartIcon from "../img/heart.png";
 
 export const FavoritesHeartButton = () => {
   const [modalIsOpen, openModal] = useState(false);
+
   return (
     <div>
       <img
@@ -16,7 +17,7 @@ export const FavoritesHeartButton = () => {
       <TransitionGroup>
         {modalIsOpen && (
           <CSSTransition in={modalIsOpen} timeout={300} classNames="scale">
-            <FavoritesModal />
+            <FavoritesModal closeModal={() => openModal(false)} />
           </CSSTransition>
         )}
       </TransitionGroup>

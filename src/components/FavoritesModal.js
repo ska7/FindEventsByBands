@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { getFavorites, updateFavorites } from "./localStorage";
 
-export const FavoritesModal = () => {
-  const [eventInfoModal, showEventInfoModal] = useState(false);
+export const FavoritesModal = ({ closeModal }) => {
+  // const [eventInfoModal, showEventInfoModal] = useState(false);
   const [favorites, setFavorites] = useState([]);
   const [click, setClick] = useState(false);
 
@@ -11,7 +11,7 @@ export const FavoritesModal = () => {
     try {
       getFavorites(Object.entries(localStorage), setFavorites);
     } catch (e) {
-      //
+      console.log(e);
     }
   }, [click]);
 
@@ -23,7 +23,11 @@ export const FavoritesModal = () => {
             favorites.map((event) => {
               return (
                 <li key={event.id} className="favorites-item">
-                  <Link key={event.id} to={`/event/${event.id}`}>
+                  <Link
+                    onClick={closeModal}
+                    key={event.id}
+                    to={`/event/${event.id}`}
+                  >
                     {event.displayName}
                   </Link>
                   <button

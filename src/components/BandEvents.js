@@ -1,16 +1,11 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { EventInfoModal } from "./EventInfoModalLayout";
 import { SaveButton } from "./SaveButton";
 
 export const BandEvents = ({ events }) => {
   const formatEvent = (eventName) => {
     return eventName.length > 90 ? `${eventName.slice(0, 90)}...` : eventName;
   };
-
-  useEffect(() => {
-    console.log("yo", events);
-  }, []);
 
   return (
     <ul className="band-events-list">
@@ -28,7 +23,7 @@ export const BandEvents = ({ events }) => {
           );
         })
       ) : (
-        <h1>No events</h1>
+        <li id="no-events">This artist has no upcoming events!</li>
       )}
     </ul>
   );

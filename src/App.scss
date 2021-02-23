@@ -39,7 +39,6 @@ li {
   flex-direction: column;
   align-items: center;
   background: url("./img/concert-background.png");
-
   background-size: 1600px 900px;
   background-position: top;
   background-repeat: no-repeat;
@@ -114,6 +113,9 @@ li {
   &:active {
     transform: scale(0.7);
   }
+  &:hover {
+    cursor: pointer;
+  }
 }
 
 // Favorites Modal
@@ -164,7 +166,7 @@ li {
     }
     .favorites-item {
       position: relative;
-      padding: 20px 0px 20px 30px;
+      padding: 30px 0px 30px 40px;
       display: flex;
       flex-direction: row;
       // justify-content: center;
@@ -188,6 +190,9 @@ li {
         font-size: 40px;
         color: red;
         background: transparent;
+        &:hover {
+          cursor: pointer;
+        }
       }
     }
   }
@@ -214,6 +219,12 @@ li {
     width: 90%;
     overflow-y: scroll;
     box-shadow: 2px 2px 20px 5px black;
+    #no-events {
+      background: rgba(25, 102, 67, 0.9);
+      height: 50px;
+      @include centerColumn;
+      color: white;
+    }
     .events-list-item:nth-child(2n) {
       background: rgba(25, 102, 67, 0.9);
     }
@@ -300,24 +311,6 @@ li {
 
 // Event Info Modal
 
-.single-event {
-  top: 50px;
-  margin: 0 auto;
-  position: absolute;
-  border-radius: 20px;
-  padding: 20px;
-  height: auto;
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 90%;
-  box-shadow: 2px 2px 20px 5px black;
-  background: rgba(25, 102, 67, 0.9);
-  color: white;
-  &:hover {
-    cursor: pointer;
-  }
-}
 .event-info-modal-layout {
   z-index: 5;
   position: absolute;
@@ -356,12 +349,18 @@ li {
           border: 3px solid $app_green;
           color: $app_green;
           font-weight: bold;
+          &:hover {
+            cursor: pointer;
+          }
         }
       }
       #save-btn,
       #save-btn-active {
         &::after {
           font-size: 30px;
+        }
+        &:hover {
+          cursor: pointer;
         }
       }
     }
@@ -502,7 +501,7 @@ li {
   .band-events-wrapper {
     top: 30%;
     max-height: 500px;
-    width: 80%;
+    width: 100%;
   }
   .event-info-modal-layout {
     .event-info-modal {
@@ -523,6 +522,13 @@ li {
         }
       }
     }
+  }
+}
+
+@media (min-width: 1400px) {
+  .App {
+    background-size: cover;
+    background-repeat: no-repeat;
   }
 }
 
