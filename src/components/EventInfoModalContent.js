@@ -37,7 +37,11 @@ export const EventInfoModalContent = ({ event, close }) => {
         <h2>Line Up: </h2>
         <ul>
           {event.performance.map((artist) => {
-            return <li key={artist.id}>{artist.displayName}</li>;
+            return (
+              <Link to={`/band/${artist.artist.id}`} key={artist.id}>
+                {artist.displayName}
+              </Link>
+            );
           })}
         </ul>
       </div>

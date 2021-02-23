@@ -1,10 +1,9 @@
 import "./App.scss";
-
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { EventInfoModalLayout } from "./components/EventInfoModalLayout";
 import { FavoritesHeartButton } from "./components/FavoritesHeartButton";
 import { Input } from "./components/Input";
-import { BandEvents } from "./components/BandEvents";
+import { BandEventsWrapper } from "./components/BandEventsWrapper";
 
 function App() {
   return (
@@ -13,7 +12,7 @@ function App() {
         <FavoritesHeartButton />
         <Input />
         <Switch>
-          <Route path="/band/:bandID" component={BandEvents} />
+          <Route path="/band/:bandID" component={BandEventsWrapper} />
           <Route path="/event/:eventID" component={EventInfoModalLayout} />
         </Switch>
       </Router>

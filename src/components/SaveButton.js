@@ -1,33 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { GlobalContext } from "../context/FavoritesContext";
+import { getFavorites, updateFavorites } from "./localStorage";
 
 export const SaveButton = ({ event }) => {
+  const [favorites, setFavorites] = useState([]);
   const [click, setClick] = useState(false);
-  const favorites = localStorage.getItem("favorites") || [];
-  // const { updateFavorites, favorites } = useContext(GlobalContext);
 
   const checkIfSaved = (eventID, favorites) => {
-    // return favorites.find((event) => event.id === eventID);
-  };
-
-  const updateFavorites = (action, event) => {
-    switch (action) {
-      case "add":
-        localStorage.setItem(event.id, JSON.stringify(event));
-        setClick(!click);
-        break;
-      case "delete":
-        localStorage.removeItem(event.id);
-        setClick(!click);
-        break;
-      default:
-        break;
-    }
+    return favorites.find((event) => event.id === eventID);
   };
 
   useEffect(() => {
     try {
-      console.log(JSON.parse(Object.entries(localStorage)[0][1]));
+      getFavorites(Object.entries(localStorage), setFavorites);
     } catch (e) {
       console.log(e);
     }
@@ -38,10 +22,15 @@ export const SaveButton = ({ event }) => {
       {checkIfSaved(event.id, favorites) ? (
         <button
           id={`save-btn-active`}
-          onClick={() => updateFavorites("delete", event)}
+          onClick={() =>
+            updateFavorites("delete", event, () => setClick(!click))
+          }
         />
       ) : (
-        <button id={`save-btn`} onClick={() => updateFavorites("add", event)} />
+        <button
+          id={`save-btn`}
+          onClick={() => updateFavorites("add", event, () => setClick(!click))}
+        />
       )}
     </>
   );

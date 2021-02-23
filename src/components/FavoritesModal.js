@@ -1,11 +1,19 @@
-import React, { useContext, useState } from "react";
-import { GlobalContext } from "../context/FavoritesContext";
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+import { getFavorites, updateFavorites } from "./localStorage";
 
 export const FavoritesModal = () => {
   const [eventInfoModal, showEventInfoModal] = useState(false);
-  const [chosenEvent, setChosenEvent] = useState({});
+  const [favorites, setFavorites] = useState([]);
+  const [click, setClick] = useState(false);
 
-  const { favorites, updateFavorites } = useContext(GlobalContext);
+  useEffect(() => {
+    try {
+      getFavorites(Object.entries(localStorage), setFavorites);
+    } catch (e) {
+      //
+    }
+  }, [click]);
 
   return (
     <>
@@ -14,16 +22,15 @@ export const FavoritesModal = () => {
           {favorites.length ? (
             favorites.map((event) => {
               return (
-                <li key={event.id} className="favorites-item events-list-item">
-                  <span
-                    onClick={() => {
-                      setChosenEvent(event);
-                      showEventInfoModal(true);
-                    }}
-                  >
+                <li key={event.id} className="favorites-item">
+                  <Link key={event.id} to={`/event/${event.id}`}>
                     {event.displayName}
-                  </span>
-                  <button onClick={() => updateFavorites("delete", event)}>
+                  </Link>
+                  <button
+                    onClick={() =>
+                      updateFavorites("delete", event, () => setClick(!click))
+                    }
+                  >
                     &times;
                   </button>
                 </li>

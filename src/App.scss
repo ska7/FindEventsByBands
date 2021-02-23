@@ -176,8 +176,10 @@ li {
       &:hover {
         cursor: pointer;
       }
-      span {
+      a {
         width: 70%;
+        color: white;
+        text-decoration: none;
       }
       button {
         position: absolute;
@@ -330,10 +332,6 @@ li {
     url("./img/concert-background.png");
   overflow-y: auto;
   overflow-x: hidden;
-  &::before {
-    background: url("./img/concert-background.png");
-    opacity: 0.6;
-  }
   .event-info-modal {
     text-align: center;
     border-radius: 40px;
@@ -394,7 +392,13 @@ li {
         font-weight: 900;
       }
       ul {
-        margin: 50px 0;
+        padding: 0px 20px;
+        margin: 50px 0px;
+        a {
+          padding: 10px;
+          color: white;
+          text-decoration: none;
+        }
       }
     }
     h1 {
@@ -410,7 +414,7 @@ li {
 .loader {
   position: absolute;
   @include centerColumn;
-  top: 15rem;
+  top: 5rem;
   left: 0;
   right: 0;
   width: 100%;
@@ -496,7 +500,7 @@ li {
     }
   }
   .band-events-wrapper {
-    top: 40%;
+    top: 30%;
     max-height: 500px;
     width: 80%;
   }
