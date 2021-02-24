@@ -19,7 +19,6 @@ export const EventInfoModalLayout = ({ match }) => {
         `https://api.songkick.com/api/3.0/events/${eventID}.json?apikey=K0cI0s0IC8ii7i2w`
       )
       .then(({ data }) => {
-        console.log(data);
         setEvent(data.resultsPage.results.event);
       });
   }, []);

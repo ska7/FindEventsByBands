@@ -54,9 +54,7 @@ export const MatchedBands = ({ searchString, onClick }) => {
   return (
     <>
       {loading ? (
-        <li>
-          <Loader />
-        </li>
+        <Loader />
       ) : (
         bands.map((band) => {
           return (

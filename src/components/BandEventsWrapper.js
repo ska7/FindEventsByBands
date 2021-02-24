@@ -24,6 +24,7 @@ export const BandEventsWrapper = ({ match }) => {
           });
       } catch (e) {
         setLoading(false);
+        console.log("error");
       }
     }
   }, [chosenBandID]);
