@@ -8,6 +8,7 @@ export const MatchedBands = ({ searchString, onClick }) => {
   const [bands, setBands] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  //
   const throttledFetchBands = useRef(
     throttle((searchString) => fetchBands(searchString), 1000, {
       trailing: true,
