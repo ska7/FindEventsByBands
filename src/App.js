@@ -4,6 +4,7 @@ import { EventInfoModalLayout } from "./components/EventInfoModalLayout";
 import { FavoritesHeartButton } from "./components/FavoritesHeartButton";
 import { Input } from "./components/Input";
 import { BandEventsWrapper } from "./components/BandEventsWrapper";
+import { Test } from "./components/Test";
 
 function App() {
   return (
@@ -12,6 +13,9 @@ function App() {
         <FavoritesHeartButton />
         <Input />
         <Switch>
+          <Route path="/test">
+            <Test />
+          </Route>
           <Route path="/band/:bandID" component={BandEventsWrapper} />
           <Route path="/event/:eventID" component={EventInfoModalLayout} />
         </Switch>
