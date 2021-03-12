@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Loader } from "./Loader";
+import { Loader } from "../Loader";
 import { BandEvents } from "./BandEvents";
 
 export const BandEventsWrapper = ({ match }) => {

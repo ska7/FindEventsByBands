@@ -1,0 +1,579 @@
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,900;1,400&display=swap");
+
+@mixin centerColumn {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+@mixin centerRow {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+$app_green: #1d7d51;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Playfair Display", serif;
+}
+
+ul {
+  list-style: none;
+}
+li {
+  text-align: center;
+}
+
+// =======================
+
+.App {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: url("./img/concert-background.png");
+  background-size: 1600px 900px;
+  background-position: top;
+  background-repeat: no-repeat;
+  overflow: hidden;
+}
+
+// Input
+
+.input-container {
+  z-index: 2;
+  margin-top: 150px;
+  width: 90%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  overflow: hidden;
+  li {
+    width: 100%;
+    input {
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      border: 4px solid $app_green;
+      width: 100%;
+      height: 50px;
+      text-align: center;
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      transition: all 0.3s ease;
+      font-weight: bold;
+      box-shadow: 2px 2px 10px 5px black;
+      &:active {
+        // border-radius: 20px;
+      }
+      &:focus {
+        outline: none;
+      }
+      &::placeholder {
+        color: white;
+        opacity: 1;
+      }
+    }
+  }
+  a {
+    @include centerColumn;
+    text-decoration: none;
+    width: 100%;
+    height: 70px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.8);
+    color: white;
+    transition: all 0.3s ease;
+    font-weight: bold;
+  }
+}
+
+#btn-favorites-icon {
+  z-index: 4;
+  border-radius: 10px;
+  padding: 5px;
+  position: absolute;
+  top: 50px;
+  left: 0px;
+  right: 0px;
+  margin: 0 auto;
+  height: 50px;
+  width: 50px;
+  transition: all 0.3s ease;
+  &:focus,
+  &:active {
+    transform: scale(0.7);
+  }
+  &:hover {
+    cursor: pointer;
+  }
+}
+
+// Favorites Modal
+.favorites-modal-overlay {
+  z-index: 3;
+  position: absolute;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.8);
+  @include centerColumn;
+  left: 0;
+  right: 0;
+  .favorites-modal {
+    @include centerColumn;
+    border-radius: 40px;
+    box-shadow: 2px 2px 30px 5px rgb(31, 30, 30);
+    overflow: auto;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    max-height: 600px;
+    width: 90%;
+    p {
+      @include centerColumn;
+      height: 200px;
+      background: linear-gradient(
+        180deg,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(12, 98, 59, 1) 0%,
+        rgba(40, 113, 81, 1) 42%,
+        rgba(26, 121, 78, 1) 55%,
+        rgba(20, 150, 91, 0.7) 100%
+      );
+      margin: auto auto;
+      text-align: center;
+      font-size: 20px;
+      padding: 20px;
+      color: white;
+    }
+    .favorites-item:nth-child(2n) {
+      background: rgba(25, 102, 67, 0.9);
+    }
+    .favorites-item:nth-child(3n + 1) {
+      background: rgba(22, 90, 59, 0.9);
+    }
+    .favorites-item:nth-child(2n + 1) {
+      background: rgba(29, 97, 68, 0.9);
+    }
+    .favorites-item {
+      position: relative;
+      padding: 30px 0px 30px 40px;
+      display: flex;
+      flex-direction: row;
+      // justify-content: center;
+      align-items: center;
+      width: 100%;
+      color: white;
+      text-align: start;
+      border-bottom: 1px solid black;
+      &:hover {
+        cursor: pointer;
+      }
+      a {
+        width: 70%;
+        color: white;
+        text-decoration: none;
+      }
+      button {
+        position: absolute;
+        right: 30px;
+        border: none;
+        font-size: 40px;
+        color: red;
+        background: transparent;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+// Band Events Wrapper
+
+.band-events-wrapper {
+  position: absolute;
+  margin: 0 auto;
+  right: 0;
+  left: 0;
+  max-height: 450px;
+  top: 30%;
+  width: 100%;
+  @include centerColumn;
+  .band-events-list {
+    margin-top: 20px;
+    border-radius: 20px;
+    height: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: 90%;
+    overflow-y: scroll;
+    box-shadow: 2px 2px 20px 5px black;
+    #no-events {
+      background: rgba(25, 102, 67, 0.9);
+      height: 50px;
+      @include centerColumn;
+      color: white;
+    }
+    .events-list-item:nth-child(2n) {
+      background: rgba(25, 102, 67, 0.9);
+    }
+    .events-list-item:nth-child(3n + 1) {
+      background: rgba(22, 90, 59, 0.9);
+    }
+    .events-list-item:nth-child(2n + 1) {
+      background: rgba(29, 97, 68, 0.9);
+    }
+    .events-list-item {
+      display: flex;
+      flex-direction: row;
+      color: white;
+      align-items: center;
+      padding: 10px 0px;
+      margin: auto 0;
+      width: 100%;
+      min-height: 100px;
+      text-align: left;
+      a {
+        text-decoration: none;
+        list-style: none;
+        width: 75%;
+        padding-left: 20px;
+        .events-list-item-name {
+          color: white;
+
+          width: 100%;
+          font-size: 15px;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      button {
+        @include centerColumn;
+        position: absolute;
+        right: 10px;
+        height: 30px;
+        width: 60px;
+        font-size: 8px;
+        padding: 5px;
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
+
+@media (max-height: 600px) {
+  .band-events-wrapper {
+    height: 200px;
+    top: 40%;
+  }
+}
+
+// Save Button
+
+#save-btn {
+  background: transparent;
+  border: none;
+  color: white;
+  &::after {
+    content: "♡";
+    font-size: 18px;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+#save-btn-active {
+  background: transparent;
+  border: none;
+  color: red;
+  &:focus {
+    outline: none;
+  }
+  &::after {
+    content: "♥️";
+    font-size: 18px;
+  }
+}
+
+// Event Info Modal
+
+.event-info-modal-layout {
+  z-index: 5;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto 0;
+  left: 0;
+  right: 0;
+  width: 100vw;
+  height: 100vh;
+  background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)),
+    url("./img/concert-background.png");
+  overflow-y: auto;
+  overflow-x: hidden;
+  .event-info-modal {
+    text-align: center;
+    border-radius: 40px;
+    box-shadow: 2px 2px 30px 5px rgb(5, 5, 5);
+    overflow: auto;
+    right: 0;
+    left: 0;
+    margin: 0 auto;
+    max-height: 800px;
+    width: 100%;
+    color: white;
+    .event-info-modal-buttons {
+      @include centerColumn;
+      a {
+        width: 100%;
+        #event-info-modal-close-btn {
+          width: 60%;
+          height: 50px;
+          margin: 50px 0px 50px 0px;
+          border-radius: 20px;
+          background: transparent;
+          border: 3px solid $app_green;
+          color: $app_green;
+          font-weight: bold;
+          &:hover {
+            cursor: pointer;
+          }
+        }
+      }
+      #save-btn,
+      #save-btn-active {
+        &::after {
+          font-size: 30px;
+        }
+        &:hover {
+          cursor: pointer;
+        }
+      }
+    }
+    .location {
+      background: $app_green;
+      border-top: 2px solid white;
+      border-bottom: 2px solid white;
+      width: 100%;
+      margin: 15px 0;
+      padding: 30px;
+      h3,
+      h4 {
+        margin: 15px 0;
+        p {
+          color: gold;
+          font-weight: bold;
+          font-size: 18px;
+        }
+      }
+      h3 {
+        font-style: italic;
+      }
+    }
+    .lineup {
+      h2 {
+        color: #ffd601;
+        margin: 30px 0;
+        font-weight: 900;
+      }
+      ul {
+        padding: 0px 20px;
+        margin: 50px 0px;
+        a {
+          padding: 10px;
+          color: white;
+          text-decoration: none;
+        }
+      }
+    }
+    h1 {
+      margin: 50px 0;
+    }
+    h3 {
+    }
+  }
+}
+
+// Loader
+
+.loader {
+  position: absolute;
+  @include centerColumn;
+  top: 30%;
+  left: 0;
+  right: 0;
+  width: 100%;
+  color: black;
+  .loader-circle {
+    height: 130px;
+    width: 130px;
+    margin-left: auto;
+    margin-right: auto;
+    animation: spin 1s forwards linear infinite;
+  }
+  .comments-count {
+    padding: 1rem;
+    font-size: 30px;
+  }
+  .spinner-section,
+  .comments-count {
+    padding: 1rem;
+    @include centerColumn;
+    width: 100%;
+  }
+}
+
+@media (min-height: 801px) {
+  .band-events-wrapper {
+    max-height: 500px;
+    // bottom: 10%;
+  }
+}
+
+@media (min-height: 601px) and (max-height: 800px) {
+  .band-events-wrapper {
+    max-height: 300px;
+    top: 30%;
+  }
+}
+
+@media (max-height: 600px) {
+  .band-events-wrapper {
+    max-height: 400px;
+  }
+}
+
+@media (orientation: landscape) {
+  .favorites-modal-overlay {
+    height: 100%;
+    width: 100%;
+    top: 0;
+    left: 0;
+    .favorites-modal {
+      width: 60%;
+      p {
+        width: 100%;
+        height: 400px;
+      }
+    }
+  }
+}
+
+@media (orientation: landscape) and (max-width: 800px) {
+  .band-events-wrapper {
+    height: 100px;
+    top: 60%;
+  }
+}
+
+@media (min-width: 1200px) {
+  .search-container {
+    width: 100%;
+    .input-container {
+      width: 80%;
+    }
+  }
+  .matched-bands-wrapper {
+    width: 70%;
+    li {
+      transition: all 0.3s ease;
+      &:hover {
+        cursor: pointer;
+        transform: (translate(3px, 3px));
+        box-shadow: 2px 2px 15px black;
+      }
+    }
+  }
+  .band-events-wrapper {
+    top: 30%;
+    max-height: 500px;
+    width: 100%;
+  }
+  .event-info-modal-layout {
+    .event-info-modal {
+      .lineup {
+        width: 100%;
+        h2 {
+          font-size: 30px;
+        }
+        ul {
+          width: 100%;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+
+          li {
+            padding: 10px 20px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media (min-width: 1400px) {
+  .App {
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+}
+
+/* CSS Transition Group */
+
+.scale-enter {
+  opacity: 0;
+  transition: all 0.3s ease;
+  transform: scale(0);
+}
+
+.scale-enter-active {
+  transition: all 0.3s ease;
+  transform: scale(0.5);
+}
+.scale-enter-done {
+  opacity: 1;
+  transition: all 0.3s ease;
+  transform: scale(1);
+}
+
+.scale-exit {
+  opacity: 1;
+  transform: translateX(0rem);
+}
+.scale-exit-active {
+  transition: all 0.5s ease-in;
+  transform: translateX(-200rem);
+  opacity: 0.5;
+}
+.scale-exit-done {
+  transition: all 0.5s ease-in;
+  transform: translateX(-350rem);
+  opacity: 0;
+}
+
+.center {
+  @include centerRow;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

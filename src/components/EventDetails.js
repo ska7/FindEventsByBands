@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const BandEvents = () => {
+export const EventDetails = () => {
   const classes = useStyles();
   return (
-    <div className="band-events-container">
+    <div className="event-details-container">
       <Card className={classes.root}></Card>
     </div>
   );

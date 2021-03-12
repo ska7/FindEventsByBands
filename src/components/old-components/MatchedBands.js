@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { throttle } from "lodash";
 import axios from "axios";
-import { Loader } from "./Loader";
+import { Loader } from "../Loader";
 
 export const MatchedBands = ({ searchString, onClick }) => {
   const [bands, setBands] = useState([]);
@@ -31,7 +31,7 @@ export const MatchedBands = ({ searchString, onClick }) => {
             }
           );
 
-          setBands(matchedBands.slice(0, 5));
+          setBands(matchedBands.slice(0, 8));
           setLoading(false);
         } catch (e) {
           console.log(e);

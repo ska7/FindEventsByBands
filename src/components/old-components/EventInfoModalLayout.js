@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import axios from "axios";
-import { Loader } from "./Loader";
+import { Loader } from "../Loader";
 import { EventInfoModalContent } from "./EventInfoModalContent";
 
 export const EventInfoModalLayout = ({ match }) => {

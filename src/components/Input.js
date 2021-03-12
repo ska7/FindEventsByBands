@@ -1,12 +1,26 @@
-import React, { useEffect, useRef, useState } from "react";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { Input as Inp } from "@material-ui/core";
 
-import { Loader } from "./Loader";
-import { MatchedBands } from "./MatchedBands";
+import React, { useEffect, useRef, useState } from "react";
+import { MatchedBands } from "./old-components/MatchedBands";
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    root: {
+      ...theme.input,
+      height: "50px",
+      width: "100%",
+    },
+    inputEmpty: {
+      borderRadius: "10px",
+    },
+  })
+);
 
 export const Input = (props) => {
+  const classes = useStyles();
   const [inputValue, setInputValue] = useState("");
 
-  const [placeholder, setPlaceholder] = useState("type in a band name");
   const inputRef = useRef(null);
 
   const handleChange = (e) => {
@@ -14,30 +28,31 @@ export const Input = (props) => {
     setInputValue(value);
   };
 
-  useEffect(() => {
-    inputRef.current.focus();
-  }, []);
-
   return (
-    <ul className="input-container">
-      <li>
-        <input
-          name="searchInput"
-          value={inputValue}
-          onChange={handleChange}
-          placeholder={placeholder}
-          onFocus={() => setPlaceholder("")}
-          onBlur={() => setPlaceholder("type in a band name")}
-          autoComplete="off"
-          ref={inputRef}
-        />
-      </li>
-      {inputValue ? (
-        <MatchedBands
-          searchString={inputValue}
-          onClick={() => setInputValue("")}
-        />
-      ) : null}
-    </ul>
+    <div className="input-container">
+      <ul className="input-list">
+        <li>
+          <Inp
+            className={classes.root}
+            classes={{
+              root: !inputValue && classes.inputEmpty,
+              focused: classes.focused,
+            }}
+            disableUnderline="false"
+            color="primary"
+            autoFocus="true"
+            value={inputValue}
+            onChange={handleChange}
+            placeholder="type in a band name"
+          />
+        </li>
+        {inputValue ? (
+          <MatchedBands
+            searchString={inputValue}
+            onClick={() => setInputValue("")}
+          />
+        ) : null}
+      </ul>
+    </div>
   );
 };
