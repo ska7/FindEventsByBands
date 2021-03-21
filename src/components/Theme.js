@@ -30,5 +30,6 @@ export const theme = createMuiTheme({
     width: "90%",
     borderRadius: "10px",
     boxShadow: "1px 0px 10px 2px black",
+    overflow: "auto",
   },
 });

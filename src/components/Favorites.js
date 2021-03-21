@@ -28,6 +28,5 @@ export const Favorites = () => {
         FAVORITE EVENTS
       </Typography>
     </div>
-    // <Container></Container>
   );
 };
