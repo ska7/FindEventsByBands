@@ -24,12 +24,11 @@ export const theme = createMuiTheme({
     transition: "all 0.2s ease",
     boxShadow: "0px 0px 3px 1px black",
   },
-  eventDetailsCard: {
-    marginTop: "50px",
-    height: "600px",
-    width: "90%",
+  card: {
+    margin: "50px auto 0px auto",
+    height: "650px",
+    width: "80%",
     borderRadius: "10px",
     boxShadow: "1px 0px 10px 2px black",
-    overflow: "auto",
   },
 });

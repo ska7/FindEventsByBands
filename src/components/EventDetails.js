@@ -1,44 +1,34 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { fetchBandImage } from "./spotifyAPI";
 
-import { Card } from "@material-ui/core";
+import Card from "@material-ui/core/Card";
+import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     root: {
-      ...theme.eventDetailsCard,
+      ...theme.card,
     },
   })
 );
 
-const getAccessToken = (updateToken) => {
-  axios({
-    method: "post",
-    url: "https://accounts.spotify.com/api/token",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization:
-        "Basic MzA0OTdkOTRiYjMwNGYyNjhhMzY4ZDdjMWRiODFkMzk6ZDBiYjYzZmVkMTA1NDQ4NTlkYTdiMmVlMjMwMjk2YTI=",
-    },
-    data: "grant_type=client_credentials",
-  }).then(({ data }) => updateToken(data.access_token));
-};
-
 export const EventDetails = () => {
   const classes = useStyles();
 
-  const [token, setToken] = useState("");
+  const [imageURL, setImageURL] = useState("");
 
   useEffect(() => {
-    getAccessToken(setToken);
+    // const updateImage = async () => {
+    //   const image = await fetchBandImage("Depeche Mode");
+    //   console.log(image);
+    //   setImageURL(image);
+    // };
+    // updateImage();
   }, []);
   return (
     <div className="event-details-container">
-      <Card className={classes.root}>
-        <h1>HEY</h1>
-      </Card>
+      <Card className={classes.root}></Card>
     </div>
   );
 };

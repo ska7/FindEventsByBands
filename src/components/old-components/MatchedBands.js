@@ -59,7 +59,11 @@ export const MatchedBands = ({ searchString, onClick }) => {
       ) : (
         bands.map((band) => {
           return (
-            <Link key={band.id} onClick={onClick} to={`/band/${band.id}`}>
+            <Link
+              key={band.id}
+              onClick={onClick}
+              to={`/band/${band.displayName}?bandID=${band.id}`}
+            >
               {band.displayName}
             </Link>
           );

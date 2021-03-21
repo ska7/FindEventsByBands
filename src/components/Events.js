@@ -9,11 +9,20 @@ import Checkbox from "@material-ui/core/Checkbox";
 const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
-    backgroundColor: theme.palette.background.paper,
+    color: "white",
     display: "flex",
     flexDirection: "column",
     "& .MuiListItem-root": {
       height: "70px",
+      "&:hover": {
+        backgroundColor: "rgba(0, 0, 0, 0.1)",
+      },
+    },
+  },
+  checkbox: {
+    color: "white",
+    "&:hover": {
+      backgroundColor: "rgba(255,255,255, 0.2)",
     },
   },
 }));
@@ -41,9 +50,14 @@ export const Events = ({ events }) => {
         const labelId = `checkbox-list-secondary-label-${event.id}`;
         return (
           <ListItem key={event.id} button>
-            <ListItemText id={labelId} primary={event.displayName} />
+            <ListItemText
+              id={labelId}
+              primary={event.displayName}
+              className={classes.listItem}
+            />
             <ListItemSecondaryAction>
               <Checkbox
+                className={classes.checkbox}
                 edge="end"
                 onChange={handleToggle(event)}
                 checked={checked.indexOf(event) !== -1}
