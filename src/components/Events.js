@@ -46,27 +46,39 @@ export const Events = ({ events }) => {
 
   return (
     <List dense className={classes.root}>
-      {events.map((event) => {
-        const labelId = `checkbox-list-secondary-label-${event.id}`;
-        return (
-          <ListItem key={event.id} button>
-            <ListItemText
-              id={labelId}
-              primary={event.displayName}
-              className={classes.listItem}
-            />
-            <ListItemSecondaryAction>
-              <Checkbox
-                className={classes.checkbox}
-                edge="end"
-                onChange={handleToggle(event)}
-                checked={checked.indexOf(event) !== -1}
-                inputProps={{ "aria-labelledby": labelId }}
+      {events.length ? (
+        events.map((event) => {
+          const labelId = `checkbox-list-secondary-label-${event.id}`;
+          return (
+            <ListItem key={event.id} button>
+              <ListItemText
+                id={labelId}
+                primary={event.displayName}
+                className={classes.listItem}
               />
-            </ListItemSecondaryAction>
-          </ListItem>
-        );
-      })}
+              <ListItemSecondaryAction>
+                <Checkbox
+                  className={classes.checkbox}
+                  edge="end"
+                  onChange={handleToggle(event)}
+                  checked={checked.indexOf(event) !== -1}
+                  inputProps={{ "aria-labelledby": labelId }}
+                />
+              </ListItemSecondaryAction>
+            </ListItem>
+          );
+        })
+      ) : (
+        <li
+          id="no-events"
+          style={{
+            marginTop: "50%",
+            fontSize: "25px",
+          }}
+        >
+          This artist has no upcoming events!
+        </li>
+      )}
     </List>
   );
 };

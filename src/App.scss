@@ -76,6 +76,12 @@ li {
   flex: 3;
 }
 
+.band-events-container {
+  .MuiCardContent-root {
+    padding: 0;
+  }
+}
+
 .favorites-container {
   background: #33393d;
   flex: 1;

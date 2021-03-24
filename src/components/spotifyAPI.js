@@ -1,4 +1,6 @@
 import axios from "axios";
+import { throttle } from "lodash";
+import { useRef } from "react";
 
 const getAccessToken = async () => {
   return await axios({
@@ -23,7 +25,6 @@ const getBand = async (searchString, token) => {
       "Content-Type": "application/x-www-form-urlencoded",
       Authorization: `Bearer ${token}`,
     },
-    // data: "grant_type=client_credentials",
     params: {
       q: searchString,
       type: "artist",
@@ -32,9 +33,23 @@ const getBand = async (searchString, token) => {
   }).then(({ data }) => data);
 };
 
+let accessToken = "";
+
+const throttledFetchAccessToken = throttle(
+  async () => {
+    console.log(new Date());
+    return await getAccessToken();
+  },
+  3600000,
+  {
+    trailing: true,
+  }
+);
+
 export const fetchBandImage = async (searchString) => {
-  const accessToken = await getAccessToken();
+  accessToken = await throttledFetchAccessToken();
+
   const bandInfo = await getBand(searchString, accessToken);
-  console.log(bandInfo.artists.items[0].images);
+  console.log("images", bandInfo.artists.items[0].images);
   return bandInfo.artists.items[0].images[0].url;
 };

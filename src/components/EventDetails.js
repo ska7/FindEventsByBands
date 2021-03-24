@@ -18,14 +18,7 @@ export const EventDetails = () => {
 
   const [imageURL, setImageURL] = useState("");
 
-  useEffect(() => {
-    // const updateImage = async () => {
-    //   const image = await fetchBandImage("Depeche Mode");
-    //   console.log(image);
-    //   setImageURL(image);
-    // };
-    // updateImage();
-  }, []);
+  useEffect(() => {}, []);
   return (
     <div className="event-details-container">
       <Card className={classes.root}></Card>

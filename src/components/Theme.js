@@ -25,6 +25,7 @@ export const theme = createMuiTheme({
     boxShadow: "0px 0px 3px 1px black",
   },
   card: {
+    padding: "0px",
     margin: "50px auto 0px auto",
     height: "650px",
     width: "80%",
