@@ -7,6 +7,7 @@ import { EventDetails } from "./components/EventDetails";
 import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./components/Theme";
 import { Band } from "./components/Band";
+import { SimilarBands } from "./components/SimilarBands";
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
                 <>
                   <Input />
                   <Band {...props} />
+                  <SimilarBands />
                   <Favorites />
                 </>
               )}

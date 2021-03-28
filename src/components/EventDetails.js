@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import { fetchBandImage } from "./spotifyAPI";
 
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
