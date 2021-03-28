@@ -8,8 +8,7 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { updateFavorites } from "./localStorage";
-import { FeaturedVideoSharp } from "@material-ui/icons";
+import { checkIfSaved, updateFavorites } from "./localStorage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -36,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
 export const Events = ({ events }) => {
   const classes = useStyles();
   const [checked, setChecked] = useState([1]);
-  const [favorites, setFavorites] = useState([]);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -51,22 +49,8 @@ export const Events = ({ events }) => {
     setChecked(newChecked);
   };
 
-  useEffect(() => {
-    // setFavorites(localStorage.getItem("favorites").favorites);
-  }, []);
   return (
     <List dense className={classes.root}>
-      <button
-        style={{ width: "25px", height: "25px" }}
-        onClick={() => {
-          const favor = localStorage.getItem("favorites");
-          console.log(JSON.parse(favor));
-          // const res = favor.map((entry) => {
-          //   return JSON.parse(entry[1]);
-          // });
-          // console.log(res);
-        }}
-      ></button>
       {events.length ? (
         events.map((event) => {
           const labelId = `checkbox-list-secondary-label-${event.id}`;
@@ -85,7 +69,8 @@ export const Events = ({ events }) => {
                         <FavoriteBorder fontSize="medium" color="secondary" />
                       }
                       onClick={() => updateFavorites("add", event)}
-                      // checked={favorites.indexOf(event) !== -1}
+                      onChange={handleToggle(event)}
+                      checked={checkIfSaved(event.id)}
                       checkedIcon={<Favorite />}
                       name="checkedH"
                     />

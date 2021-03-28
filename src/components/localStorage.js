@@ -1,27 +1,36 @@
-import { update } from "lodash";
+export const checkIfSaved = (eventID) => {
+  const favoritesObject = JSON.parse(localStorage.getItem("favorites")) || {
+    favorites: [],
+  };
 
-export const updateFavorites = (action, event, cb = () => {}) => {
-  const existingFavorites = JSON.parse(localStorage.getItem("favorites")) || [];
-  switch (action) {
-    case "add":
-      console.log("before push", existingFavorites);
-      existingFavorites.push(event);
-      console.log("upd", existingFavorites);
-      localStorage.setItem(
-        "favorites",
-        JSON.stringify({
-          favorites: existingFavorites,
-        })
-      );
-      // console.log("existing favs", existingFavorites);
+  return favoritesObject.favorites.find((event) => event.id === eventID);
+};
 
-      break;
-    case "delete":
-      localStorage.removeItem(event.id);
-      cb();
-      break;
-    default:
-      break;
+export const updateFavorites = (action, event) => {
+  const existingFavorites = JSON.parse(localStorage.getItem("favorites")) || {
+    favorites: [],
+  };
+
+  const saved = checkIfSaved(event.id, existingFavorites.favorites);
+
+  if (saved) {
+    const updatedFavorites = existingFavorites.favorites.filter(
+      (favoriteEvent) => favoriteEvent.id !== event.id
+    );
+    localStorage.setItem(
+      "favorites",
+      JSON.stringify({
+        favorites: updatedFavorites,
+      })
+    );
+  } else {
+    existingFavorites.favorites.push(event);
+    localStorage.setItem(
+      "favorites",
+      JSON.stringify({
+        favorites: existingFavorites.favorites,
+      })
+    );
   }
 };
 
