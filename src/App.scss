@@ -40,7 +40,6 @@ li {
   grid-template-areas:
     "search event favorites"
     "search similarBands favorites";
-  // "search similarBands favorites";
 }
 
 .input-container {
@@ -49,7 +48,6 @@ li {
   display: flex;
   flex-direction: column;
   align-items: center;
-  border: 1px solid red;
   .input-list {
     margin-top: 25px;
     height: auto;
@@ -81,7 +79,7 @@ li {
 .event-details-container,
 .band-events-container {
   grid-area: event;
-  border: 1px solid red;
+  // border: 1px solid red;
 }
 
 .band-events-container {

@@ -1,28 +1,33 @@
 import { useState, useEffect } from "react";
 
-// const setInitValue = (bandEvent) => {
-//   return bandEvent;
-// };
+const getSavedFavorites = () => {
+  const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
+
+  // If there are saved favorites
+  if (savedFavorites) return savedFavorites.favorites;
+
+  // If there are no saved favorites
+  return [];
+};
 
 export const useFavorites = () => {
-  // By default, it looks like {favorites: []}
   const [bandEvent, setBandEvent] = useState({});
+  const [favorites, setFavorites] = useState(() => {
+    return getSavedFavorites();
+  });
 
-  const [favorites, setFavorites] = useState([]);
+  const updateEvent = (event) => setBandEvent(event);
 
   useEffect(() => {
-    const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
+    localStorage.setItem(
+      "favorites",
+      JSON.stringify({ favorites: [...favorites, bandEvent] })
+    );
 
-    if (savedFavorites) {
-      savedFavorites.favorites = [...savedFavorites.favorites, bandEvent];
-      setFavorites(savedFavorites.favorites);
-    } else {
-      setFavorites([bandEvent]);
-    }
+    setFavorites(getSavedFavorites());
 
     // When the hook receives a new event, useEffect updates the favorites object and adds it to the local storage
-    localStorage.setItem("favorites", JSON.stringify({ favorites: favorites }));
   }, [bandEvent]);
 
-  return [favorites, setBandEvent];
+  return { favorites, updateEvent };
 };

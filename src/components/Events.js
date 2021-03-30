@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
 export const Events = ({ events }) => {
   const classes = useStyles();
   const [checked, setChecked] = useState([1]);
-  const [favorites, setFavorites] = useFavorites();
+  const { favorites, updateEvent } = useFavorites();
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -78,7 +78,7 @@ export const Events = ({ events }) => {
                       icon={
                         <FavoriteBorder fontSize="medium" color="secondary" />
                       }
-                      onClick={() => setFavorites(event)}
+                      onClick={() => updateEvent(event)}
                       onChange={handleToggle(event)}
                       // checked={checkIfSaved(event.id)}
                       checkedIcon={<Favorite />}
