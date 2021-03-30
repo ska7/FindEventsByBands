@@ -1,8 +1,8 @@
-import { Container, Typography } from "@material-ui/core";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-import logo from "../img/favorites-background.jpeg";
+import React, { useState, useEffect } from "react";
 
-import React from "react";
+import { Typography } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+import { useFavorites } from "./hooks/useLocalStorage";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -22,11 +22,16 @@ const useStyles = makeStyles((theme) =>
 export const Favorites = () => {
   const classes = useStyles();
 
+  // const [favorites, setFavorites] = useLocalStorage("favorites", {});
+
   return (
     <div className="favorites-container">
       <Typography variant="h5" className={classes.title}>
         FAVORITE EVENTS
       </Typography>
+      {/* {favorites.map(event => {
+        return <
+      })} */}
     </div>
   );
 };

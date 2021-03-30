@@ -9,6 +9,7 @@ import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { checkIfSaved, updateFavorites } from "./localStorage";
+import { useFavorites } from "./hooks/useLocalStorage";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -35,6 +36,7 @@ const useStyles = makeStyles((theme) => ({
 export const Events = ({ events }) => {
   const classes = useStyles();
   const [checked, setChecked] = useState([1]);
+  const [favorites, setFavorites] = useFavorites();
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -48,6 +50,14 @@ export const Events = ({ events }) => {
 
     setChecked(newChecked);
   };
+
+  const checkIfSaved = (eventID) => {
+    return favorites.find((event) => event.id === eventID);
+  };
+
+  useEffect(() => {
+    // console.log("favs in the events comp", favorites);
+  }, [checked]);
 
   return (
     <List dense className={classes.root}>
@@ -68,9 +78,9 @@ export const Events = ({ events }) => {
                       icon={
                         <FavoriteBorder fontSize="medium" color="secondary" />
                       }
-                      onClick={() => updateFavorites("add", event)}
+                      onClick={() => setFavorites(event)}
                       onChange={handleToggle(event)}
-                      checked={checkIfSaved(event.id)}
+                      // checked={checkIfSaved(event.id)}
                       checkedIcon={<Favorite />}
                       name="checkedH"
                     />
