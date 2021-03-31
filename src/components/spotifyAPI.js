@@ -47,8 +47,8 @@ const throttledFetchAccessToken = throttle(
 );
 
 export const fetchBandImage = async (searchString) => {
-  accessToken = await throttledFetchAccessToken();
-  const bandInfo = await getBand(searchString, accessToken);
-  console.log("images", bandInfo.artists.items[0].images);
-  return bandInfo.artists.items[0].images[0].url;
+  // accessToken = await throttledFetchAccessToken();
+  // const bandInfo = await getBand(searchString, accessToken);
+  // console.log("images", bandInfo.artists.items[0].images);
+  // return bandInfo.artists.items[0].images[0].url;
 };

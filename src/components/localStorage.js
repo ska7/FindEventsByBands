@@ -1,6 +1,6 @@
-// const checkIfSaved = (eventID, favorites) => {
-//   return favorites.find((event) => event.id === eventID);
-// };
+const checkIfSaved = (eventID, favorites) => {
+  return favorites.find((event) => event.id === eventID);
+};
 
 // export const updateFavorites = (action, event) => {
 //   const existingFavorites = JSON.parse(localStorage.getItem("favorites")) || {

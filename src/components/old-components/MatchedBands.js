@@ -32,9 +32,9 @@ export const MatchedBands = ({ searchString, onClick }) => {
           );
 
           setBands(matchedBands.slice(0, 8));
-          setLoading(false);
         } catch (e) {
           console.log(e);
+        } finally {
           setLoading(false);
         }
       })

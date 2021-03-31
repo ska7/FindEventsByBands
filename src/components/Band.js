@@ -6,6 +6,7 @@ import { Card, CardContent, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
 import { Events } from "./Events";
+import { Favorites } from "./Favorites";
 
 const customStyles = (image) => {
   return makeStyles((theme) =>
@@ -52,8 +53,6 @@ export const Band = ({ location, match }) => {
     const params = new URLSearchParams(location.search).get("bandID");
 
     setBandID(params);
-    // console.log(bandID);
-    // console.log(params);
     setBandName(match.params.bandName);
     updateImage(bandName, setImage);
     if (bandID) {
@@ -83,17 +82,19 @@ export const Band = ({ location, match }) => {
 
   const classes = customStyles(image)();
   return (
-    <div className="band-events-container">
-      <Card className={classes.root}>
-        <Typography className={classes.header}>{bandName}</Typography>
-        <CardContent className={classes.eventsList}>
-          {loading && !events.length && image ? (
-            <Loader />
-          ) : (
-            <Events events={events} />
-          )}
-        </CardContent>
-      </Card>
-    </div>
+    <>
+      <div className="band-events-container">
+        <Card className={classes.root}>
+          <Typography className={classes.header}>{bandName}</Typography>
+          <CardContent className={classes.eventsList}>
+            {loading && !events.length && image ? (
+              <Loader />
+            ) : (
+              <Events events={events} />
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </>
   );
 };

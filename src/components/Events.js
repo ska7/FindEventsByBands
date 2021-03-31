@@ -15,7 +15,6 @@ const useStyles = makeStyles((theme) => ({
   root: {
     width: "100%",
     color: "white",
-    display: "flex",
     flexDirection: "column",
     "& .MuiListItem-root": {
       height: "70px",
@@ -33,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export const Events = ({ events }) => {
+export const Events = ({ events, liftUpFavorites }) => {
   const classes = useStyles();
   const [checked, setChecked] = useState([1]);
   const { favorites, updateEvent } = useFavorites();
@@ -55,9 +54,9 @@ export const Events = ({ events }) => {
     return favorites.find((event) => event.id === eventID);
   };
 
-  useEffect(() => {
-    // console.log("favs in the events comp", favorites);
-  }, [checked]);
+  // useEffect(() => {
+
+  // }, [checked]);
 
   return (
     <List dense className={classes.root}>
@@ -80,7 +79,7 @@ export const Events = ({ events }) => {
                       }
                       onClick={() => updateEvent(event)}
                       onChange={handleToggle(event)}
-                      // checked={checkIfSaved(event.id)}
+                      checked={checkIfSaved(event.id, favorites)}
                       checkedIcon={<Favorite />}
                       name="checkedH"
                     />

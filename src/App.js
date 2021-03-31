@@ -37,6 +37,17 @@ function App() {
                 </>
               )}
             />
+            <Route
+              path="/band/:bandName/event/:eventID"
+              render={(props) => (
+                <>
+                  <Input />
+                  <Band {...props} />
+                  <SimilarBands />
+                  <Favorites />
+                </>
+              )}
+            />
           </Switch>
         </Router>
       </div>

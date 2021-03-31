@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 
-import { Typography } from "@material-ui/core";
+import { List, ListItem, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { useFavorites } from "./hooks/useLocalStorage";
+import { getSavedFavorites, useFavorites } from "./hooks/useLocalStorage";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -16,22 +16,40 @@ const useStyles = makeStyles((theme) =>
       textAlign: "center",
       textShadow: "0px 0px 5px black",
     },
+    list: {
+      width: "100%",
+      color: "white",
+      flexDirection: "column",
+      "& .MuiListItem-root": {
+        padding: "10px",
+        height: "auto",
+        "&:hover": {
+          backgroundColor: "rgba(0, 0, 0, 0.1)",
+        },
+      },
+    },
   })
 );
 
 export const Favorites = () => {
   const classes = useStyles();
 
-  // const [favorites, setFavorites] = useLocalStorage("favorites", {});
+  const { favorites } = useFavorites();
+
+  // useEffect(() => {
+
+  // }, [favorites]);
 
   return (
     <div className="favorites-container">
       <Typography variant="h5" className={classes.title}>
         FAVORITE EVENTS
       </Typography>
-      {/* {favorites.map(event => {
-        return <
-      })} */}
+      <List className={classes.list}>
+        {favorites.map((event) => {
+          return <ListItem>{event.displayName}</ListItem>;
+        })}
+      </List>
     </div>
   );
 };
