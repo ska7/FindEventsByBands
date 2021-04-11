@@ -42,7 +42,8 @@ const updateImage = async (bandName, updateState) => {
   updateState(image);
 };
 
-export const Band = ({ location, match }) => {
+export const Band = (props) => {
+  const { match, location } = props;
   const [bandID, setBandID] = useState("");
   const [bandName, setBandName] = useState("");
   const [events, setEvents] = useState([]);
@@ -51,6 +52,7 @@ export const Band = ({ location, match }) => {
 
   useEffect(() => {
     const params = new URLSearchParams(location.search).get("bandID");
+    console.log(props);
 
     setBandID(params);
     setBandName(match.params.bandName);
@@ -60,7 +62,7 @@ export const Band = ({ location, match }) => {
         setLoading(true);
         axios
           .get(
-            `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=K0cI0s0IC8ii7i2w`
+            `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
           )
           .then((res) => {
             const events = res.data.resultsPage.results.event;
@@ -90,7 +92,7 @@ export const Band = ({ location, match }) => {
             {loading && !events.length && image ? (
               <Loader />
             ) : (
-              <Events events={events} />
+              <Events events={events} {...props} />
             )}
           </CardContent>
         </Card>

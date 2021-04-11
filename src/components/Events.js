@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
@@ -8,8 +8,9 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { checkIfSaved, updateFavorites } from "./localStorage";
-import { useFavorites } from "./hooks/useLocalStorage";
+import { useFavorites, checkIfSaved } from "./hooks/useFavorites";
+import { FavoritesContext } from "./context/favoritesContext";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -30,12 +31,30 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "50%",
     },
   },
+  link: {
+    ...theme.links,
+  },
 }));
 
-export const Events = ({ events, liftUpFavorites }) => {
+const updateFavorites = (event, favorites, setFavorites) => {
+  const isPresent = checkIfSaved(event.id, favorites);
+
+  if (isPresent) {
+    const updatedFavorites = favorites.filter(
+      (favoriteEvent) => favoriteEvent.id !== event.id
+    );
+    setFavorites([...updatedFavorites]);
+  } else {
+    const updatedFavorites = [...favorites, event];
+    setFavorites([...updatedFavorites]);
+  }
+};
+
+export const Events = (props) => {
+  const { events, match, location } = props;
   const classes = useStyles();
   const [checked, setChecked] = useState([1]);
-  const { favorites, updateEvent } = useFavorites();
+  const { favorites, setFavorites } = useContext(FavoritesContext);
 
   const handleToggle = (value) => () => {
     const currentIndex = checked.indexOf(value);
@@ -54,9 +73,7 @@ export const Events = ({ events, liftUpFavorites }) => {
     return favorites.find((event) => event.id === eventID);
   };
 
-  // useEffect(() => {
-
-  // }, [checked]);
+  useEffect(() => {}, []);
 
   return (
     <List dense className={classes.root}>
@@ -65,11 +82,17 @@ export const Events = ({ events, liftUpFavorites }) => {
           const labelId = `checkbox-list-secondary-label-${event.id}`;
           return (
             <ListItem key={event.id} button>
-              <ListItemText
-                id={labelId}
-                primary={event.displayName}
-                className={classes.listItem}
-              />
+              <Link
+                className={classes.link}
+                to={`/band/${match.params.bandName}/event/${event.id}`}
+              >
+                <ListItemText
+                  id={labelId}
+                  primary={event.displayName}
+                  className={classes.listItem}
+                  onClick
+                />
+              </Link>
               <ListItemSecondaryAction>
                 <FormControlLabel
                   control={
@@ -77,7 +100,9 @@ export const Events = ({ events, liftUpFavorites }) => {
                       icon={
                         <FavoriteBorder fontSize="medium" color="secondary" />
                       }
-                      onClick={() => updateEvent(event)}
+                      onClick={() =>
+                        updateFavorites(event, favorites, setFavorites)
+                      }
                       onChange={handleToggle(event)}
                       checked={checkIfSaved(event.id, favorites)}
                       checkedIcon={<Favorite />}

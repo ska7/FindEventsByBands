@@ -1,6 +1,6 @@
 import axios from "axios";
 import { throttle } from "lodash";
-import { useRef } from "react";
+import { useRef, useState, useEffect } from "react";
 
 const getAccessToken = async () => {
   return await axios({
@@ -47,8 +47,24 @@ const throttledFetchAccessToken = throttle(
 );
 
 export const fetchBandImage = async (searchString) => {
-  // accessToken = await throttledFetchAccessToken();
-  // const bandInfo = await getBand(searchString, accessToken);
-  // console.log("images", bandInfo.artists.items[0].images);
-  // return bandInfo.artists.items[0].images[0].url;
+  accessToken = await throttledFetchAccessToken();
+  const bandInfo = await getBand(searchString, accessToken);
+  console.log("images", bandInfo.artists.items[0].images);
+  return bandInfo.artists.items[0].images[0].url;
+};
+
+export const useSpotify = (searchString) => {
+  const [image, setImage] = useState(() => {
+    // return fetchBandImage(searchString);
+  });
+
+  useEffect(() => {
+    // const init = async () => {
+    //   const image = await fetchBandImage(searchString);
+    //   setImage(image);
+    // };
+    // init();
+  }, []);
+
+  return image;
 };

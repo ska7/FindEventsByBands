@@ -1,8 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 
 import { List, ListItem, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { getSavedFavorites, useFavorites } from "./hooks/useLocalStorage";
+import { getSavedFavorites, useFavorites } from "./hooks/useFavorites";
+import { FavoritesContext } from "./context/favoritesContext";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -34,11 +35,7 @@ const useStyles = makeStyles((theme) =>
 export const Favorites = () => {
   const classes = useStyles();
 
-  const { favorites } = useFavorites();
-
-  // useEffect(() => {
-
-  // }, [favorites]);
+  const { favorites, setFavorites } = useContext(FavoritesContext);
 
   return (
     <div className="favorites-container">

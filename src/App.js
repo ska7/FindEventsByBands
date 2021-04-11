@@ -8,6 +8,7 @@ import { ThemeProvider } from "@material-ui/core";
 import { theme } from "./components/Theme";
 import { Band } from "./components/Band";
 import { SimilarBands } from "./components/SimilarBands";
+import { FavoritesContextProvider } from "./components/context/favoritesContext";
 
 function App() {
   return (
@@ -21,30 +22,38 @@ function App() {
               render={(props) => (
                 <>
                   <Input />
-                  <EventDetails />
-                  <Favorites />
+                  <FavoritesContextProvider>
+                    <EventDetails {...props} />
+                    <Favorites />
+                  </FavoritesContextProvider>
                 </>
               )}
             />
             <Route
+              exact
               path="/band/:bandName"
               render={(props) => (
                 <>
                   <Input />
-                  <Band {...props} />
                   <SimilarBands />
-                  <Favorites />
+                  <FavoritesContextProvider>
+                    <Band {...props} />
+                    <Favorites />
+                  </FavoritesContextProvider>
                 </>
               )}
             />
             <Route
+              exact
               path="/band/:bandName/event/:eventID"
               render={(props) => (
                 <>
                   <Input />
-                  <Band {...props} />
                   <SimilarBands />
-                  <Favorites />
+                  <FavoritesContextProvider>
+                    <EventDetails {...props} />
+                    <Favorites />
+                  </FavoritesContextProvider>
                 </>
               )}
             />
@@ -56,24 +65,3 @@ function App() {
 }
 
 export default App;
-/*  =============================== */
-
-<Route
-  path="/"
-  render={(props) => (
-    <>
-      {/* <FavoritesHeartButton /> */}
-      <Input {...props} />
-    </>
-  )}
-/>;
-
-<Route
-  path="/band/:bandID"
-  render={(props) => (
-    <>
-      {/* <FavoritesHeartButton /> */}
-      <Input {...props} />
-    </>
-  )}
-/>;

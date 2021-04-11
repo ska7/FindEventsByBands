@@ -31,4 +31,8 @@ export const theme = createMuiTheme({
     borderRadius: "10px",
     boxShadow: "1px 0px 10px 2px black",
   },
+  links: {
+    color: "white",
+    textDecoration: "none",
+  },
 });

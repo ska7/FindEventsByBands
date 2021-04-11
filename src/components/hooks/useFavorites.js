@@ -15,23 +15,7 @@ export const checkIfSaved = (eventID, favorites) => {
 };
 
 export const useFavorites = () => {
-  const [bandEvent, setBandEvent] = useState({});
   const [favorites, setFavorites] = useState(() => getSavedFavorites());
-
-  const updateEvent = (event) => {
-    const favs = getSavedFavorites();
-    const isPresent = checkIfSaved(event.id, favs);
-
-    if (isPresent) {
-      const updatedFavorites = favs.filter(
-        (favoriteEvent) => favoriteEvent.id !== event.id
-      );
-      setFavorites(updatedFavorites);
-    } else {
-      const updatedFavorites = [...favs, event];
-      setFavorites(updatedFavorites);
-    }
-  };
 
   useEffect(() => {
     localStorage.setItem(
@@ -40,5 +24,5 @@ export const useFavorites = () => {
     );
   }, [favorites]);
 
-  return { favorites, updateEvent };
+  return { favorites, setFavorites };
 };
