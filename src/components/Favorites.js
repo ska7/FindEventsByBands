@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) =>
     title: {
       width: "100%",
       height: "50px",
-      color: "white",
+      color: "#A7929E",
       margin: "10px auto",
       padding: "10px",
       fontWeight: "500",
@@ -25,7 +25,7 @@ const useStyles = makeStyles((theme) =>
         padding: "10px",
         height: "auto",
         "&:hover": {
-          backgroundColor: "rgba(0, 0, 0, 0.1)",
+          backgroundColor: "rgba(0, 0, 0, 0.2)",
         },
       },
     },
@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) =>
 export const Favorites = () => {
   const classes = useStyles();
 
-  const { favorites, setFavorites } = useContext(FavoritesContext);
+  const { favorites } = useContext(FavoritesContext);
 
   return (
     <div className="favorites-container">

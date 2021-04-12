@@ -49,7 +49,6 @@ function App() {
               render={(props) => (
                 <>
                   <Input />
-                  <SimilarBands />
                   <FavoritesContextProvider>
                     <EventDetails {...props} />
                     <Favorites />

@@ -34,6 +34,9 @@ const useStyles = makeStyles((theme) => ({
   link: {
     ...theme.links,
   },
+  listItem: {
+    width: "95%",
+  },
 }));
 
 const updateFavorites = (event, favorites, setFavorites) => {
@@ -90,7 +93,7 @@ export const Events = (props) => {
                   id={labelId}
                   primary={event.displayName}
                   className={classes.listItem}
-                  onClick
+                  // onClick
                 />
               </Link>
               <ListItemSecondaryAction>

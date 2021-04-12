@@ -39,7 +39,8 @@ li {
   grid-template-rows: 2fr 2fr;
   grid-template-areas:
     "search event favorites"
-    "search similarBands favorites";
+    "search event favorites"
+    "similarBands event favorites";
 }
 
 .input-container {
@@ -90,7 +91,7 @@ li {
 
 .favorites-container {
   grid-area: favorites;
-  background: #33393d;
+  background: #212527;
   box-shadow: 1px 0px 10px 5px black;
   position: relative;
   // .events-looker-logo {

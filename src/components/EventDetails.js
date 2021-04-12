@@ -4,7 +4,7 @@ import axios from "axios";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { CardContent, Typography } from "@material-ui/core";
+import { CardContent, List, ListItemText, Typography } from "@material-ui/core";
 import { useSpotify } from "./spotifyAPI";
 import { Loader } from "./Loader";
 
@@ -13,40 +13,73 @@ const customStyles = (image) => {
     createStyles({
       root: {
         ...theme.card,
-        // background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url("${image}")`,
-        // backgroundPosition: "50% 30%",
+        overflow: "auto",
+        background: "#212527",
       },
       cardContainer: {
         margin: 0,
         padding: 0,
-        display: "flex",
-        flexDirection: "row",
         width: "100%",
       },
       eventInfoContainer: {
-        background:
-          "linear-gradient(top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%)",
         color: "white",
-        width: "70%",
-        borderBottom: "2px solid grey",
+        width: "100%",
+        padding: "30px 0px 0px 0px",
+        "& span": {
+          padding: "0px 10px",
+        },
         "& h6": {
+          padding: "20px 10px",
+          fontWeight: "900",
+        },
+        "& h5": {
           padding: "20px 0px",
+        },
+        // Line Up
+        "& h4": {
+          background: "transparent",
+          padding: "10px 0px",
+          textAlign: "center",
+          width: "100%",
+          color: "white",
         },
       },
       artists: {
         display: "flex",
         flexDirection: "row",
         justifyContent: "center",
-        background: "#33393d",
+        alignItems: "center",
+        // background: "#212527",
+        background: "#6280A5",
         color: "white",
-        padding: "20px 0px",
+        textAlign: "center",
+        padding: "20px 10px",
+        "& span": {
+          fontWeight: "00",
+          fontSize: "20px",
+        },
+      },
+      lineUp: {
+        width: "100%",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        marginTop: "35px",
+        color: "white",
+        // overflowWrap: "break-word",
         "& p": {
-          paddingLeft: "20px",
+          padding: "25px",
         },
       },
       bandImage: {
-        height: "200px",
-        width: "30%",
+        height: "0",
+        // paddingTop: "59.25%",
+        paddingTop: "29.25%",
+        backgroundAttachment: "fixed",
+        // backgroundPosition: "50% 30%",
+        backgroundPosition: "50% 30%",
+        backgroundSize: "cover",
+        width: "50%",
       },
     })
   );
@@ -59,7 +92,7 @@ export const EventDetails = (props) => {
   const [artists, setArtists] = useState([]);
   // const imageURL = useSpotify(`${artists[0]}`);
   const imageURL =
-    "https://i.scdn.co/image/6422c2b56c9fdf3e0e4df4f02867143725ed1077";
+    "https://i.scdn.co/image/cec568293ff75ff6fcf9b284b8f387a4b1c8a00f";
 
   useEffect(() => {
     axios
@@ -83,12 +116,14 @@ export const EventDetails = (props) => {
       <Card className={classes.root}>
         {artists.length ? (
           <>
-            {" "}
-            <Typography className={classes.artists}>
+            <List className={classes.artists}>
               {artists.slice(0, 3).map((artist) => (
-                <p>{artist}</p>
+                <ListItemText>{artist}</ListItemText>
               ))}
-            </Typography>
+              {artists.length > 3 ? (
+                <ListItemText>{`and ${artists.length - 3} more`}</ListItemText>
+              ) : null}
+            </List>
             <CardContent className={classes.cardContainer}>
               <CardMedia
                 image={imageURL}
@@ -97,12 +132,22 @@ export const EventDetails = (props) => {
               />
               <CardContent className={classes.eventInfoContainer}>
                 <Typography variant="h7">{event.start.date}</Typography>
-                <Typography variant="h6" gutterBottom>
-                  {event.displayName}
+                <Typography variant="h6">{event.displayName}</Typography>
+                <Typography variant="subtitle1">
+                  {event.location.city}
                 </Typography>
-                <Typography variant="h7">{event.location.city}</Typography>
+                {artists.length > 1 ? (
+                  <>
+                    <Typography variant="h4">Line Up:</Typography>
+                    <List className={classes.lineUp}>
+                      {artists.map((artist) => (
+                        <ListItemText> {artist}</ListItemText>
+                      ))}
+                    </List>{" "}
+                  </>
+                ) : null}
               </CardContent>
-            </CardContent>{" "}
+            </CardContent>
           </>
         ) : (
           <Loader />
