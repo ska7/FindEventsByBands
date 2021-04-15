@@ -98,7 +98,7 @@ const customStyles = (image) => {
 };
 
 export const EventDetails = (props) => {
-  const { match, location } = props;
+  const { match, location, eventID } = props;
 
   const [event, setEvent] = useState({});
   const [artists, setArtists] = useState([]);
@@ -107,9 +107,11 @@ export const EventDetails = (props) => {
     "https://i.scdn.co/image/cec568293ff75ff6fcf9b284b8f387a4b1c8a00f";
 
   useEffect(() => {
+    // If URL does not contain the id, eventID will be passed into request
+    const id = match ? match.params.eventID : eventID;
     axios
       .get(
-        `https://api.songkick.com/api/3.0/events/${match.params.eventID}.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
+        `https://api.songkick.com/api/3.0/events/${id}.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
       )
       .then(({ data }) => {
         setEvent(data.resultsPage.results.event);
@@ -126,7 +128,7 @@ export const EventDetails = (props) => {
   return (
     <div className="event-details-container">
       <Card className={classes.root}>
-        {artists.length && imageURL ? (
+        {artists.length ? (
           <>
             <List className={classes.artists}>
               {artists.slice(0, 3).map((artist) => (
@@ -138,11 +140,15 @@ export const EventDetails = (props) => {
             </List>
             <CardContent className={classes.cardContainer}>
               <CardContent className={classes.eventInfoContainer}>
-                <CardMedia
-                  image={imageURL}
-                  title="bandImage"
-                  className={classes.bandImage}
-                />
+                {imageURL ? (
+                  <CardMedia
+                    image={imageURL}
+                    title="bandImage"
+                    className={classes.bandImage}
+                  />
+                ) : (
+                  <Loader />
+                )}
                 <CardContent className={classes.eventMeta}>
                   <Typography variant="h7">{event.start.date}</Typography>
                   <Typography variant="h6">{event.displayName}</Typography>

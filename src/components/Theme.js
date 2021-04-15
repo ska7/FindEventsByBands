@@ -26,7 +26,7 @@ export const theme = createMuiTheme({
   },
   card: {
     margin: "25px auto 0px auto",
-    height: "750px",
+    height: "700px",
     width: "80%",
     borderRadius: "10px",
     boxShadow: "1px 0px 10px 2px black",
