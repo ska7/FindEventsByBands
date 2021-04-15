@@ -9,6 +9,7 @@ import { theme } from "./components/Theme";
 import { Band } from "./components/Band";
 import { SimilarBands } from "./components/SimilarBands";
 import { FavoritesContextProvider } from "./components/context/favoritesContext";
+import { EventsCarousel } from "./components/EventsCarousel";
 
 function App() {
   return (
@@ -23,7 +24,7 @@ function App() {
                 <>
                   <Input />
                   <FavoritesContextProvider>
-                    <EventDetails {...props} />
+                    <EventsCarousel />
                     <Favorites />
                   </FavoritesContextProvider>
                 </>

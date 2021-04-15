@@ -22,14 +22,17 @@ const customStyles = (image) => {
         width: "100%",
       },
       eventInfoContainer: {
+        height: "250px",
+        display: "flex",
         color: "white",
         width: "100%",
-        padding: "30px 0px 0px 0px",
+        padding: "0px 0px 0px 0px",
+        borderBottom: "1px solid white",
         "& span": {
           padding: "0px 10px",
         },
         "& h6": {
-          padding: "20px 10px",
+          padding: "40px 10px",
           fontWeight: "900",
         },
         "& h5": {
@@ -43,6 +46,10 @@ const customStyles = (image) => {
           width: "100%",
           color: "white",
         },
+      },
+      eventMeta: {
+        height: "100%",
+        color: "white",
       },
       artists: {
         display: "flex",
@@ -61,25 +68,30 @@ const customStyles = (image) => {
       },
       lineUp: {
         width: "100%",
-        display: "flex",
-        flexDirection: "column",
+        textAlign: "center",
+        flexDirection: "row",
         alignItems: "center",
-        marginTop: "35px",
+        margin: "35px 0px",
         color: "white",
+        padding: "10px",
         // overflowWrap: "break-word",
-        "& p": {
-          padding: "25px",
+        "& li:nth-child(1)": { color: "yellow" },
+
+        "& li": {
+          display: "inline",
+          padding: "10px 10px",
+          margin: "10px",
         },
       },
       bandImage: {
-        height: "0",
+        height: "100%",
         // paddingTop: "59.25%",
         paddingTop: "29.25%",
         backgroundAttachment: "fixed",
         // backgroundPosition: "50% 30%",
         backgroundPosition: "50% 30%",
         backgroundSize: "cover",
-        width: "50%",
+        width: "60%",
       },
     })
   );
@@ -114,7 +126,7 @@ export const EventDetails = (props) => {
   return (
     <div className="event-details-container">
       <Card className={classes.root}>
-        {artists.length ? (
+        {artists.length && imageURL ? (
           <>
             <List className={classes.artists}>
               {artists.slice(0, 3).map((artist) => (
@@ -125,28 +137,32 @@ export const EventDetails = (props) => {
               ) : null}
             </List>
             <CardContent className={classes.cardContainer}>
-              <CardMedia
-                image={imageURL}
-                title="bandImage"
-                className={classes.bandImage}
-              />
               <CardContent className={classes.eventInfoContainer}>
-                <Typography variant="h7">{event.start.date}</Typography>
-                <Typography variant="h6">{event.displayName}</Typography>
-                <Typography variant="subtitle1">
-                  {event.location.city}
-                </Typography>
-                {artists.length > 1 ? (
-                  <>
-                    <Typography variant="h4">Line Up:</Typography>
-                    <List className={classes.lineUp}>
-                      {artists.map((artist) => (
-                        <ListItemText> {artist}</ListItemText>
-                      ))}
-                    </List>{" "}
-                  </>
-                ) : null}
+                <CardMedia
+                  image={imageURL}
+                  title="bandImage"
+                  className={classes.bandImage}
+                />
+                <CardContent className={classes.eventMeta}>
+                  <Typography variant="h7">{event.start.date}</Typography>
+                  <Typography variant="h6">{event.displayName}</Typography>
+                  <Typography variant="subtitle1">
+                    {event.location.city}
+                  </Typography>
+                </CardContent>
               </CardContent>
+
+              {artists.length > 1 ? (
+                <>
+                  {/* <Typography variant="h4">Line Up:</Typography> */}
+                  <ul className={classes.lineUp}>
+                    <ListItemText>All Artists:</ListItemText>
+                    {artists.map((artist) => (
+                      <li> {artist}</li>
+                    ))}
+                  </ul>
+                </>
+              ) : null}
             </CardContent>
           </>
         ) : (
