@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
+
 import { makeStyles } from "@material-ui/core/styles";
+import { Container, Typography } from "@material-ui/core";
 import List from "@material-ui/core/List";
 import ListItem from "@material-ui/core/ListItem";
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -17,17 +19,14 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     color: "white",
     flexDirection: "column",
-    "& .MuiListItem-root": {
-      height: "70px",
-      "&:hover": {
-        backgroundColor: "rgba(0, 0, 0, 0.1)",
-      },
-    },
+  },
+  container: {
+    display: "flex",
+    flexDirection: "row",
   },
   checkbox: {
-    color: "white",
     "&:hover": {
-      backgroundColor: "rgba(255,255,255, 0.2)",
+      backgroundColor: "rgba(255,255,255, 0.7)",
       borderRadius: "50%",
     },
   },
@@ -35,7 +34,24 @@ const useStyles = makeStyles((theme) => ({
     ...theme.links,
   },
   listItem: {
-    width: "95%",
+    height: "130px",
+    "&:hover": {
+      backgroundColor: "rgba(255,255,255, 0.2)",
+    },
+  },
+  eventDate: {
+    width: "10%",
+    padding: "0",
+    margin: "0",
+  },
+  location: {
+    fontWeight: "300",
+  },
+  eventName: {
+    width: "80%",
+  },
+  date: {
+    fontWeight: "900",
   },
 }));
 
@@ -51,6 +67,41 @@ const updateFavorites = (event, favorites, setFavorites) => {
     const updatedFavorites = [...favorites, event];
     setFavorites([...updatedFavorites]);
   }
+};
+
+const formatDate = (date) => {
+  // Date should come as yyyy-mm-dd
+
+  let [year, month, day] = date.split("-");
+  if (month.includes("0")) month = month.replace("0", "");
+
+  const months = [
+    "#",
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC",
+  ];
+
+  return `${months[month]} ${day}`;
+};
+
+const formatTime = (time) => {
+  // Time should come as hh:mm:ss
+
+  const [hours, minutes] = time.split(":");
+
+  console.log(hours, minutes);
+
+  return `${hours}:${minutes}`;
 };
 
 export const Events = (props) => {
@@ -84,18 +135,21 @@ export const Events = (props) => {
         events.map((event) => {
           const labelId = `checkbox-list-secondary-label-${event.id}`;
           return (
-            <ListItem key={event.id} button>
-              <Link
-                className={classes.link}
-                to={`/band/${match.params.bandName}/event/${event.id}`}
-              >
-                <ListItemText
-                  id={labelId}
-                  primary={event.displayName}
-                  className={classes.listItem}
-                  // onClick
-                />
-              </Link>
+            <ListItem key={event.id} button className={classes.listItem}>
+              <Container className={classes.eventDate}>
+                <Typography color="secondary" className={classes.date}>
+                  {formatDate(event.start.date)}
+                </Typography>
+                {event.start.time && (
+                  <Typography>{formatTime(event.start.time)}</Typography>
+                )}
+              </Container>
+              <Container className={classes.eventName}>
+                <Typography>{event.displayName}</Typography>
+                <Typography className={classes.location}>
+                  {event.location.city}
+                </Typography>
+              </Container>
               <ListItemSecondaryAction>
                 <FormControlLabel
                   control={

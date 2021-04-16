@@ -5,7 +5,7 @@ import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { CardContent, List, ListItemText, Typography } from "@material-ui/core";
-import { useSpotify } from "./spotifyAPI";
+import { useSpotify } from "./hooks/spotifyAPI";
 import { Loader } from "./Loader";
 
 const customStyles = (image) => {

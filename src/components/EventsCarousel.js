@@ -25,7 +25,12 @@ export const EventsCarousel = () => {
 
   const classes = useStyles();
   return (
-    <Carousel className={classes.carousel} autoPlay timeout={1000}>
+    <Carousel
+      className={classes.carousel}
+      autoPlay
+      timeout={100}
+      interval={5000}
+    >
       {favorites.map((event) => (
         <EventDetails eventID={event.id} />
       ))}

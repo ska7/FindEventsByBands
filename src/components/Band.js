@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { fetchBandImage } from "./spotifyAPI";
+import { fetchBandImage } from "./hooks/spotifyAPI";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
 import { Events } from "./Events";
-import { Favorites } from "./Favorites";
 
 const customStyles = (image) => {
   return makeStyles((theme) =>
