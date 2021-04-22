@@ -34,13 +34,20 @@ const useStyles = makeStyles((theme) => ({
     ...theme.links,
   },
   listItem: {
+    paddingTop: "20px",
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-around",
     // minHeight: "150px",
     height: "auto",
+    transition: "all 0.5s ease",
+    borderTop: "1px solid rgba(255, 255, 255, 0.0)",
+    borderBottom: "1px solid rgba(255, 255, 255, 0)",
     "&:hover": {
-      backgroundColor: "rgba(255,255,255, 0.2)",
+      // backgroundColor: "rgba(255,255,255, 0.1)",
+      backgroundColor: "rgba(0,0,0, 0.2)",
+      borderTop: "1px solid rgba(255, 255, 255, 0.3)",
+      borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
     },
   },
 }));
@@ -59,7 +66,10 @@ export const Events = (props) => {
           return (
             <ListItem key={event.id} button className={classes.listItem}>
               <EventGeneralInformation event={event} />
-              <EventLineUp artists={event.performance} />
+              <EventLineUp
+                artists={event.performance.map((artist) => artist.displayName)}
+                collapse={true}
+              />
             </ListItem>
           );
         })

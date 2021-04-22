@@ -68,7 +68,6 @@ export const Band = (props) => {
             const events = res.data.resultsPage.results.event;
             if (events !== undefined) {
               setEvents(events);
-              // console.log("events", events);
             } else {
               console.log("no events");
               setEvents("");

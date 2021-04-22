@@ -117,19 +117,20 @@ export const EventGeneralInformation = ({ event }) => {
           {event.location.city}
         </Typography>
       </Container>
-      <ListItemSecondaryAction>
-        <FormControlLabel
-          control={
-            <Checkbox
-              icon={<FavoriteBorder fontSize="medium" color="secondary" />}
-              onClick={() => updateFavorites(event, favorites, setFavorites)}
-              checked={checkIfSaved(event.id, favorites)}
-              checkedIcon={<Favorite />}
-              name="checkedH"
-            />
-          }
-        />
-      </ListItemSecondaryAction>
+      <FormControlLabel
+        control={
+          <Checkbox
+            icon={<FavoriteBorder fontSize="medium" color="secondary" />}
+            onClick={() => updateFavorites(event, favorites, setFavorites)}
+            checked={checkIfSaved(event.id, favorites)}
+            checkedIcon={<Favorite />}
+            name="checkedH"
+          />
+        }
+      />
+      {/* <ListItemSecondaryAction>
+        
+      </ListItemSecondaryAction> */}
     </Container>
   );
 };

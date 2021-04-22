@@ -27,7 +27,7 @@ export const EventsCarousel = () => {
   return (
     <Carousel
       className={classes.carousel}
-      autoPlay
+      autoPlay={false}
       timeout={100}
       interval={5000}
     >

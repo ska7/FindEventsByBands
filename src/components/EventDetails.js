@@ -4,9 +4,20 @@ import axios from "axios";
 import Card from "@material-ui/core/Card";
 import CardMedia from "@material-ui/core/CardMedia";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { CardContent, List, ListItemText, Typography } from "@material-ui/core";
+import {
+  CardContent,
+  List,
+  ListItemText,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableRow,
+  Typography,
+} from "@material-ui/core";
 import { useSpotify } from "./hooks/spotifyAPI";
 import { Loader } from "./Loader";
+import { EventLineUp } from "./EventLineUp";
 
 const customStyles = (image) => {
   return makeStyles((theme) =>
@@ -20,6 +31,15 @@ const customStyles = (image) => {
         margin: 0,
         padding: 0,
         width: "100%",
+      },
+      artist: {
+        fontSize: "13px",
+        color: "white",
+        transition: "all 0.2s ease",
+        borderBottom: "none",
+        "&:hover": {
+          fontWeight: "800",
+        },
       },
       eventInfoContainer: {
         height: "250px",
@@ -57,7 +77,7 @@ const customStyles = (image) => {
         justifyContent: "center",
         alignItems: "center",
         // background: "#212527",
-        background: "#6280A5",
+        // background: "#6280A5",
         color: "white",
         textAlign: "center",
         padding: "20px 10px",
@@ -97,9 +117,27 @@ const customStyles = (image) => {
   );
 };
 
+const createTableRow = (artists, classes) => {
+  const chunks = [];
+
+  for (let i = 5; i < artists.length; i += 5) {
+    const chunk = artists.slice(i, i + 5);
+    chunks.push(
+      <TableRow>
+        {chunk.map((artist) => (
+          <TableCell className={classes.artist}>{artist.displayName}</TableCell>
+        ))}
+      </TableRow>
+    );
+  }
+
+  console.log(chunks);
+
+  return <TableBody>{chunks.map((chunk) => chunk)}</TableBody>;
+};
+
 export const EventDetails = (props) => {
   const { match, location, eventID } = props;
-
   const [event, setEvent] = useState({});
   const [artists, setArtists] = useState([]);
   // const imageURL = useSpotify(`${artists[0]}`);
@@ -157,18 +195,11 @@ export const EventDetails = (props) => {
                   </Typography>
                 </CardContent>
               </CardContent>
-
-              {artists.length > 1 ? (
-                <>
-                  {/* <Typography variant="h4">Line Up:</Typography> */}
-                  <ul className={classes.lineUp}>
-                    <ListItemText>All Artists:</ListItemText>
-                    {artists.map((artist) => (
-                      <li> {artist}</li>
-                    ))}
-                  </ul>
-                </>
-              ) : null}
+              <EventLineUp
+                artists={artists}
+                collapse={false}
+                cancelled="true"
+              />
             </CardContent>
           </>
         ) : (

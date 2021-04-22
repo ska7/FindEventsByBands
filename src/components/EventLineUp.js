@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import {
+  Button,
   Container,
   List,
   ListItem,
@@ -20,6 +21,7 @@ import { Collapse } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => ({
   unfolded: {
+    position: "relative",
     display: "flex",
     flexDirection: "column",
     height: "auto",
@@ -29,15 +31,28 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "center",
   },
+  iconWrapper: {
+    width: "100%",
+    display: "flex",
+    justifyContent: "center",
+    position: "sticky",
+    top: "0",
+  },
   artist: {
     fontSize: "13px",
     color: "white",
+    transition: "all 0.2s ease",
+    borderBottom: "none",
+    "&:hover": {
+      fontWeight: "800",
+    },
   },
   icon: {
     width: "50px",
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+
     "&:hover": {},
   },
   lineupTitle: {
@@ -48,10 +63,25 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
   },
+  arrowSeeLess: {
+    borderRadius: "50%",
+    background: "rgba(255,255,255,0.1)",
+  },
+  labels: {
+    display: "flex",
+    flexDirectios: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    padding: "50px 15px",
+  },
+  btnCancelled: {
+    pointerEvents: "none",
+    background: "#840809",
+    color: "white",
+  },
 }));
 
 const createTableRow = (artists, classes) => {
-  // let numberOfRows = (artists.length / 5);
   const chunks = [];
 
   for (let i = 5; i < artists.length; i += 5) {
@@ -59,7 +89,7 @@ const createTableRow = (artists, classes) => {
     chunks.push(
       <TableRow>
         {chunk.map((artist) => (
-          <TableCell className={classes.artist}>{artist.displayName}</TableCell>
+          <TableCell className={classes.artist}>{artist}</TableCell>
         ))}
       </TableRow>
     );
@@ -68,27 +98,41 @@ const createTableRow = (artists, classes) => {
   return chunks;
 };
 
-export const EventLineUp = ({ artists }) => {
+export const EventLineUp = ({ artists, cancelled, collapse }) => {
   const classes = useStyles();
-
-  const [isUnfolded, setUnfolded] = useState(false);
+  // If collapse prop is true, isUnfolded
+  const [isUnfolded, setUnfolded] = useState(!collapse);
   return (
     <Container className={classes.unfolded}>
-      <Container
-        style={{ width: "100%", display: "flex", justifyContent: "center" }}
-      >
-        <IconButton
-          color="secondary"
-          onClick={() => setUnfolded(!isUnfolded)}
-          className={classes.icon}
-        >
-          {isUnfolded ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-        </IconButton>
-      </Container>
+      {collapse && (
+        <Container className={classes.iconWrapper}>
+          <IconButton
+            color="secondary"
+            onClick={() => setUnfolded(!isUnfolded)}
+            className={classes.icon}
+          >
+            {isUnfolded ? (
+              <ExpandLessIcon className={classes.arrowSeeLess} />
+            ) : (
+              <ExpandMoreIcon />
+            )}
+          </IconButton>
+        </Container>
+      )}
       <Collapse in={isUnfolded} timeout="auto">
-        <Typography className={classes.lineupTitle}>LINEUP</Typography>
+        <Container className={classes.labels}>
+          <Typography className={classes.lineupTitle}>LINEUP</Typography>
+          {cancelled ? (
+            <Button variant="contained" className={classes.btnCancelled}>
+              Cancelled
+            </Button>
+          ) : (
+            <Button variant="outlined" color="secondary">
+              Buy Tickets
+            </Button>
+          )}
+        </Container>
         <TableContainer>
-          <Table className={classes.table} size="small"></Table>
           <TableBody>{createTableRow(artists, classes)}</TableBody>
         </TableContainer>
       </Collapse>

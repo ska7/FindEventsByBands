@@ -30,7 +30,8 @@ li {
 }
 
 .App {
-  background: url("./img/background.png");
+  // background: url("./img/background.png");
+  background: white;
   height: 100vh;
   width: 100vw;
   background-size: cover;
@@ -91,7 +92,8 @@ li {
 
 .favorites-container {
   grid-area: favorites;
-  background: #212527;
+  // background: #212527;
+  background: white;
   box-shadow: 1px 0px 10px 5px black;
   position: relative;
   // .events-looker-logo {
@@ -132,7 +134,6 @@ li {
 }
 
 // Carousel
-
 
 // Animations
 
