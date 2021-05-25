@@ -29,7 +29,7 @@ export const theme = createMuiTheme({
     height: "700px",
     width: "80%",
     borderRadius: "10px",
-    boxShadow: "1px 0px 10px 2px black",
+    boxShadow: "-5px 0px 10px 2px black",
   },
   links: {
     color: "white",

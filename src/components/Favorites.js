@@ -10,24 +10,26 @@ const useStyles = makeStyles((theme) =>
     title: {
       width: "100%",
       height: "50px",
-      color: "#A7929E",
+      color: "white",
       margin: "10px auto",
       padding: "10px",
       fontWeight: "500",
       textAlign: "center",
-      textShadow: "0px 0px 5px black",
+      margin: "35px 0px",
+      // textShadow: "0px 0px 5px black",
+    },
+    listItem: {
+      fontFamily: "Inconsolata, monospace",
+      padding: "20px",
+      height: "auto",
+      "&:hover": {
+        backgroundColor: "rgba(0, 0, 0, 0.2)",
+      },
     },
     list: {
       width: "100%",
       color: "white",
       flexDirection: "column",
-      "& .MuiListItem-root": {
-        padding: "10px",
-        height: "auto",
-        "&:hover": {
-          backgroundColor: "rgba(0, 0, 0, 0.2)",
-        },
-      },
     },
   })
 );
@@ -44,7 +46,11 @@ export const Favorites = () => {
       </Typography>
       <List className={classes.list}>
         {favorites.map((event) => {
-          return <ListItem>{event.displayName}</ListItem>;
+          return (
+            <ListItem className={classes.listItem}>
+              {event.displayName}
+            </ListItem>
+          );
         })}
       </List>
     </div>

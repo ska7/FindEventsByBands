@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 
 import {
   Button,
@@ -24,12 +25,11 @@ const useStyles = makeStyles((theme) => ({
     position: "relative",
     display: "flex",
     flexDirection: "column",
+    justifyContent: "center",
     height: "auto",
     padding: "0",
     margin: "0",
     width: "100%",
-    display: "flex",
-    justifyContent: "center",
   },
   iconWrapper: {
     width: "100%",
@@ -41,10 +41,26 @@ const useStyles = makeStyles((theme) => ({
   artist: {
     fontSize: "13px",
     color: "white",
-    transition: "all 0.2s ease",
+    transition: "all 0.3s ease",
     borderBottom: "none",
+  },
+  table: {
+    width: "95%",
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  tableBody: {
+    maxWidth: "100%",
+  },
+  link: {
+    color: "white",
+    transition: "all 0.3s ease",
+    textDecoration: "none",
+    borderBottom: "1px solid transparent",
     "&:hover": {
-      fontWeight: "800",
+      borderBottom: "1px solid white",
     },
   },
   icon: {
@@ -84,11 +100,25 @@ const useStyles = makeStyles((theme) => ({
 const createTableRow = (artists, classes) => {
   const chunks = [];
 
-  for (let i = 5; i < artists.length; i += 5) {
-    const chunk = artists.slice(i, i + 5);
+  const artistsArray = artists.map((artist) => artist.artistName);
+
+  if (artistsArray.length >= 5) {
+    for (let i = 5; i < artistsArray.length; i += 5) {
+      const chunk = artistsArray.slice(i, i + 5);
+      chunks.push(
+        <TableRow>
+          {chunk.map((artist) => (
+            <TableCell className={classes.artist}>
+              <Link className={classes.link}>{artist}</Link>
+            </TableCell>
+          ))}
+        </TableRow>
+      );
+    }
+  } else {
     chunks.push(
       <TableRow>
-        {chunk.map((artist) => (
+        {artistsArray.map((artist) => (
           <TableCell className={classes.artist}>{artist}</TableCell>
         ))}
       </TableRow>
@@ -121,7 +151,9 @@ export const EventLineUp = ({ artists, cancelled, collapse }) => {
       )}
       <Collapse in={isUnfolded} timeout="auto">
         <Container className={classes.labels}>
-          <Typography className={classes.lineupTitle}>LINEUP</Typography>
+          <Typography className={classes.lineupTitle}>
+            {artists.length === 1 ? "SOLO CONCERT" : "LINEUP"}
+          </Typography>
           {cancelled ? (
             <Button variant="contained" className={classes.btnCancelled}>
               Cancelled
@@ -132,8 +164,10 @@ export const EventLineUp = ({ artists, cancelled, collapse }) => {
             </Button>
           )}
         </Container>
-        <TableContainer>
-          <TableBody>{createTableRow(artists, classes)}</TableBody>
+        <TableContainer className={classes.table}>
+          <TableBody className={classes.tableBody}>
+            {createTableRow(artists, classes)}
+          </TableBody>
         </TableContainer>
       </Collapse>
     </Container>
