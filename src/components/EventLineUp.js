@@ -100,16 +100,19 @@ const useStyles = makeStyles((theme) => ({
 const createTableRow = (artists, classes) => {
   const chunks = [];
 
-  const artistsArray = artists.map((artist) => artist.artistName);
-
-  if (artistsArray.length >= 5) {
-    for (let i = 5; i < artistsArray.length; i += 5) {
-      const chunk = artistsArray.slice(i, i + 5);
+  if (artists.length >= 5) {
+    for (let i = 5; i < artists.length; i += 5) {
+      const chunk = artists.slice(i, i + 5);
       chunks.push(
         <TableRow>
           {chunk.map((artist) => (
             <TableCell className={classes.artist}>
-              <Link className={classes.link}>{artist}</Link>
+              <Link
+                to={`/band/${artist.name}?bandID=${artist.id}`}
+                className={classes.link}
+              >
+                {artist.name}
+              </Link>
             </TableCell>
           ))}
         </TableRow>
@@ -118,8 +121,8 @@ const createTableRow = (artists, classes) => {
   } else {
     chunks.push(
       <TableRow>
-        {artistsArray.map((artist) => (
-          <TableCell className={classes.artist}>{artist}</TableCell>
+        {artists.map((artist) => (
+          <TableCell className={classes.artist}>{artist.name}</TableCell>
         ))}
       </TableRow>
     );

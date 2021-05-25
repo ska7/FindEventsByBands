@@ -68,7 +68,7 @@ export const Events = (props) => {
               <EventGeneralInformation event={event} />
               <EventLineUp
                 artists={event.performance.map((artist) => {
-                  return { id: artist.id, artistName: artist.displayName };
+                  return { id: artist.id, name: artist.displayName };
                 })}
                 collapse={true}
                 cancelled={event.status === "cancelled" ? true : false}

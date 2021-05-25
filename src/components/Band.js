@@ -6,6 +6,9 @@ import { Card, CardContent, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
 import { Events } from "./Events";
+import { Input } from "@material-ui/core";
+
+// import { EventsFilter } from "./EventsFilter";
 
 const customStyles = (image) => {
   return makeStyles((theme) =>
@@ -23,6 +26,13 @@ const customStyles = (image) => {
         fontSize: "30px",
         height: "70px",
       },
+      subHeader: {
+        background: "rgba(0,0,0,0.8)",
+        color: "white",
+        textAlign: "center",
+        paddingBottom: "20px",
+        fontSize: "20px",
+      },
       eventsList: {
         height: "95%",
         width: "100%",
@@ -32,6 +42,9 @@ const customStyles = (image) => {
     )`,
         backgroundSize: "cover",
         backgroundPosition: "50% 30%",
+      },
+      input: {
+        background: "rgba(0,0,0,0.8)",
       },
     })
   );
@@ -49,6 +62,7 @@ export const Band = (props) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
+  const [filterString, setFilterString] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(location.search).get("bandID");
@@ -87,6 +101,10 @@ export const Band = (props) => {
       <div className="band-events-container">
         <Card className={classes.root}>
           <Typography className={classes.header}>{bandName}</Typography>
+          <Input classNamee={classes.input} fullWidth color="secondary" />
+          <Typography className={classes.subHeader}>
+            found {events.length} events
+          </Typography>
           <CardContent className={classes.eventsList}>
             {loading && !events.length && image ? (
               <Loader />
