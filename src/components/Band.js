@@ -6,9 +6,8 @@ import { Card, CardContent, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
 import { Events } from "./Events";
-import { Input } from "@material-ui/core";
 
-// import { EventsFilter } from "./EventsFilter";
+import { EventsFilter } from "./EventsFilter";
 
 const customStyles = (image) => {
   return makeStyles((theme) =>
@@ -44,7 +43,8 @@ const customStyles = (image) => {
         backgroundPosition: "50% 30%",
       },
       input: {
-        background: "rgba(0,0,0,0.8)",
+        background: "white",
+        padding: "0px 5px",
       },
     })
   );
@@ -101,8 +101,8 @@ export const Band = (props) => {
       <div className="band-events-container">
         <Card className={classes.root}>
           <Typography className={classes.header}>{bandName}</Typography>
-          <Input classNamee={classes.input} fullWidth color="secondary" />
           <Typography className={classes.subHeader}>
+            {/* <EventsFilter setFilterStringFunc={setFilterString} /> */}
             found {events.length} events
           </Typography>
           <CardContent className={classes.eventsList}>

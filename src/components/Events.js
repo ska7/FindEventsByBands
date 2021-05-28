@@ -16,6 +16,8 @@ import { FavoritesContext } from "./context/favoritesContext";
 import { Link } from "react-router-dom";
 import { EventGeneralInformation } from "./EventGeneralInformation";
 import { EventLineUp } from "./EventLineUp";
+import { EventsFilter } from "./EventsFilter";
+import { Event } from "./Event";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -55,27 +57,19 @@ const useStyles = makeStyles((theme) => ({
 export const Events = (props) => {
   const { events, match, location } = props;
   const classes = useStyles();
-
-  useEffect(() => {}, []);
+  const [filterString, setFilterString] = useState("");
 
   return (
     <List dense className={classes.root}>
       {events.length ? (
-        events.map((event) => {
-          const labelId = `checkbox-list-secondary-label-${event.id}`;
-          return (
-            <ListItem key={event.id} button className={classes.listItem}>
-              <EventGeneralInformation event={event} />
-              <EventLineUp
-                artists={event.performance.map((artist) => {
-                  return { id: artist.id, name: artist.displayName };
-                })}
-                collapse={true}
-                cancelled={event.status === "cancelled" ? true : false}
-              />
-            </ListItem>
-          );
-        })
+        <>
+          <EventsFilter setFilterStringFunc={setFilterString} />
+          {filterString
+            ? events
+                .filter((event) => event.location.city.includes(filterString))
+                .map((event) => <Event event={event} />)
+            : events.map((event) => <Event event={event} />)}
+        </>
       ) : (
         <li
           id="no-events"
