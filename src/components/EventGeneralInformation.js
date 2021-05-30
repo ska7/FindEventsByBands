@@ -27,11 +27,12 @@ const useStyles = makeStyles((theme) => ({
   },
   location: {
     fontWeight: "300",
+    color: "grey",
   },
   eventName: {
     width: "80%",
   },
-  name: { fontWeight: "700" },
+  name: { fontWeight: "700", color: "white" },
   date: {
     fontWeight: "900",
   },
@@ -128,9 +129,6 @@ export const EventGeneralInformation = ({ event }) => {
           />
         }
       />
-      {/* <ListItemSecondaryAction>
-        
-      </ListItemSecondaryAction> */}
     </Container>
   );
 };

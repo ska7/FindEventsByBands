@@ -24,6 +24,12 @@ const useStyles = makeStyles((theme) => ({
     width: "100%",
     color: "white",
     flexDirection: "column",
+    padding: 0,
+  },
+  subheader: {
+    background: "#333333",
+    textAlign: "center",
+    padding: "10px 0px",
   },
   container: {},
   checkbox: {
@@ -58,16 +64,26 @@ export const Events = (props) => {
   const { events, match, location } = props;
   const classes = useStyles();
   const [filterString, setFilterString] = useState("");
+  const [eventsNumber, setEventsNumber] = useState("");
 
   return (
     <List dense className={classes.root}>
       {events.length ? (
         <>
+          {/* <Typography className={classes.subheader}>
+            found {eventsNumber} events
+          </Typography> */}
           <EventsFilter setFilterStringFunc={setFilterString} />
           {filterString
             ? events
-                .filter((event) => event.location.city.includes(filterString))
-                .map((event) => <Event event={event} />)
+                .filter((event) =>
+                  event.location.city
+                    .toLowerCase()
+                    .includes(filterString.toLocaleLowerCase())
+                )
+                .map((event) => {
+                  return <Event event={event} />;
+                })
             : events.map((event) => <Event event={event} />)}
         </>
       ) : (
@@ -84,3 +100,27 @@ export const Events = (props) => {
     </List>
   );
 };
+
+// const renderEvents = (events, filterString, updateNumberFunc) => {
+//   let eventsNumber = 0;
+
+//   if (filterString) {
+//     events
+//       .filter((event) =>
+//         event.location.city
+//           .toLowerCase()
+//           .includes(filterString.toLocaleLowerCase())
+//       )
+//       .map((event) => {
+//         eventsNumber++;
+//         return <Event event={event} />;
+//       });
+//   } else {
+//     events.map((event) => {
+//       eventsNumber++;
+//       return <Event event={event} />;
+//     });
+//   }
+//   updateNumberFunc(eventsNumber)
+
+// };

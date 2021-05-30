@@ -96,6 +96,10 @@ export const EventsFilter = ({ setFilterStringFunc }) => {
           color="secondary"
           className={classes.deleteFilterBtn}
           endIcon={<DeleteIcon />}
+          onClick={() => {
+            setActiveFilter("");
+            setFilterStringFunc("");
+          }}
         >
           {activeFilter}
         </Button>

@@ -1,12 +1,20 @@
 import React, { useState, useEffect, useContext } from "react";
 
-import { List, ListItem, Typography } from "@material-ui/core";
+import { Container, List, ListItem, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { getSavedFavorites, useFavorites } from "./hooks/useFavorites";
 import { FavoritesContext } from "./context/favoritesContext";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    container: {
+      background: "#85070b",
+      boxShadow: "1px 0px 10px 5px black",
+      position: "relative",
+      overflowY: "auto",
+      height: "100vh",
+      padding: 0,
+    },
     title: {
       width: "100%",
       height: "50px",
@@ -40,7 +48,8 @@ export const Favorites = () => {
   const { favorites } = useContext(FavoritesContext);
 
   return (
-    <div className="favorites-container">
+    // <div className="favorites-container">
+    <Container className={classes.container}>
       <Typography variant="h5" className={classes.title}>
         FAVORITE EVENTS
       </Typography>
@@ -53,6 +62,7 @@ export const Favorites = () => {
           );
         })}
       </List>
-    </div>
+    </Container>
+    // </div>
   );
 };

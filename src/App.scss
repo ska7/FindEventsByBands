@@ -38,6 +38,7 @@ li {
   display: grid;
   grid-template-columns: 1.5fr 3fr 1fr;
   grid-template-rows: 2fr 2fr;
+  overflow: hidden;
   grid-template-areas:
     "search event favorites"
     "search event favorites"

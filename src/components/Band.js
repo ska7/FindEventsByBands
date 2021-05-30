@@ -7,8 +7,6 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
 import { Events } from "./Events";
 
-import { EventsFilter } from "./EventsFilter";
-
 const customStyles = (image) => {
   return makeStyles((theme) =>
     createStyles({
@@ -62,7 +60,6 @@ export const Band = (props) => {
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
-  const [filterString, setFilterString] = useState("");
 
   useEffect(() => {
     const params = new URLSearchParams(location.search).get("bandID");
@@ -101,10 +98,6 @@ export const Band = (props) => {
       <div className="band-events-container">
         <Card className={classes.root}>
           <Typography className={classes.header}>{bandName}</Typography>
-          <Typography className={classes.subHeader}>
-            {/* <EventsFilter setFilterStringFunc={setFilterString} /> */}
-            found {events.length} events
-          </Typography>
           <CardContent className={classes.eventsList}>
             {loading && !events.length && image ? (
               <Loader />

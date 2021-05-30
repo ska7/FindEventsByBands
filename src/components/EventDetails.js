@@ -18,6 +18,7 @@ import {
 import { useSpotify } from "./hooks/spotifyAPI";
 import { Loader } from "./Loader";
 import { EventLineUp } from "./EventLineUp";
+import { Event } from "./Event";
 
 const customStyles = (image) => {
   return makeStyles((theme) =>
@@ -168,39 +169,7 @@ export const EventDetails = (props) => {
       <Card className={classes.root}>
         {artists.length ? (
           <>
-            <List className={classes.artists}>
-              {artists.slice(0, 3).map((artist) => (
-                <ListItemText>{artist}</ListItemText>
-              ))}
-              {artists.length > 3 ? (
-                <ListItemText>{`and ${artists.length - 3} more`}</ListItemText>
-              ) : null}
-            </List>
-            <CardContent className={classes.cardContainer}>
-              <CardContent className={classes.eventInfoContainer}>
-                {imageURL ? (
-                  <CardMedia
-                    image={imageURL}
-                    title="bandImage"
-                    className={classes.bandImage}
-                  />
-                ) : (
-                  <Loader />
-                )}
-                <CardContent className={classes.eventMeta}>
-                  <Typography variant="h7">{event.start.date}</Typography>
-                  <Typography variant="h6">{event.displayName}</Typography>
-                  <Typography variant="subtitle1">
-                    {event.location.city}
-                  </Typography>
-                </CardContent>
-              </CardContent>
-              <EventLineUp
-                artists={artists}
-                collapse={false}
-                cancelled="true"
-              />
-            </CardContent>
+            <Event event={event} />
           </>
         ) : (
           <Loader />

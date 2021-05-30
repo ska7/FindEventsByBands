@@ -73,6 +73,7 @@ const useStyles = makeStyles((theme) => ({
   },
   lineupTitle: {
     fontWeight: "900",
+    color: "white",
   },
   lineUp: {
     width: "100%",
