@@ -17,6 +17,9 @@ const useStyles = makeStyles((theme) => ({
       borderRadius: "50%",
     },
   },
+  eventTime: {
+    color: "rgb(220,220,220)",
+  },
   link: {
     ...theme.links,
   },
@@ -27,7 +30,7 @@ const useStyles = makeStyles((theme) => ({
   },
   location: {
     fontWeight: "300",
-    color: "grey",
+    color: "rgb(220,220,220)",
   },
   eventName: {
     width: "80%",
@@ -109,7 +112,9 @@ export const EventGeneralInformation = ({ event }) => {
           {formatDate(event.start.date)}
         </Typography>
         {event.start.time && (
-          <Typography>{formatTime(event.start.time)}</Typography>
+          <Typography className={classes.eventTime}>
+            {formatTime(event.start.time)}
+          </Typography>
         )}
       </Container>
       <Container className={classes.eventName}>

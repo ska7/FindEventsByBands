@@ -140,10 +140,11 @@ const createTableRow = (artists, classes) => {
 export const EventDetails = (props) => {
   const { match, location, eventID } = props;
   const [event, setEvent] = useState({});
-  const [artists, setArtists] = useState([]);
-  // const imageURL = useSpotify(`${artists[0]}`);
-  const imageURL =
-    "https://i.scdn.co/image/cec568293ff75ff6fcf9b284b8f387a4b1c8a00f";
+
+  const imageURL = useSpotify(event.performance[0].displayName);
+
+  // const imageURL =
+  //   "https://i.scdn.co/image/cec568293ff75ff6fcf9b284b8f387a4b1c8a00f";
 
   useEffect(() => {
     // If URL does not contain the id, eventID will be passed into request
@@ -154,11 +155,11 @@ export const EventDetails = (props) => {
       )
       .then(({ data }) => {
         setEvent(data.resultsPage.results.event);
-        setArtists(
-          data.resultsPage.results.event.performance.map(
-            (artist) => artist.displayName
-          )
-        );
+        // setArtists(
+        //   data.resultsPage.results.event.performance.map(
+        //     (artist) => artist.displayName
+        //   )
+        // );
       });
   }, []);
 
@@ -167,9 +168,15 @@ export const EventDetails = (props) => {
   return (
     <div className="event-details-container">
       <Card className={classes.root}>
-        {artists.length ? (
+        {event.length ? (
           <>
-            <Event event={event} />
+            <Event
+              event={event}
+              collapse={false}
+              hoverFocus={false}
+              standAlone={true}
+              artistImage={imageURL || ""}
+            />
           </>
         ) : (
           <Loader />

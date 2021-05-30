@@ -82,9 +82,13 @@ export const Events = (props) => {
                     .includes(filterString.toLocaleLowerCase())
                 )
                 .map((event) => {
-                  return <Event event={event} />;
+                  return (
+                    <Event event={event} collapse={true} standAlone={false} />
+                  );
                 })
-            : events.map((event) => <Event event={event} />)}
+            : events.map((event) => (
+                <Event event={event} collapse={true} standAlone={false} />
+              ))}
         </>
       ) : (
         <li

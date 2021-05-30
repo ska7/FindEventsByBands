@@ -43,6 +43,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     transition: "all 0.3s ease",
     borderBottom: "none",
+    textAlign: "center",
   },
   table: {
     width: "95%",
@@ -123,7 +124,9 @@ const createTableRow = (artists, classes) => {
     chunks.push(
       <TableRow>
         {artists.map((artist) => (
-          <TableCell className={classes.artist}>{artist.name}</TableCell>
+          <TableCell className={classes.artist}>
+            <Typography className={classes.link}>{artist.name}</Typography>
+          </TableCell>
         ))}
       </TableRow>
     );
