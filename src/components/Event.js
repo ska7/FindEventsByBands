@@ -7,11 +7,9 @@ import { makeStyles } from "@material-ui/core/styles";
 import { theme } from "./Theme";
 import { useSpotify } from "./hooks/spotifyAPI";
 
-const useStyles = (standAlone, artistImage) => {
+const useStyles = (isStandAlone) => {
   const standAloneStyles = {
     listItem: {
-      background: `url(${artistImage})`,
-      backgroundSize: "cover",
       paddingTop: "20px",
       display: "flex",
       flexDirection: "column",
@@ -45,27 +43,26 @@ const useStyles = (standAlone, artistImage) => {
   };
 
   return makeStyles((theme) =>
-    standAlone ? standAloneStyles : itemOfListStyles
+    isStandAlone ? standAloneStyles : itemOfListStyles
   );
 };
 
 export const Event = ({
   event,
   collapse = true,
-  standAlone,
+  isStandAlone,
   artistImage = "",
 }) => {
-  const [imageURL, setImageURL] = useState("");
-
-  const classes = useStyles(standAlone, artistImage)();
+  const classes = useStyles(isStandAlone)();
   return (
     <ListItem key={event.id} button className={classes.listItem}>
-      <EventGeneralInformation event={event} />
+      <EventGeneralInformation event={event} isStandAlone={isStandAlone} />
       <EventLineUp
         artists={event.performance.map((artist) => {
           return { id: artist.id, name: artist.displayName };
         })}
         collapse={collapse}
+        isStandAlone={isStandAlone}
         cancelled={event.status === "cancelled" ? true : false}
       />
     </ListItem>

@@ -32,7 +32,7 @@ export const EventsCarousel = () => {
       interval={5000}
     >
       {favorites.map((event) => (
-        <EventDetails eventID={event.id} />
+        <EventDetails event={event} />
       ))}
     </Carousel>
   );

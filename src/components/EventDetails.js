@@ -26,7 +26,10 @@ const customStyles = (image) => {
       root: {
         ...theme.card,
         overflow: "auto",
-        background: "#212527",
+        background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
+          ${image})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       },
       cardContainer: {
         margin: 0,
@@ -138,49 +141,21 @@ const createTableRow = (artists, classes) => {
 };
 
 export const EventDetails = (props) => {
-  const { match, location, eventID } = props;
-  const [event, setEvent] = useState({});
+  const { match, location, event } = props;
 
   const imageURL = useSpotify(event.performance[0].displayName);
 
-  // const imageURL =
-  //   "https://i.scdn.co/image/cec568293ff75ff6fcf9b284b8f387a4b1c8a00f";
-
-  useEffect(() => {
-    // If URL does not contain the id, eventID will be passed into request
-    const id = match ? match.params.eventID : eventID;
-    axios
-      .get(
-        `https://api.songkick.com/api/3.0/events/${id}.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
-      )
-      .then(({ data }) => {
-        setEvent(data.resultsPage.results.event);
-        // setArtists(
-        //   data.resultsPage.results.event.performance.map(
-        //     (artist) => artist.displayName
-        //   )
-        // );
-      });
-  }, []);
-
-  const classes = customStyles()();
+  const classes = customStyles(imageURL)();
 
   return (
     <div className="event-details-container">
       <Card className={classes.root}>
-        {event.length ? (
-          <>
-            <Event
-              event={event}
-              collapse={false}
-              hoverFocus={false}
-              standAlone={true}
-              artistImage={imageURL || ""}
-            />
-          </>
-        ) : (
-          <Loader />
-        )}
+        <Event
+          event={event}
+          collapse={false}
+          hoverFocus={false}
+          isStandAlone={true}
+        />
       </Card>
     </div>
   );

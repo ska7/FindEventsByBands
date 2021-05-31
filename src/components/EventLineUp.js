@@ -19,91 +19,182 @@ import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import TableRow from "@material-ui/core/TableRow";
 import { Collapse } from "@material-ui/core";
+import { theme } from "./Theme";
 
-const useStyles = makeStyles((theme) => ({
-  unfolded: {
-    position: "relative",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    height: "auto",
-    padding: "0",
-    margin: "0",
-    width: "100%",
-  },
-  iconWrapper: {
-    width: "100%",
-    display: "flex",
-    justifyContent: "center",
-    position: "sticky",
-    top: "0",
-  },
-  artist: {
-    fontSize: "13px",
-    color: "white",
-    transition: "all 0.3s ease",
-    borderBottom: "none",
-    textAlign: "center",
-  },
-  table: {
-    width: "95%",
-    display: "flex",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  tableBody: {
-    maxWidth: "100%",
-  },
-  link: {
-    color: "white",
-    transition: "all 0.3s ease",
-    textDecoration: "none",
-    borderBottom: "1px solid transparent",
-    "&:hover": {
-      borderBottom: "1px solid white",
+const useStyles = (isStandAlone) => {
+  const standAloneStyles = {
+    unfolded: {
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      height: "auto",
+      padding: "0",
+      margin: "0",
+      width: "100%",
     },
-  },
-  icon: {
-    width: "50px",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
+    iconWrapper: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      position: "sticky",
+      top: "0",
+    },
+    artist: {
+      fontSize: "13px",
+      color: "white",
+      transition: "all 0.3s ease",
+      borderBottom: "none",
+      textAlign: "center",
+    },
+    singleArtist: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+    },
+    table: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    tableBody: {
+      width: "100%",
+    },
+    link: {
+      color: "white",
+      transition: "all 0.3s ease",
+      textDecoration: "none",
+      borderBottom: "1px solid transparent",
+      "&:hover": {
+        borderBottom: "1px solid white",
+      },
+    },
+    icon: {
+      width: "50px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
 
-    "&:hover": {},
-  },
-  lineupTitle: {
-    fontWeight: "900",
-    color: "white",
-  },
-  lineUp: {
-    width: "100%",
-    display: "flex",
-    flexDirection: "column",
-  },
-  arrowSeeLess: {
-    borderRadius: "50%",
-    background: "rgba(255,255,255,0.1)",
-  },
-  labels: {
-    display: "flex",
-    flexDirectios: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    padding: "50px 15px",
-  },
-  btnCancelled: {
-    pointerEvents: "none",
-    background: "#840809",
-    color: "white",
-  },
-}));
+      "&:hover": {},
+    },
+    lineupLabel: {
+      fontWeight: "900",
+      marginTop: "40px",
+      color: "white",
+    },
+    lineUp: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+    },
+    arrowSeeLess: {
+      borderRadius: "50%",
+      background: "rgba(255,255,255,0.1)",
+    },
+    labels: {
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+      padding: "50px 15px",
+    },
+    btnCancelled: {
+      pointerEvents: "none",
+      background: "#840809",
+      color: "white",
+    },
+  };
+
+  const itemOfListStyles = {
+    unfolded: {
+      position: "relative",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      height: "auto",
+      padding: "0",
+      margin: "0",
+      width: "100%",
+    },
+    iconWrapper: {
+      width: "100%",
+      display: "flex",
+      justifyContent: "center",
+      position: "sticky",
+      top: "0",
+    },
+    artist: {
+      fontSize: "13px",
+      color: "white",
+      transition: "all 0.3s ease",
+      borderBottom: "none",
+      textAlign: "center",
+    },
+    table: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    tableBody: {
+      maxWidth: "100%",
+    },
+    link: {
+      color: "white",
+      transition: "all 0.3s ease",
+      textDecoration: "none",
+      borderBottom: "1px solid transparent",
+      "&:hover": {
+        borderBottom: "1px solid white",
+      },
+    },
+    icon: {
+      width: "50px",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+
+      "&:hover": {},
+    },
+    lineupTitle: {
+      fontWeight: "900",
+      color: "white",
+    },
+    lineUp: {
+      width: "100%",
+      display: "flex",
+      flexDirection: "column",
+    },
+    arrowSeeLess: {
+      borderRadius: "50%",
+      background: "rgba(255,255,255,0.1)",
+    },
+    labels: {
+      display: "flex",
+      flexDirectios: "row",
+      justifyContent: "space-between",
+      alignItems: "center",
+      padding: "50px 15px",
+    },
+    btnCancelled: {
+      pointerEvents: "none",
+      background: "#840809",
+      color: "white",
+    },
+  };
+  return makeStyles((theme) =>
+    isStandAlone ? standAloneStyles : itemOfListStyles
+  );
+};
 
 const createTableRow = (artists, classes) => {
   const chunks = [];
 
   if (artists.length >= 5) {
-    for (let i = 5; i < artists.length; i += 5) {
+    for (let i = 0; i < artists.length; i += 5) {
       const chunk = artists.slice(i, i + 5);
       chunks.push(
         <TableRow>
@@ -120,6 +211,16 @@ const createTableRow = (artists, classes) => {
         </TableRow>
       );
     }
+  } else if (artists.length === 1) {
+    chunks.push(
+      <TableRow className={classes.singleArtist}>
+        {artists.map((artist) => (
+          <TableCell className={classes.artist}>
+            <Typography className={classes.link}>{artist.name}</Typography>
+          </TableCell>
+        ))}
+      </TableRow>
+    );
   } else {
     chunks.push(
       <TableRow>
@@ -135,8 +236,8 @@ const createTableRow = (artists, classes) => {
   return chunks;
 };
 
-export const EventLineUp = ({ artists, cancelled, collapse }) => {
-  const classes = useStyles();
+export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
+  const classes = useStyles(isStandAlone)();
   // If collapse prop is true, isUnfolded
   const [isUnfolded, setUnfolded] = useState(!collapse);
   return (
@@ -158,9 +259,6 @@ export const EventLineUp = ({ artists, cancelled, collapse }) => {
       )}
       <Collapse in={isUnfolded} timeout="auto">
         <Container className={classes.labels}>
-          <Typography className={classes.lineupTitle}>
-            {artists.length === 1 ? "SOLO CONCERT" : "LINEUP"}
-          </Typography>
           {cancelled ? (
             <Button variant="contained" className={classes.btnCancelled}>
               Cancelled
@@ -170,6 +268,9 @@ export const EventLineUp = ({ artists, cancelled, collapse }) => {
               Buy Tickets
             </Button>
           )}
+          <Typography className={classes.lineupLabel}>
+            {artists.length === 1 ? "SOLO CONCERT" : "LINEUP"}
+          </Typography>
         </Container>
         <TableContainer className={classes.table}>
           <TableBody className={classes.tableBody}>

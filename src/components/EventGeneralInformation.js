@@ -9,43 +9,94 @@ import Checkbox from "@material-ui/core/Checkbox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import { FavoritesContext } from "./context/favoritesContext";
+import { theme } from "./Theme";
 
-const useStyles = makeStyles((theme) => ({
-  checkbox: {
-    "&:hover": {
-      backgroundColor: "rgba(255,255,255, 0.7)",
-      borderRadius: "50%",
+const useStyles = (isStandAlone) => {
+  const standAloneStyles = {
+    checkbox: {
+      "&:hover": {
+        backgroundColor: "rgba(255,255,255, 0.7)",
+        borderRadius: "50%",
+      },
     },
-  },
-  eventTime: {
-    color: "rgb(220,220,220)",
-  },
-  link: {
-    ...theme.links,
-  },
-  eventDate: {
-    width: "10%",
-    padding: "0",
-    margin: "0",
-  },
-  location: {
-    fontWeight: "300",
-    color: "rgb(220,220,220)",
-  },
-  eventName: {
-    width: "80%",
-  },
-  name: { fontWeight: "700", color: "white" },
-  date: {
-    fontWeight: "900",
-  },
-  folded: {
-    display: "flex",
-    flexDirection: "row",
+    eventTime: {
+      color: "rgb(220,220,220)",
+      fontSize: "17px",
+    },
+    link: {
+      ...theme.links,
+    },
+    eventDate: {
+      width: "10%",
+      padding: "0",
+      margin: "0",
+    },
+    location: {
+      fontWeight: "500",
+      color: "rgb(220,220,220)",
+      textAlign: "center",
+    },
+    eventName: {
+      width: "80%",
+    },
+    name: {
+      fontWeight: "700",
+      color: "white",
+      fontSize: "30px",
+      textAlign: "center",
+    },
+    date: {
+      fontWeight: "900",
+      fontSize: "25px",
+    },
+    container: {
+      display: "flex",
+      flexDirection: "row",
+      width: "100%",
+    },
+  };
 
-    width: "100%",
-  },
-}));
+  const itemOfListStyles = {
+    checkbox: {
+      "&:hover": {
+        backgroundColor: "rgba(255,255,255, 0.7)",
+        borderRadius: "50%",
+      },
+    },
+    eventTime: {
+      color: "rgb(220,220,220)",
+    },
+    link: {
+      ...theme.links,
+    },
+    eventDate: {
+      width: "10%",
+      padding: "0",
+      margin: "0",
+    },
+    location: {
+      fontWeight: "300",
+      color: "rgb(220,220,220)",
+    },
+    eventName: {
+      width: "80%",
+    },
+    name: { fontWeight: "700", color: "white" },
+    date: {
+      fontWeight: "900",
+    },
+    container: {
+      display: "flex",
+      flexDirection: "row",
+
+      width: "100%",
+    },
+  };
+
+  return makeStyles((theme) =>
+    isStandAlone ? standAloneStyles : itemOfListStyles
+  );
+};
 
 const formatDate = (date) => {
   // Date should come as yyyy-mm-dd
@@ -100,13 +151,13 @@ const updateFavorites = (event, favorites, setFavorites) => {
   }
 };
 
-export const EventGeneralInformation = ({ event }) => {
-  const classes = useStyles();
+export const EventGeneralInformation = ({ event, isStandAlone }) => {
+  const classes = useStyles(isStandAlone)();
 
   const { favorites, setFavorites } = useContext(FavoritesContext);
 
   return (
-    <Container className={classes.folded}>
+    <Container className={classes.container}>
       <Container className={classes.eventDate}>
         <Typography color="secondary" className={classes.date}>
           {formatDate(event.start.date)}
