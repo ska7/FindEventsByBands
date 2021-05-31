@@ -105,6 +105,19 @@ const useStyles = (isStandAlone) => {
       background: "#840809",
       color: "white",
     },
+    btnPurchase: {
+      transition: "all 0.8s ease",
+
+      color: "black",
+      width: "130px",
+      height: "50px",
+      color: theme.palette.secondary.main,
+      border: `1px solid ${theme.palette.secondary.main}`,
+      "&:hover": {
+        background: theme.palette.secondary.main,
+        color: "black",
+      },
+    },
   };
 
   const itemOfListStyles = {
@@ -223,7 +236,7 @@ const createTableRow = (artists, classes) => {
     );
   } else {
     chunks.push(
-      <TableRow>
+      <TableRow className={classes.singleArtist}>
         {artists.map((artist) => (
           <TableCell className={classes.artist}>
             <Typography className={classes.link}>{artist.name}</Typography>
@@ -264,7 +277,11 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
               Cancelled
             </Button>
           ) : (
-            <Button variant="outlined" color="secondary">
+            <Button
+              // variant=""
+              color="secondary"
+              className={classes.btnPurchase}
+            >
               Buy Tickets
             </Button>
           )}
