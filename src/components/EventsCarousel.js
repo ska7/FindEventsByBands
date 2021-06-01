@@ -27,9 +27,10 @@ export const EventsCarousel = () => {
   return (
     <Carousel
       className={classes.carousel}
-      autoPlay={false}
-      timeout={100}
-      interval={5000}
+      // autoPlay={false}
+      navButtonsAlwaysVisible
+      timeout={700}
+      interval={12000}
     >
       {favorites.map((event) => (
         <EventDetails event={event} />

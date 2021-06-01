@@ -55,7 +55,13 @@ export const Event = ({
 }) => {
   const classes = useStyles(isStandAlone)();
   return (
-    <ListItem key={event.id} button className={classes.listItem} button={false}>
+    <ListItem
+      key={event.id}
+      button
+      className={classes.listItem}
+      button={false}
+      disableGutters
+    >
       <EventGeneralInformation event={event} isStandAlone={isStandAlone} />
       <EventLineUp
         artists={event.performance.map((artist) => {

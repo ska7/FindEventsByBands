@@ -38,21 +38,26 @@ const useStyles = (isStandAlone) => {
     },
     eventName: {
       width: "80%",
+      padding: "0px 40px",
     },
     name: {
       fontWeight: "700",
       color: "white",
-      fontSize: "30px",
+      fontSize: "27px",
       textAlign: "center",
     },
     date: {
       fontWeight: "900",
       fontSize: "25px",
     },
-    container: {
+    mainContainer: {
       display: "flex",
       flexDirection: "row",
+      justifyContent: "center",
+      alignItems: "center",
       width: "100%",
+      // background: `rgba(0, 0, 0, 0.5)`,
+      padding: "20px 30px",
     },
   };
 
@@ -157,7 +162,7 @@ export const EventGeneralInformation = ({ event, isStandAlone }) => {
   const { favorites, setFavorites } = useContext(FavoritesContext);
 
   return (
-    <Container className={classes.container}>
+    <Container className={classes.mainContainer}>
       <Container className={classes.eventDate}>
         <Typography color="secondary" className={classes.date}>
           {formatDate(event.start.date)}
@@ -177,10 +182,17 @@ export const EventGeneralInformation = ({ event, isStandAlone }) => {
       <FormControlLabel
         control={
           <Checkbox
-            icon={<FavoriteBorder fontSize="medium" color="secondary" />}
+            icon={
+              <FavoriteBorder
+                fontSize={isStandAlone ? "large" : "medium"}
+                color="secondary"
+              />
+            }
             onClick={() => updateFavorites(event, favorites, setFavorites)}
             checked={checkIfSaved(event.id, favorites)}
-            checkedIcon={<Favorite />}
+            checkedIcon={
+              <Favorite fontSize={isStandAlone ? "large" : "medium"} />
+            }
             name="checkedH"
           />
         }

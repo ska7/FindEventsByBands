@@ -12,12 +12,16 @@ const customStyles = (image) => {
     createStyles({
       root: {
         ...theme.card,
+        background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
+          "${image}"
+        )`,
       },
       header: {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "rgba(0,0,0,0.8)",
+        background: "rgba(0,0,0,0.6)",
+        boxShadow: "0px 0px 25px 10px black",
         color: "white",
         textAlign: "center",
         fontSize: "30px",
@@ -34,9 +38,7 @@ const customStyles = (image) => {
         height: "95%",
         width: "100%",
         overflow: "auto",
-        background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
-      "${image}"
-    )`,
+
         backgroundSize: "cover",
         backgroundPosition: "50% 30%",
       },

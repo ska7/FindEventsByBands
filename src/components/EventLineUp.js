@@ -61,6 +61,8 @@ const useStyles = (isStandAlone) => {
     },
     tableBody: {
       width: "100%",
+      overflowY: "auto",
+      height: "350px",
     },
     link: {
       color: "white",
@@ -81,7 +83,7 @@ const useStyles = (isStandAlone) => {
     },
     lineupLabel: {
       fontWeight: "900",
-      marginTop: "40px",
+      // marginTop: "40px",
       color: "white",
     },
     lineUp: {
@@ -94,11 +96,12 @@ const useStyles = (isStandAlone) => {
       background: "rgba(255,255,255,0.1)",
     },
     labels: {
+      marginTop: "20px",
       display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
+      flexDirection: "row",
+      justifyContent: "space-between",
       alignItems: "center",
-      padding: "50px 15px",
+      padding: "50px 30px",
     },
     btnCancelled: {
       pointerEvents: "none",
