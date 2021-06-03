@@ -15,14 +15,14 @@ const useStyles = makeStyles((theme) => ({
     textAlign: "center",
     height: "100%",
   },
-  container: {
+  inputContainer: {
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     borderRadius: "15px",
     position: "relative",
-    margin: "20px auto",
+    margin: "40px auto",
     height: "35px",
     overflow: "hidden",
     background: "#333333",
@@ -54,7 +54,7 @@ export const EventsFilter = ({ setFilterStringFunc }) => {
   const classes = useStyles();
 
   return (
-    <Container className={classes.container} disableGutters>
+    <Container className={classes.inputContainer} disableGutters>
       <Input
         className={classes.input}
         inputProps={{ style: { textAlign: "center" } }}

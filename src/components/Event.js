@@ -65,7 +65,7 @@ export const Event = ({
       <EventGeneralInformation event={event} isStandAlone={isStandAlone} />
       <EventLineUp
         artists={event.performance.map((artist) => {
-          return { id: artist.id, name: artist.displayName };
+          return { id: artist.artist.id, name: artist.displayName };
         })}
         collapse={collapse}
         isStandAlone={isStandAlone}

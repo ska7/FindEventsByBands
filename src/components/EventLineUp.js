@@ -110,7 +110,6 @@ const useStyles = (isStandAlone) => {
     },
     btnPurchase: {
       transition: "all 0.8s ease",
-
       color: "black",
       width: "130px",
       height: "50px",
@@ -193,12 +192,24 @@ const useStyles = (isStandAlone) => {
       flexDirectios: "row",
       justifyContent: "space-between",
       alignItems: "center",
-      padding: "50px 15px",
+      padding: "50px 30px",
     },
     btnCancelled: {
       pointerEvents: "none",
       background: "#840809",
       color: "white",
+    },
+    btnPurchase: {
+      transition: "all 0.8s ease",
+      color: "black",
+      width: "130px",
+      height: "50px",
+      color: theme.palette.secondary.main,
+      border: `1px solid ${theme.palette.secondary.main}`,
+      "&:hover": {
+        background: theme.palette.secondary.main,
+        color: "black",
+      },
     },
   };
   return makeStyles((theme) =>
@@ -289,7 +300,7 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
             </Button>
           )}
           <Typography className={classes.lineupLabel}>
-            {artists.length === 1 ? "SOLO CONCERT" : "LINEUP"}
+            {artists.length === 1 ? "SOLO CONCERT" : "WHO'S PERFORMING?"}
           </Typography>
         </Container>
         <TableContainer className={classes.table}>

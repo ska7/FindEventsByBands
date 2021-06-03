@@ -57,49 +57,43 @@ const updateImage = async (bandName, updateState) => {
 
 export const Band = (props) => {
   const { match, location } = props;
-  const [bandID, setBandID] = useState("");
-  const [bandName, setBandName] = useState("");
+
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    const params = new URLSearchParams(location.search).get("bandID");
-    console.log(props);
+    const bandID = new URLSearchParams(location.search).get("bandID");
+    setLoading(true);
+    updateImage(match.params.bandName, setImage);
 
-    setBandID(params);
-    setBandName(match.params.bandName);
-    updateImage(bandName, setImage);
-    if (bandID) {
-      try {
-        setLoading(true);
-        axios
-          .get(
-            `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
-          )
-          .then((res) => {
-            const events = res.data.resultsPage.results.event;
-            if (events !== undefined) {
-              setEvents(events);
-            } else {
-              console.log("no events");
-              setEvents("");
-            }
-          });
-      } catch (e) {
-        console.log("error");
-      } finally {
+    // We should make sure both the image and the events are ready before setting the loader off
+
+    axios
+      .get(
+        `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
+      )
+      .then((res) => {
+        const events = res.data.resultsPage.results.event;
+        if (events !== undefined) {
+          setEvents(events);
+        } else {
+        }
+      })
+      .catch((e) => {})
+      .finally(() => {
         setLoading(false);
-      }
-    }
-  }, [bandID, location]);
+      });
+  }, [location]);
 
   const classes = customStyles(image)();
   return (
     <>
       <div className="band-events-container">
         <Card className={classes.root}>
-          <Typography className={classes.header}>{bandName}</Typography>
+          <Typography className={classes.header}>
+            {match.params.bandName}
+          </Typography>
           <CardContent className={classes.eventsList}>
             {loading && !events.length && image ? (
               <Loader />

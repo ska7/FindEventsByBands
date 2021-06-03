@@ -90,7 +90,7 @@ const useStyles = (isStandAlone) => {
     date: {
       fontWeight: "900",
     },
-    container: {
+    mainContainer: {
       display: "flex",
       flexDirection: "row",
 

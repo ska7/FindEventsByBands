@@ -32,6 +32,11 @@ const useStyles = makeStyles((theme) => ({
     padding: "10px 0px",
   },
   container: {},
+  filterContainer: {
+    // position: "fixed",
+    width: "100%",
+    height: "70px",
+  },
   checkbox: {
     "&:hover": {
       backgroundColor: "rgba(255,255,255, 0.7)",
@@ -46,13 +51,11 @@ const useStyles = makeStyles((theme) => ({
     display: "flex",
     flexDirection: "column",
     justifyContent: "space-around",
-    // minHeight: "150px",
     height: "auto",
     transition: "all 0.5s ease",
     borderTop: "1px solid rgba(255, 255, 255, 0.0)",
     borderBottom: "1px solid rgba(255, 255, 255, 0)",
     "&:hover": {
-      // backgroundColor: "rgba(255,255,255, 0.1)",
       backgroundColor: "rgba(0,0,0, 0.2)",
       borderTop: "1px solid rgba(255, 255, 255, 0.3)",
       borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
@@ -70,10 +73,9 @@ export const Events = (props) => {
     <List dense className={classes.root}>
       {events.length ? (
         <>
-          {/* <Typography className={classes.subheader}>
-            found {eventsNumber} events
-          </Typography> */}
-          <EventsFilter setFilterStringFunc={setFilterString} />
+          <Container className={classes.filterContainer}>
+            <EventsFilter setFilterStringFunc={setFilterString} />
+          </Container>
           {filterString
             ? events
                 .filter((event) =>

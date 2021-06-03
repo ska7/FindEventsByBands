@@ -24,7 +24,6 @@ const useStyles = makeStyles((theme) =>
       fontWeight: "500",
       textAlign: "center",
       margin: "35px 0px",
-      // textShadow: "0px 0px 5px black",
     },
     listItem: {
       fontFamily: "Inconsolata, monospace",
