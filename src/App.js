@@ -46,7 +46,7 @@ function App() {
             />
             <Route
               exact
-              path="/band/:bandName/event/:eventID"
+              path="event/:eventID"
               render={(props) => (
                 <>
                   <Input />

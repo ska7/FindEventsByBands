@@ -25,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
     color: "white",
     flexDirection: "column",
     padding: 0,
+    position: "relative",
   },
   subheader: {
     background: "#333333",
@@ -61,6 +62,19 @@ const useStyles = makeStyles((theme) => ({
       borderBottom: "1px solid rgba(255, 255, 255, 0.3)",
     },
   },
+  filterContainer: {
+    position: "sticky",
+    top: "5%",
+    zIndex: "10",
+  },
+  eventsList: {
+    maxHeight: "500px",
+    width: "100%",
+    overflowY: "auto",
+    backgroundSize: "cover",
+    backgroundPosition: "50% 30%",
+    padding: 0,
+  },
 }));
 
 export const Events = (props) => {
@@ -76,21 +90,23 @@ export const Events = (props) => {
           <Container className={classes.filterContainer}>
             <EventsFilter setFilterStringFunc={setFilterString} />
           </Container>
-          {filterString
-            ? events
-                .filter((event) =>
-                  event.location.city
-                    .toLowerCase()
-                    .includes(filterString.toLocaleLowerCase())
-                )
-                .map((event) => {
-                  return (
-                    <Event event={event} collapse={true} standAlone={false} />
-                  );
-                })
-            : events.map((event) => (
-                <Event event={event} collapse={true} standAlone={false} />
-              ))}
+          <Container className={classes.eventsList}>
+            {filterString
+              ? events
+                  .filter((event) =>
+                    event.location.city
+                      .toLowerCase()
+                      .includes(filterString.toLocaleLowerCase())
+                  )
+                  .map((event) => {
+                    return (
+                      <Event event={event} collapse={true} standAlone={false} />
+                    );
+                  })
+              : events.map((event) => (
+                  <Event event={event} collapse={true} standAlone={false} />
+                ))}
+          </Container>
         </>
       ) : (
         <li
@@ -106,27 +122,3 @@ export const Events = (props) => {
     </List>
   );
 };
-
-// const renderEvents = (events, filterString, updateNumberFunc) => {
-//   let eventsNumber = 0;
-
-//   if (filterString) {
-//     events
-//       .filter((event) =>
-//         event.location.city
-//           .toLowerCase()
-//           .includes(filterString.toLocaleLowerCase())
-//       )
-//       .map((event) => {
-//         eventsNumber++;
-//         return <Event event={event} />;
-//       });
-//   } else {
-//     events.map((event) => {
-//       eventsNumber++;
-//       return <Event event={event} />;
-//     });
-//   }
-//   updateNumberFunc(eventsNumber)
-
-// };

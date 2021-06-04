@@ -80,6 +80,7 @@ export const EventsFilter = ({ setFilterStringFunc }) => {
           onClick={() => {
             setFilterStringFunc(value);
             setActiveFilter(value);
+            setValue("");
           }}
         >
           APPLY FILTER

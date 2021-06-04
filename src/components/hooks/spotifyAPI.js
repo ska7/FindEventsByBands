@@ -13,7 +13,12 @@ const getAccessToken = async () => {
         "Basic MzA0OTdkOTRiYjMwNGYyNjhhMzY4ZDdjMWRiODFkMzk6ZDBiYjYzZmVkMTA1NDQ4NTlkYTdiMmVlMjMwMjk2YTI=",
     },
     data: "grant_type=client_credentials",
-  }).then(({ data }) => data.access_token);
+  })
+    .then(({ data }) => {
+      console.log(data);
+      return data.access_token;
+    })
+    .catch((e) => console.log("Err on getting token", e));
 };
 
 const getBand = async (searchString, token) => {
@@ -30,7 +35,9 @@ const getBand = async (searchString, token) => {
       type: "artist",
       limit: 1,
     },
-  }).then(({ data }) => data);
+  })
+    .then(({ data }) => data)
+    .catch((e) => console.log("Err on getting band", e));
 };
 
 let accessToken = "";

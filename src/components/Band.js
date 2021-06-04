@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { fetchBandImage } from "./hooks/spotifyAPI";
+import { fetchBandImage, useSpotify } from "./hooks/spotifyAPI";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
@@ -15,6 +15,7 @@ const customStyles = (image) => {
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
           "${image}"
         )`,
+        position: "relative",
       },
       header: {
         display: "flex",
@@ -33,14 +34,6 @@ const customStyles = (image) => {
         textAlign: "center",
         paddingBottom: "20px",
         fontSize: "20px",
-      },
-      eventsList: {
-        height: "95%",
-        width: "100%",
-        overflow: "auto",
-
-        backgroundSize: "cover",
-        backgroundPosition: "50% 30%",
       },
       input: {
         background: "white",
@@ -62,28 +55,40 @@ export const Band = (props) => {
   const [loading, setLoading] = useState(false);
   const [image, setImage] = useState("");
 
+  // const artistImage = useSpotify(match.params.bandName);
+
   useEffect(() => {
     const bandID = new URLSearchParams(location.search).get("bandID");
     setLoading(true);
-    updateImage(match.params.bandName, setImage);
+    // updateImage(match.params.bandName, setImage);
 
     // We should make sure both the image and the events are ready before setting the loader off
 
-    axios
-      .get(
-        `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
-      )
-      .then((res) => {
-        const events = res.data.resultsPage.results.event;
-        if (events !== undefined) {
-          setEvents(events);
-        } else {
-        }
-      })
-      .catch((e) => {})
-      .finally(() => {
-        setLoading(false);
-      });
+    // Group all these actions into one async function "init"
+
+    // The events are not reinitialize, we should reset events each time a new band is forming
+
+    const init = async () => {
+      setEvents([]);
+      // setImage(artistImage);
+      await axios
+        .get(
+          `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
+        )
+        .then((res) => {
+          const events = res.data.resultsPage.results.event;
+          if (events !== undefined) {
+            setEvents(events);
+          } else {
+          }
+        })
+        .catch((e) => console.log("error", e))
+        .finally(() => {
+          setLoading(false);
+        });
+    };
+
+    init();
   }, [location]);
 
   const classes = customStyles(image)();
@@ -94,13 +99,9 @@ export const Band = (props) => {
           <Typography className={classes.header}>
             {match.params.bandName}
           </Typography>
-          <CardContent className={classes.eventsList}>
-            {loading && !events.length && image ? (
-              <Loader />
-            ) : (
-              <Events events={events} {...props} />
-            )}
-          </CardContent>
+          {/* <CardContent className={classes.eventsList}> */}
+          {loading ? <Loader /> : <Events events={events} {...props} />}
+          {/* </CardContent> */}
         </Card>
       </div>
     </>

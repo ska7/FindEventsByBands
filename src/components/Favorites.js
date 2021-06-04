@@ -4,6 +4,7 @@ import { Container, List, ListItem, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { getSavedFavorites, useFavorites } from "./hooks/useFavorites";
 import { FavoritesContext } from "./context/favoritesContext";
+import { Link } from "react-router-dom";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -27,16 +28,21 @@ const useStyles = makeStyles((theme) =>
     },
     listItem: {
       fontFamily: "Inconsolata, monospace",
+      transition: "all 0.5s ease",
       padding: "20px",
       height: "auto",
       "&:hover": {
         backgroundColor: "rgba(0, 0, 0, 0.2)",
+        cursor: "pointer",
       },
     },
     list: {
       width: "100%",
       color: "white",
       flexDirection: "column",
+    },
+    link: {
+      ...theme.links,
     },
   })
 );
@@ -56,7 +62,9 @@ export const Favorites = () => {
         {favorites.map((event) => {
           return (
             <ListItem className={classes.listItem}>
-              {event.displayName}
+              <Link to={`event/${event.id}`} className={classes.link}>
+                {event.displayName}
+              </Link>
             </ListItem>
           );
         })}

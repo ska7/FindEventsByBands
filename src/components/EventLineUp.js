@@ -238,22 +238,17 @@ const createTableRow = (artists, classes) => {
         </TableRow>
       );
     }
-  } else if (artists.length === 1) {
-    chunks.push(
-      <TableRow className={classes.singleArtist}>
-        {artists.map((artist) => (
-          <TableCell className={classes.artist}>
-            <Typography className={classes.link}>{artist.name}</Typography>
-          </TableCell>
-        ))}
-      </TableRow>
-    );
   } else {
     chunks.push(
       <TableRow className={classes.singleArtist}>
         {artists.map((artist) => (
           <TableCell className={classes.artist}>
-            <Typography className={classes.link}>{artist.name}</Typography>
+            <Link
+              to={`/band/${artist.name}?bandID=${artist.id}`}
+              className={classes.link}
+            >
+              {artist.name}
+            </Link>
           </TableCell>
         ))}
       </TableRow>

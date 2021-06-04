@@ -143,7 +143,8 @@ const createTableRow = (artists, classes) => {
 export const EventDetails = (props) => {
   const { match, location, event } = props;
 
-  const imageURL = useSpotify(event.performance[0].displayName);
+  // const imageURL = useSpotify(event.performance[0].displayName);
+  const imageURL = "";
 
   const classes = customStyles(imageURL)();
 
