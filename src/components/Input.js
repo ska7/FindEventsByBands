@@ -1,11 +1,29 @@
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Input as Inp } from "@material-ui/core";
+import { Container, Input as Inp, List } from "@material-ui/core";
 
 import React, { useEffect, useRef, useState } from "react";
-import { MatchedBands } from "./old-components/MatchedBands";
+import { MatchedBands } from "./MatchedBands";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
+    searchInputListContainer: {
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      padding: 0,
+    },
+    searchInputList: {
+      padding: 0,
+      position: "relative",
+      marginTop: "25px",
+      height: "auto",
+      width: "90%",
+      borderRadius: "10px",
+      transition: "all 0.3s ease",
+      "&:focus-within": {
+        boxShadow: "0px 0px 10px 1px black",
+      },
+    },
     root: {
       ...theme.input,
       height: "50px",
@@ -29,8 +47,8 @@ export const Input = (props) => {
   };
 
   return (
-    <div className="input-container">
-      <ul className="input-list">
+    <Container className={classes.searchInputListContainer}>
+      <List className={classes.searchInputList}>
         <li>
           <Inp
             className={classes.root}
@@ -52,7 +70,7 @@ export const Input = (props) => {
             onClick={() => setInputValue("")}
           />
         ) : null}
-      </ul>
-    </div>
+      </List>
+    </Container>
   );
 };

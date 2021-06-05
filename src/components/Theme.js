@@ -35,4 +35,10 @@ export const theme = createMuiTheme({
     color: "white",
     textDecoration: "none",
   },
+  centerColumn: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

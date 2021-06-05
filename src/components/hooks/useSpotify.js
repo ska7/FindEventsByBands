@@ -1,19 +1,24 @@
 import axios from "axios";
+import qs from "qs";
 import { throttle } from "lodash";
 import { useRef, useState, useEffect } from "react";
 
+const tokenOption = {
+  method: "post",
+  url: "https://accounts.spotify.com/api/token",
+  headers: {
+    accept: "application/json",
+    "content-type": "application/x-www-form-urlencoded",
+    authorization:
+      "Basic MzA0OTdkOTRiYjMwNGYyNjhhMzY4ZDdjMWRiODFkMzk6ZDBiYjYzZmVkMTA1NDQ4NTlkYTdiMmVlMjMwMjk2YTI=",
+  },
+  data: qs.stringify({ grant_type: "client_credentials" }),
+};
+
+// https://community.spotify.com/t5/Spotify-for-Developers/Token-API-CORS-error/td-p/5218186
+
 const getAccessToken = async () => {
-  return await axios({
-    method: "post",
-    url: "https://accounts.spotify.com/api/token",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/x-www-form-urlencoded",
-      Authorization:
-        "Basic MzA0OTdkOTRiYjMwNGYyNjhhMzY4ZDdjMWRiODFkMzk6ZDBiYjYzZmVkMTA1NDQ4NTlkYTdiMmVlMjMwMjk2YTI=",
-    },
-    data: "grant_type=client_credentials",
-  })
+  return await axios()
     .then(({ data }) => {
       console.log(data);
       return data.access_token;
@@ -64,11 +69,11 @@ export const useSpotify = (searchString) => {
   const [image, setImage] = useState("");
 
   useEffect(() => {
-    const init = async () => {
-      const image = await fetchBandImage(searchString);
-      setImage(image);
-    };
-    init();
+    // const init = async () => {
+    //   const image = await fetchBandImage(searchString);
+    //   setImage(image);
+    // };
+    // init();
   }, []);
 
   return image;

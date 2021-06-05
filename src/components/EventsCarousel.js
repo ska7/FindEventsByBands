@@ -27,7 +27,7 @@ export const EventsCarousel = () => {
   return (
     <Carousel
       className={classes.carousel}
-      // autoPlay={false}
+      autoPlay={false}
       navButtonsAlwaysVisible
       timeout={700}
       interval={12000}

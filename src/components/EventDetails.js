@@ -15,7 +15,7 @@ import {
   TableRow,
   Typography,
 } from "@material-ui/core";
-import { useSpotify } from "./hooks/spotifyAPI";
+import { useSpotify } from "./hooks/useSpotify";
 import { Loader } from "./Loader";
 import { EventLineUp } from "./EventLineUp";
 import { Event } from "./Event";
@@ -122,45 +122,22 @@ const customStyles = (image) => {
   );
 };
 
-const createTableRow = (artists, classes) => {
-  const chunks = [];
-
-  for (let i = 5; i < artists.length; i += 5) {
-    const chunk = artists.slice(i, i + 5);
-    chunks.push(
-      <TableRow>
-        {chunk.map((artist) => (
-          <TableCell className={classes.artist}>{artist.displayName}</TableCell>
-        ))}
-      </TableRow>
-    );
-  }
-
-  console.log(chunks);
-
-  return <TableBody>{chunks.map((chunk) => chunk)}</TableBody>;
-};
-
-export const EventDetails = (props) => {
-  const { match, location, event = {} } = props;
-
-  // favorites.find((favorite) => match.params.eventID == favorite.id)
-
-  // const imageURL = useSpotify(event.performance[0].displayName);
-  const imageURL = "";
+export const EventDetails = ({ event }) => {
+  const imageURL = useSpotify(event.performance[0].displayName);
+  // const imageURL = "";
 
   const classes = customStyles(imageURL)();
 
   return (
-    <div className="event-details-container">
-      <Card className={classes.root}>
-        <Event
-          event={event}
-          collapse={false}
-          hoverFocus={false}
-          isStandAlone={true}
-        />
-      </Card>
-    </div>
+    // <div className="event-details-container">
+    <Card className={classes.root}>
+      <Event
+        event={event}
+        collapse={false}
+        hoverFocus={false}
+        isStandAlone={true}
+      />
+    </Card>
+    // </div>
   );
 };

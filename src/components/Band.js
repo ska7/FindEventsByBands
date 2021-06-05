@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 
-import { fetchBandImage, useSpotify } from "./hooks/spotifyAPI";
+import { fetchBandImage, useSpotify } from "./hooks/useSpotify";
 import { Card, CardContent, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
