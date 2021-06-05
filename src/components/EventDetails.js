@@ -19,6 +19,7 @@ import { useSpotify } from "./hooks/spotifyAPI";
 import { Loader } from "./Loader";
 import { EventLineUp } from "./EventLineUp";
 import { Event } from "./Event";
+import { useFavorites } from "./hooks/useFavorites";
 
 const customStyles = (image) => {
   return makeStyles((theme) =>
@@ -141,7 +142,9 @@ const createTableRow = (artists, classes) => {
 };
 
 export const EventDetails = (props) => {
-  const { match, location, event } = props;
+  const { match, location, event = {} } = props;
+
+  // favorites.find((favorite) => match.params.eventID == favorite.id)
 
   // const imageURL = useSpotify(event.performance[0].displayName);
   const imageURL = "";

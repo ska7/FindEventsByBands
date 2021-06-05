@@ -62,7 +62,7 @@ export const Favorites = () => {
         {favorites.map((event) => {
           return (
             <ListItem className={classes.listItem}>
-              <Link to={`event/${event.id}`} className={classes.link}>
+              <Link to={`/event/${event.id}`} className={classes.link}>
                 {event.displayName}
               </Link>
             </ListItem>
