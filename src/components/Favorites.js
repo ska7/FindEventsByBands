@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
+      gridArea: "favorites",
       background: "#85070b",
       boxShadow: "1px 0px 10px 5px black",
       position: "relative",

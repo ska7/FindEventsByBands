@@ -1,5 +1,5 @@
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Container, Input as Inp, List } from "@material-ui/core";
+import { Container, Input, List } from "@material-ui/core";
 
 import React, { useEffect, useRef, useState } from "react";
 import { MatchedBands } from "./MatchedBands";
@@ -50,21 +50,19 @@ export const Search = (props) => {
   return (
     <Container className={classes.searchInputListContainer}>
       <List className={classes.searchInputList}>
-        <li>
-          <Inp
-            className={classes.root}
-            classes={{
-              root: !inputValue && classes.inputEmpty,
-              focused: classes.focused,
-            }}
-            disableUnderline="false"
-            color="primary"
-            autoFocus="true"
-            value={inputValue}
-            onChange={handleChange}
-            placeholder="type in a band name"
-          />
-        </li>
+        <Input
+          className={classes.root}
+          classes={{
+            root: !inputValue && classes.inputEmpty,
+            focused: classes.focused,
+          }}
+          disableUnderline="false"
+          color="primary"
+          autoFocus="true"
+          value={inputValue}
+          onChange={handleChange}
+          placeholder="type in a band name"
+        />
         {inputValue ? (
           <MatchedBands
             searchString={inputValue}

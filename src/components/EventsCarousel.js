@@ -10,6 +10,7 @@ import { EventDetails } from "./EventDetails";
 const useStyles = makeStyles((theme) =>
   createStyles({
     carousel: {
+      gridArea: "event",
       height: "800px",
       width: "100%",
     },

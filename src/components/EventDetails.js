@@ -25,8 +25,8 @@ const customStyles = (image) => {
   return makeStyles((theme) =>
     createStyles({
       mainContainer: {
+        // gridArea: "event",
         ...theme.card,
-        gridArea: "event",
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
           ${image})`,
         backgroundSize: "cover",
