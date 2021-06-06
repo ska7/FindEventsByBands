@@ -7,6 +7,7 @@ import { MatchedBands } from "./MatchedBands";
 const useStyles = makeStyles((theme) =>
   createStyles({
     searchInputListContainer: {
+      gridArea: "search",
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const Input = (props) => {
+export const Search = (props) => {
   const classes = useStyles();
   const [inputValue, setInputValue] = useState("");
 

@@ -9,10 +9,6 @@ import { EventDetails } from "./EventDetails";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
-    root: {
-      ...theme.card,
-      height: "500px !important",
-    },
     carousel: {
       height: "800px",
       width: "100%",

@@ -1,21 +1,53 @@
 import "./App.scss";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { Input } from "./components/Input";
-
+import { Search } from "./components/Search";
 import { Favorites } from "./components/Favorites";
-import { EventDetails } from "./components/EventDetails";
-import { ThemeProvider } from "@material-ui/core";
-import { theme } from "./components/Theme";
-import { Band } from "./components/Band";
 import { SimilarBands } from "./components/SimilarBands";
 import { FavoritesContextProvider } from "./components/context/favoritesContext";
 import { EventsCarousel } from "./components/EventsCarousel";
 import { FavoriteEvent } from "./components/FavoriteEvent";
 
-function App() {
+import { Container, ThemeProvider } from "@material-ui/core";
+import { theme } from "./components/Theme";
+import { Band } from "./components/Band";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
+
+const useStyles = makeStyles((theme) =>
+  createStyles({
+    mainAppContainer: {
+      display: "grid",
+      gridTemplateColumns: "1.5fr 3fr 1fr",
+      gridTemplateRows: "2fr 2fr",
+      gridTemplateRows: "2fr 2fr",
+      padding: 0,
+      margin: 0,
+      overflow: "hidden",
+      height: "100vh",
+      width: "100vw",
+      background: `radial-gradient(
+        circle,
+        rgba(2, 0, 36, 1) 0%,
+        rgba(169, 169, 169, 1) 0%,
+        rgba(169, 169, 169, 1) 47%,
+        rgba(145, 144, 144, 1) 100%
+      )`,
+      backgroundSize: "cover",
+      gridTemplateAreas: `"search event favorites"
+      "search event favorites"
+      "similarBands event favorites"`,
+    },
+  })
+);
+
+const App = () => {
+  const classes = useStyles();
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
+      <Container
+        className={classes.mainAppContainer}
+        disableGutters
+        maxWidth="false"
+      >
         <Router>
           <Switch>
             <Route
@@ -23,7 +55,7 @@ function App() {
               path="/"
               render={(props) => (
                 <>
-                  <Input />
+                  <Search />
                   <FavoritesContextProvider>
                     <EventsCarousel />
                     <Favorites />
@@ -36,7 +68,7 @@ function App() {
               path="/band/:bandName"
               render={(props) => (
                 <>
-                  <Input />
+                  <Search />
                   <SimilarBands />
                   <FavoritesContextProvider>
                     <Band {...props} />
@@ -50,7 +82,7 @@ function App() {
               path="/event/:eventID"
               render={(props) => (
                 <>
-                  <Input />
+                  <Search />
                   <FavoritesContextProvider>
                     <FavoriteEvent {...props} />
                     <Favorites />
@@ -60,9 +92,9 @@ function App() {
             />
           </Switch>
         </Router>
-      </div>
+      </Container>
     </ThemeProvider>
   );
-}
+};
 
 export default App;

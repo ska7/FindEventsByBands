@@ -24,9 +24,9 @@ import { useFavorites } from "./hooks/useFavorites";
 const customStyles = (image) => {
   return makeStyles((theme) =>
     createStyles({
-      root: {
+      mainContainer: {
         ...theme.card,
-        // overflow: "auto",
+        gridArea: "event",
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
           ${image})`,
         backgroundSize: "cover",
@@ -130,7 +130,7 @@ export const EventDetails = ({ event }) => {
 
   return (
     // <div className="event-details-container">
-    <Card className={classes.root}>
+    <Card className={classes.mainContainer}>
       <Event
         event={event}
         collapse={false}

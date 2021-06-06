@@ -41,4 +41,10 @@ export const theme = createMuiTheme({
     justifyContent: "center",
     alignItems: "center",
   },
+  centerRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
 });

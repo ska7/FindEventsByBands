@@ -100,7 +100,11 @@ export const Band = (props) => {
             {match.params.bandName}
           </Typography>
           {/* <CardContent className={classes.eventsList}> */}
-          {loading ? <Loader /> : <Events events={events} {...props} />}
+          {loading ? (
+            <Loader centerVertically />
+          ) : (
+            <Events events={events} {...props} />
+          )}
           {/* </CardContent> */}
         </Card>
       </div>
