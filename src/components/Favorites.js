@@ -29,6 +29,7 @@ const useStyles = makeStyles((theme) =>
     },
     listItem: {
       fontFamily: "Inconsolata, monospace",
+      // ...theme.typography.fontFamily,
       transition: "all 0.5s ease",
       padding: "20px",
       height: "auto",

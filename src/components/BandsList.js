@@ -1,6 +1,7 @@
 import React from "react";
 
-import { Link } from "@material-ui/core";
+// import { Link } from "@material-ui/core";
+import { Link } from "react-router-dom";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useSpotify } from "./hooks/useSpotify";
 
@@ -8,6 +9,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     link: {
       ...theme.centerColumn,
+      fontFamily: "Inconsolata, monospace",
       textDecoration: "none",
       width: "100%",
       height: "70px",
@@ -30,7 +32,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const BandsList = ({ bands }) => {
+export const BandsList = ({ bands, clearInput }) => {
   const classes = useStyles();
   return (
     <>
@@ -41,6 +43,7 @@ export const BandsList = ({ bands }) => {
               className={classes.link}
               key={band.id}
               to={`/band/${band.displayName}?bandID=${band.id}`}
+              onClick={clearInput}
             >
               {band.displayName}
             </Link>

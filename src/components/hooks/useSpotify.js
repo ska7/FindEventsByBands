@@ -50,13 +50,13 @@ export const fetchBandImage = async (searchString) => {
   return bandInfo.artists.items[0].images[0].url;
 };
 export const useSpotify = (searchString) => {
-  const [image, setImage] = useState("");
+  const [artistImage, setArtistImage] = useState("");
   useEffect(() => {
-    // const init = async () => {
-    //   const image = await fetchBandImage(searchString);
-    //   setImage(image);
-    // };
-    // init();
-  }, []);
-  return image;
+    const init = async () => {
+      const image = await fetchBandImage(searchString);
+      setArtistImage(image);
+    };
+    init();
+  }, [searchString]);
+  return [artistImage, setArtistImage];
 };

@@ -53,5 +53,13 @@ export const MatchedBands = ({ searchString, onClick }) => {
     }
   }, [searchString]);
 
-  return <>{loading ? <Loader /> : <BandsList bands={bands} />}</>;
+  return (
+    <>
+      {loading ? (
+        <Loader customPosition={{ right: "5%" }} size="50px" />
+      ) : (
+        <BandsList clearInput={onClick} bands={bands} />
+      )}
+    </>
+  );
 };

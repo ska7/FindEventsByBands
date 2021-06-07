@@ -7,6 +7,7 @@ import { MatchedBands } from "./MatchedBands";
 const useStyles = makeStyles((theme) =>
   createStyles({
     searchInputListContainer: {
+      position: "relative",
       gridArea: "search",
       display: "flex",
       flexDirection: "column",
@@ -15,8 +16,12 @@ const useStyles = makeStyles((theme) =>
     },
     searchInputList: {
       padding: 0,
-      position: "relative",
+      position: "absolute",
+      zIndex: "15",
       marginTop: "25px",
+      margin: "0px auto",
+      left: 0,
+      right: 0,
       height: "auto",
       width: "90%",
       borderRadius: "10px",
@@ -27,8 +32,12 @@ const useStyles = makeStyles((theme) =>
     },
     root: {
       ...theme.input,
+      position: "relative",
       height: "50px",
       width: "100%",
+      [theme.breakpoints.down("xs")]: {
+        background: "red",
+      },
     },
     inputEmpty: {
       borderRadius: "10px",

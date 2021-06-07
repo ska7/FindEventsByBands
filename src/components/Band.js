@@ -2,20 +2,50 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 
 import { fetchBandImage, useSpotify } from "./hooks/useSpotify";
-import { Card, CardContent, Typography } from "@material-ui/core";
+import { Card, CardContent, Container, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
 import { Events } from "./Events";
 
+const useCustomStyles = (
+  WidthAbove1025,
+  widthBetween1024and960,
+  widthBetween959and600,
+  widthBelow600
+) => {
+  //  PC
+  if (WidthAbove1025) {
+    return makeStyles((theme) => createStyles({}));
+  }
+  // Laptops
+  else if (widthBetween1024and960) {
+    return makeStyles((theme) => createStyles({}));
+  }
+
+  // Tables
+  else if (widthBetween959and600) {
+    return makeStyles((theme) => createStyles({}));
+
+    // Mobile
+  } else if (widthBelow600) {
+    return makeStyles((theme) => createStyles({}));
+  }
+};
+
 const customStyles = (image) => {
   return makeStyles((theme) =>
     createStyles({
-      root: {
+      mainContainer: {
         ...theme.card,
+        padding: 0,
+        position: "relative",
+        background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%)`,
+      },
+      bandWrapper: {
+        height: "100%",
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
           "${image}"
         )`,
-        position: "relative",
       },
       header: {
         display: "flex",
@@ -43,34 +73,20 @@ const customStyles = (image) => {
   );
 };
 
-const updateImage = async (bandName, updateState) => {
-  const image = await fetchBandImage(bandName);
-  updateState(image);
-};
-
 export const Band = (props) => {
   const { match, location } = props;
 
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [image, setImage] = useState("");
 
-  // const artistImage = useSpotify(match.params.bandName);
+  const [artistImage, setArtistImage] = useSpotify(match.params.bandName);
 
   useEffect(() => {
     const bandID = new URLSearchParams(location.search).get("bandID");
     setLoading(true);
-    // updateImage(match.params.bandName, setImage);
-
-    // We should make sure both the image and the events are ready before setting the loader off
-
-    // Group all these actions into one async function "init"
-
-    // The events are not reinitialize, we should reset events each time a new band is forming
+    setArtistImage("");
 
     const init = async () => {
-      setEvents([]);
-      // setImage(artistImage);
       await axios
         .get(
           `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
@@ -79,7 +95,6 @@ export const Band = (props) => {
           const events = res.data.resultsPage.results.event;
           if (events !== undefined) {
             setEvents(events);
-          } else {
           }
         })
         .catch((e) => console.log("error", e))
@@ -91,23 +106,27 @@ export const Band = (props) => {
     init();
   }, [location]);
 
-  const classes = customStyles(image)();
+  const classes = customStyles(artistImage)();
   return (
-    <>
-      <div className="band-events-container">
-        <Card className={classes.root}>
+    <Container className={classes.mainContainer} disableGutters>
+      {loading ? (
+        <Loader
+          customPosition={{
+            margin: "auto",
+            top: 0,
+            bottom: 0,
+            right: 0,
+            left: 0,
+          }}
+        />
+      ) : (
+        <Card className={classes.bandWrapper}>
           <Typography className={classes.header}>
             {match.params.bandName}
           </Typography>
-          {/* <CardContent className={classes.eventsList}> */}
-          {loading ? (
-            <Loader centerVertically />
-          ) : (
-            <Events events={events} {...props} />
-          )}
-          {/* </CardContent> */}
+          <Events events={events} {...props} />
         </Card>
-      </div>
-    </>
+      )}
+    </Container>
   );
 };

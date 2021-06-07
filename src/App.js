@@ -15,38 +15,38 @@ import { Container, ThemeProvider, useTheme } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import useMediaQuery from "@material-ui/core/useMediaQuery";
 
-const useCustomStyles = (WidthUp1025) => {
-  if (!WidthUp1025) {
-    return makeStyles((theme) =>
-      createStyles({
-        mainAppContainer: {
-          background: `radial-gradient(
-            circle,
-            rgba(2, 0, 36, 1) 0%,
-            rgba(169, 169, 169, 1) 0%,
-            rgba(169, 169, 169, 1) 47%,
-            rgba(145, 144, 144, 1) 100%
-          )`,
+const useCustomStyles = (WidthAbove1025) => {
+  return makeStyles((theme) =>
+    createStyles({
+      mainAppContainer: {
+        // =============================================================
+        // Tablets and small laptops
+        // =============================================================
+        [theme.breakpoints.up("sm")]: {
           display: "grid",
+          background: `radial-gradient(
+                      circle,
+                      rgba(2, 0, 36, 1) 0%,
+                      rgba(169, 169, 169, 1) 0%,
+                      rgba(169, 169, 169, 1) 47%,
+                      rgba(145, 144, 144, 1) 100%
+                    )`,
           padding: 0,
           margin: 0,
           overflow: "hidden",
           height: "100vh",
           width: "100vw",
           gridTemplateColumns: "3fr 1fr",
-          gridTemplateRows: "1fr 5fr",
+          gridTemplateRows: "2fr 5fr",
           gridTemplateAreas: `
-      "search favorites"
-      "event favorites"
-      `,
+                "search favorites"
+                "event favorites"
+                `,
         },
-        // Tablets
-      })
-    );
-  } else if (WidthUp1025) {
-    return makeStyles((theme) =>
-      createStyles({
-        mainAppContainer: {
+        // ============================================================
+        // PC and big laptops
+        // ============================================================
+        [theme.breakpoints.up("lg")]: {
           display: "grid",
           gridTemplateColumns: "1.5fr 3fr 1fr",
           padding: 0,
@@ -55,23 +55,55 @@ const useCustomStyles = (WidthUp1025) => {
           height: "100vh",
           width: "100vw",
           background: `radial-gradient(
-        circle,
-        rgba(2, 0, 36, 1) 0%,
-        rgba(169, 169, 169, 1) 0%,
-        rgba(169, 169, 169, 1) 47%,
-        rgba(145, 144, 144, 1) 100%
-      )`,
+                circle,
+                rgba(2, 0, 36, 1) 0%,
+                rgba(169, 169, 169, 1) 0%,
+                rgba(169, 169, 169, 1) 47%,
+                rgba(145, 144, 144, 1) 100%
+              )`,
           backgroundSize: "cover",
           gridTemplateAreas: `"search event favorites"`,
         },
-      })
-    );
-  }
+      },
+    })
+  );
 };
+// // Laptops and PC
+// if (WidthAbove1025) {
+// }
+// // Tablets
+// else if (!WidthAbove1025) {
+//   return makeStyles((theme) =>
+//     createStyles({
+//       mainAppContainer: {
+//         background: `radial-gradient(
+//           circle,
+//           rgba(2, 0, 36, 1) 0%,
+//           rgba(169, 169, 169, 1) 0%,
+//           rgba(169, 169, 169, 1) 47%,
+//           rgba(145, 144, 144, 1) 100%
+//         )`,
+//         display: "grid",
+//         padding: 0,
+//         margin: 0,
+//         overflow: "hidden",
+//         height: "100vh",
+//         width: "100vw",
+//         gridTemplateColumns: "3fr 1fr",
+//         gridTemplateRows: "2fr 5fr",
+//         gridTemplateAreas: `
+//     "search favorites"
+//     "event favorites"
+//     `,
+//       },
+//     })
+//   );
+// }
 
 const App = () => {
-  const WidthUp1025 = useMediaQuery("(min-width:1025px)");
-  const classes = useCustomStyles(WidthUp1025)();
+  const WidthAbove1025 = useMediaQuery("(min-width:1025px)");
+  const WidthBelow600 = useMediaQuery("(max-width:600px)");
+  const classes = useCustomStyles(WidthAbove1025)();
 
   useEffect(() => {
     console.log(theme.breakpoints.values);
