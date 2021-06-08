@@ -15,5 +15,9 @@ export const FavoriteEvent = (props) => {
     setEvent(favorites.find((favorite) => match.params.eventID == favorite.id));
   }, [match]);
 
-  return <EventDetails event={event} />;
+  return (
+    <>
+      <EventDetails event={event} />
+    </>
+  );
 };

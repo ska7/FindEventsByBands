@@ -37,7 +37,7 @@ const useCustomStyles = (WidthAbove1025) => {
           height: "100vh",
           width: "100vw",
           gridTemplateColumns: "3fr 1fr",
-          gridTemplateRows: "2fr 5fr",
+          gridTemplateRows: "1fr 5fr",
           gridTemplateAreas: `
                 "search favorites"
                 "event favorites"
@@ -68,42 +68,9 @@ const useCustomStyles = (WidthAbove1025) => {
     })
   );
 };
-// // Laptops and PC
-// if (WidthAbove1025) {
-// }
-// // Tablets
-// else if (!WidthAbove1025) {
-//   return makeStyles((theme) =>
-//     createStyles({
-//       mainAppContainer: {
-//         background: `radial-gradient(
-//           circle,
-//           rgba(2, 0, 36, 1) 0%,
-//           rgba(169, 169, 169, 1) 0%,
-//           rgba(169, 169, 169, 1) 47%,
-//           rgba(145, 144, 144, 1) 100%
-//         )`,
-//         display: "grid",
-//         padding: 0,
-//         margin: 0,
-//         overflow: "hidden",
-//         height: "100vh",
-//         width: "100vw",
-//         gridTemplateColumns: "3fr 1fr",
-//         gridTemplateRows: "2fr 5fr",
-//         gridTemplateAreas: `
-//     "search favorites"
-//     "event favorites"
-//     `,
-//       },
-//     })
-//   );
-// }
 
 const App = () => {
-  const WidthAbove1025 = useMediaQuery("(min-width:1025px)");
-  const WidthBelow600 = useMediaQuery("(max-width:600px)");
-  const classes = useCustomStyles(WidthAbove1025)();
+  const classes = useCustomStyles()();
 
   useEffect(() => {
     console.log(theme.breakpoints.values);

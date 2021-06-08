@@ -25,8 +25,8 @@ const customStyles = (image) => {
   return makeStyles((theme) =>
     createStyles({
       mainContainer: {
-        // gridArea: "event",
         ...theme.card,
+        gridArea: "event",
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
           ${image})`,
         backgroundSize: "cover",
@@ -123,13 +123,13 @@ const customStyles = (image) => {
 };
 
 export const EventDetails = ({ event }) => {
-  const imageURL = useSpotify(event.performance[0].displayName);
-  // const imageURL = "";
+  const [artistImage, setArtistImage] = useSpotify(
+    event.performance[0].displayName
+  );
 
-  const classes = customStyles(imageURL)();
+  const classes = customStyles(artistImage)();
 
   return (
-    // <div className="event-details-container">
     <Card className={classes.mainContainer}>
       <Event
         event={event}
@@ -138,6 +138,5 @@ export const EventDetails = ({ event }) => {
         isStandAlone={true}
       />
     </Card>
-    // </div>
   );
 };
