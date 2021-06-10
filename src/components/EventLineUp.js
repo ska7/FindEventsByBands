@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import {
   Button,
   Container,
+  createStyles,
   List,
   ListItem,
   Paper,
@@ -12,6 +13,7 @@ import {
   TableCell,
   TableContainer,
   Typography,
+  useMediaQuery,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
@@ -21,200 +23,982 @@ import TableRow from "@material-ui/core/TableRow";
 import { Collapse } from "@material-ui/core";
 import { theme } from "./Theme";
 
-const useStyles = (isStandAlone) => {
-  const standAloneStyles = {
-    unfolded: {
-      position: "relative",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      height: "auto",
-      padding: "0",
-      margin: "0",
-      width: "100%",
-    },
-    iconWrapper: {
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-      position: "sticky",
-      top: "0",
-    },
-    artist: {
-      fontSize: "13px",
-      color: "white",
-      transition: "all 0.3s ease",
-      borderBottom: "none",
-      textAlign: "center",
-    },
-    singleArtist: {
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-    },
-    table: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    tableBody: {
-      width: "100%",
-      overflowY: "auto",
-      height: "350px",
-    },
-    link: {
-      color: "white",
-      transition: "all 0.3s ease",
-      textDecoration: "none",
-      borderBottom: "1px solid transparent",
-      "&:hover": {
-        borderBottom: "1px solid white",
-      },
-    },
-    icon: {
-      width: "50px",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+// const useStyles = (isStandAlone) => {
+//   const standAloneStyles = {
+//     unfolded: {
+//       position: "relative",
+//       display: "flex",
+//       flexDirection: "column",
+//       justifyContent: "center",
+//       height: "auto",
+//       padding: "0",
+//       margin: "0",
+//       width: "100%",
+//     },
+//     iconWrapper: {
+//       width: "100%",
+//       display: "flex",
+//       justifyContent: "center",
+//       position: "sticky",
+//       top: "0",
+//     },
+//     artist: {
+//       fontSize: "13px",
+//       color: "white",
+//       transition: "all 0.3s ease",
+//       borderBottom: "none",
+//       textAlign: "center",
+//     },
+//     singleArtist: {
+//       width: "100%",
+//       display: "flex",
+//       justifyContent: "center",
+//     },
+//     table: {
+//       width: "100%",
+//       display: "flex",
+//       flexDirection: "column",
+//       justifyContent: "center",
+//       alignItems: "center",
+//     },
+//     tableBody: {
+//       width: "100%",
+//       overflowY: "auto",
+//       height: "350px",
+//     },
+//     link: {
+//       color: "white",
+//       transition: "all 0.3s ease",
+//       textDecoration: "none",
+//       borderBottom: "1px solid transparent",
+//       "&:hover": {
+//         borderBottom: "1px solid white",
+//       },
+//     },
+//     icon: {
+//       width: "50px",
+//       display: "flex",
+//       justifyContent: "center",
+//       alignItems: "center",
 
-      "&:hover": {},
-    },
-    lineupLabel: {
-      fontWeight: "900",
-      // marginTop: "40px",
-      color: "white",
-    },
-    lineUp: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-    },
-    arrowSeeLess: {
-      borderRadius: "50%",
-      background: "rgba(255,255,255,0.1)",
-    },
-    labels: {
-      marginTop: "20px",
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "50px 30px",
-    },
-    btnCancelled: {
-      pointerEvents: "none",
-      background: "#840809",
-      color: "white",
-    },
-    btnPurchase: {
-      transition: "all 0.8s ease",
-      color: "black",
-      width: "130px",
-      height: "50px",
-      color: theme.palette.secondary.main,
-      border: `1px solid ${theme.palette.secondary.main}`,
-      "&:hover": {
-        background: theme.palette.secondary.main,
-        color: "black",
-      },
-    },
-  };
+//       "&:hover": {},
+//     },
+//     lineupLabel: {
+//       fontWeight: "900",
+//       // marginTop: "40px",
+//       color: "white",
+//     },
+//     lineUp: {
+//       width: "100%",
+//       display: "flex",
+//       flexDirection: "column",
+//     },
+//     arrowSeeLess: {
+//       borderRadius: "50%",
+//       background: "rgba(255,255,255,0.1)",
+//     },
+//     labels: {
+//       marginTop: "20px",
+//       display: "flex",
+//       flexDirection: "row",
+//       justifyContent: "space-between",
+//       alignItems: "center",
+//       padding: "50px 30px",
+//     },
+//     btnCancelled: {
+//       pointerEvents: "none",
+//       background: "#840809",
+//       color: "white",
+//     },
+//     btnPurchase: {
+//       transition: "all 0.8s ease",
+//       color: "black",
+//       width: "130px",
+//       height: "50px",
+//       color: theme.palette.secondary.main,
+//       border: `1px solid ${theme.palette.secondary.main}`,
+//       "&:hover": {
+//         background: theme.palette.secondary.main,
+//         color: "black",
+//       },
+//     },
+//   };
 
-  const itemOfListStyles = {
-    unfolded: {
-      position: "relative",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      height: "auto",
-      padding: "0",
-      margin: "0",
-      width: "100%",
-    },
-    iconWrapper: {
-      width: "100%",
-      display: "flex",
-      justifyContent: "center",
-      position: "sticky",
-      top: "0",
-    },
-    artist: {
-      fontSize: "13px",
-      color: "white",
-      transition: "all 0.3s ease",
-      borderBottom: "none",
-      textAlign: "center",
-    },
-    table: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-      justifyContent: "center",
-      alignItems: "center",
-    },
-    tableBody: {
-      maxWidth: "100%",
-    },
-    link: {
-      color: "white",
-      transition: "all 0.3s ease",
-      textDecoration: "none",
-      borderBottom: "1px solid transparent",
-      "&:hover": {
-        borderBottom: "1px solid white",
-      },
-    },
-    icon: {
-      width: "50px",
-      display: "flex",
-      justifyContent: "center",
-      alignItems: "center",
+//   const itemOfListStyles = {
+//     unfolded: {
+//       position: "relative",
+//       display: "flex",
+//       flexDirection: "column",
+//       justifyContent: "center",
+//       height: "auto",
+//       padding: "0",
+//       margin: "0",
+//       width: "100%",
+//     },
+//     iconWrapper: {
+//       width: "100%",
+//       display: "flex",
+//       justifyContent: "center",
+//       position: "sticky",
+//       top: "0",
+//     },
+//     artist: {
+//       fontSize: "13px",
+//       color: "white",
+//       transition: "all 0.3s ease",
+//       borderBottom: "none",
+//       textAlign: "center",
+//     },
+//     table: {
+//       width: "100%",
+//       display: "flex",
+//       flexDirection: "column",
+//       justifyContent: "center",
+//       alignItems: "center",
+//     },
+//     tableBody: {
+//       maxWidth: "100%",
+//     },
+//     link: {
+//       color: "white",
+//       transition: "all 0.3s ease",
+//       textDecoration: "none",
+//       borderBottom: "1px solid transparent",
+//       "&:hover": {
+//         borderBottom: "1px solid white",
+//       },
+//     },
+//     icon: {
+//       width: "50px",
+//       display: "flex",
+//       justifyContent: "center",
+//       alignItems: "center",
 
-      "&:hover": {},
-    },
-    lineupTitle: {
-      fontWeight: "900",
-      color: "white",
-    },
-    lineUp: {
-      width: "100%",
-      display: "flex",
-      flexDirection: "column",
-    },
-    arrowSeeLess: {
-      borderRadius: "50%",
-      background: "rgba(255,255,255,0.1)",
-    },
-    labels: {
-      display: "flex",
-      flexDirectios: "row",
-      justifyContent: "space-between",
-      alignItems: "center",
-      padding: "50px 30px",
-    },
-    btnCancelled: {
-      pointerEvents: "none",
-      background: "#840809",
-      color: "white",
-    },
-    btnPurchase: {
-      transition: "all 0.8s ease",
-      color: "black",
-      width: "130px",
-      height: "50px",
-      color: theme.palette.secondary.main,
-      border: `1px solid ${theme.palette.secondary.main}`,
-      "&:hover": {
-        background: theme.palette.secondary.main,
-        color: "black",
-      },
-    },
-  };
-  return makeStyles((theme) =>
-    isStandAlone ? standAloneStyles : itemOfListStyles
-  );
+//       "&:hover": {},
+//     },
+//     lineupTitle: {
+//       fontWeight: "900",
+//       color: "white",
+//     },
+//     lineUp: {
+//       width: "100%",
+//       display: "flex",
+//       flexDirection: "column",
+//     },
+//     arrowSeeLess: {
+//       borderRadius: "50%",
+//       background: "rgba(255,255,255,0.1)",
+//     },
+//     labels: {
+//       display: "flex",
+//       flexDirectios: "row",
+//       justifyContent: "space-between",
+//       alignItems: "center",
+//       padding: "50px 30px",
+//     },
+//     btnCancelled: {
+//       pointerEvents: "none",
+//       background: "#840809",
+//       color: "white",
+//     },
+//     btnPurchase: {
+//       transition: "all 0.8s ease",
+//       color: "black",
+//       width: "130px",
+//       height: "50px",
+//       color: theme.palette.secondary.main,
+//       border: `1px solid ${theme.palette.secondary.main}`,
+//       "&:hover": {
+//         background: theme.palette.secondary.main,
+//         color: "black",
+//       },
+//     },
+//   };
+//   return makeStyles((theme) =>
+//     isStandAlone ? standAloneStyles : itemOfListStyles
+//   );
+// };
+
+const useCustomStyles = (
+  isStandAlone,
+  widthAbove1025,
+  widthBetween1024and960,
+  widthBetween959and600,
+  widthBelow600
+) => {
+  return makeStyles((theme) => {
+    // Tablets and big laptops
+    if (widthAbove1025) {
+      const standAloneStyles = {
+        unfolded: {
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "auto",
+          padding: "0",
+          margin: "0",
+          width: "100%",
+        },
+        iconWrapper: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "0",
+        },
+        artist: {
+          fontSize: "13px",
+          color: "white",
+          transition: "all 0.3s ease",
+          borderBottom: "none",
+          textAlign: "center",
+        },
+        singleArtist: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        },
+        table: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        tableBody: {
+          width: "100%",
+          overflowY: "auto",
+          height: "350px",
+        },
+        link: {
+          color: "white",
+          transition: "all 0.3s ease",
+          textDecoration: "none",
+          borderBottom: "1px solid transparent",
+          "&:hover": {
+            borderBottom: "1px solid white",
+          },
+        },
+        icon: {
+          width: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          "&:hover": {},
+        },
+        lineupLabel: {
+          fontWeight: "900",
+          // marginTop: "40px",
+          color: "white",
+        },
+        lineUp: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        },
+        arrowSeeLess: {
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.1)",
+        },
+        labels: {
+          marginTop: "20px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "50px 30px",
+        },
+        btnCancelled: {
+          pointerEvents: "none",
+          background: "#840809",
+          color: "white",
+        },
+        btnPurchase: {
+          transition: "all 0.8s ease",
+          color: "black",
+          width: "130px",
+          height: "50px",
+          color: theme.palette.secondary.main,
+          border: `1px solid ${theme.palette.secondary.main}`,
+          "&:hover": {
+            background: theme.palette.secondary.main,
+            color: "black",
+          },
+        },
+      };
+
+      const itemOfListStyles = {
+        unfolded: {
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "auto",
+          padding: "0",
+          margin: "0",
+          width: "100%",
+        },
+        iconWrapper: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "0",
+        },
+        artist: {
+          fontSize: "13px",
+          color: "white",
+          transition: "all 0.3s ease",
+          borderBottom: "none",
+          textAlign: "center",
+        },
+        table: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        tableBody: {
+          maxWidth: "100%",
+        },
+        link: {
+          color: "white",
+          transition: "all 0.3s ease",
+          textDecoration: "none",
+          borderBottom: "1px solid transparent",
+          "&:hover": {
+            borderBottom: "1px solid white",
+          },
+        },
+        icon: {
+          width: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          "&:hover": {},
+        },
+        lineupTitle: {
+          fontWeight: "900",
+          color: "white",
+        },
+        lineUp: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        },
+        arrowSeeLess: {
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.1)",
+        },
+        labels: {
+          display: "flex",
+          flexDirectios: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "50px 30px",
+        },
+        btnCancelled: {
+          pointerEvents: "none",
+          background: "#840809",
+          color: "white",
+        },
+        btnPurchase: {
+          transition: "all 0.8s ease",
+          color: "black",
+          width: "130px",
+          height: "50px",
+          color: theme.palette.secondary.main,
+          border: `1px solid ${theme.palette.secondary.main}`,
+          "&:hover": {
+            background: theme.palette.secondary.main,
+            color: "black",
+          },
+        },
+      };
+      return createStyles(isStandAlone ? standAloneStyles : itemOfListStyles);
+      // Tablets and small laptops
+    } else if (widthBetween1024and960) {
+      const standAloneStyles = {
+        unfolded: {
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "auto",
+          padding: "0",
+          margin: "0",
+          width: "100%",
+        },
+        iconWrapper: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "0",
+        },
+        artist: {
+          fontSize: "13px",
+          color: "white",
+          transition: "all 0.3s ease",
+          borderBottom: "none",
+          textAlign: "center",
+        },
+        singleArtist: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        },
+        table: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        tableBody: {
+          width: "100%",
+          overflowY: "auto",
+          height: "650px",
+        },
+        link: {
+          color: "white",
+          transition: "all 0.3s ease",
+          textDecoration: "none",
+          borderBottom: "1px solid transparent",
+          "&:hover": {
+            borderBottom: "1px solid white",
+          },
+        },
+        icon: {
+          width: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          "&:hover": {},
+        },
+        lineupLabel: {
+          fontWeight: "900",
+          // marginTop: "40px",
+          color: "white",
+        },
+        lineUp: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        },
+        arrowSeeLess: {
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.1)",
+        },
+        labels: {
+          marginTop: "20px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "50px 30px",
+        },
+        btnCancelled: {
+          pointerEvents: "none",
+          background: "#840809",
+          color: "white",
+        },
+        btnPurchase: {
+          transition: "all 0.8s ease",
+          color: "black",
+          width: "130px",
+          height: "50px",
+          color: theme.palette.secondary.main,
+          border: `1px solid ${theme.palette.secondary.main}`,
+          "&:hover": {
+            background: theme.palette.secondary.main,
+            color: "black",
+          },
+        },
+      };
+
+      const itemOfListStyles = {
+        unfolded: {
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "auto",
+          padding: "0",
+          margin: "0",
+          width: "100%",
+        },
+        iconWrapper: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "0",
+        },
+        artist: {
+          fontSize: "13px",
+          color: "white",
+          transition: "all 0.3s ease",
+          borderBottom: "none",
+          textAlign: "center",
+        },
+        table: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        tableBody: {
+          maxWidth: "100%",
+        },
+        link: {
+          color: "white",
+          transition: "all 0.3s ease",
+          textDecoration: "none",
+          borderBottom: "1px solid transparent",
+          "&:hover": {
+            borderBottom: "1px solid white",
+          },
+        },
+        icon: {
+          width: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          "&:hover": {},
+        },
+        lineupTitle: {
+          fontWeight: "900",
+          color: "white",
+        },
+        lineUp: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        },
+        arrowSeeLess: {
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.1)",
+        },
+        labels: {
+          display: "flex",
+          flexDirectios: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "50px 30px",
+        },
+        btnCancelled: {
+          pointerEvents: "none",
+          background: "#840809",
+          color: "white",
+        },
+        btnPurchase: {
+          transition: "all 0.8s ease",
+          color: "black",
+          width: "130px",
+          height: "50px",
+          color: theme.palette.secondary.main,
+          border: `1px solid ${theme.palette.secondary.main}`,
+          "&:hover": {
+            background: theme.palette.secondary.main,
+            color: "black",
+          },
+        },
+      };
+      return createStyles(isStandAlone ? standAloneStyles : itemOfListStyles);
+    } else if (widthBetween959and600) {
+      const standAloneStyles = {
+        unfolded: {
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "auto",
+          padding: "0",
+          margin: "0",
+          width: "100%",
+        },
+        iconWrapper: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "0",
+        },
+        artist: {
+          fontSize: "13px",
+          color: "white",
+          transition: "all 0.3s ease",
+          borderBottom: "none",
+          textAlign: "center",
+        },
+        singleArtist: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        },
+        table: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        tableBody: {
+          width: "100%",
+          overflowY: "auto",
+          height: "350px",
+        },
+        link: {
+          color: "white",
+          transition: "all 0.3s ease",
+          textDecoration: "none",
+          borderBottom: "1px solid transparent",
+          "&:hover": {
+            borderBottom: "1px solid white",
+          },
+        },
+        icon: {
+          width: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          "&:hover": {},
+        },
+        lineupLabel: {
+          fontWeight: "900",
+          // marginTop: "40px",
+          color: "white",
+        },
+        lineUp: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        },
+        arrowSeeLess: {
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.1)",
+        },
+        labels: {
+          marginTop: "20px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "50px 30px",
+        },
+        btnCancelled: {
+          pointerEvents: "none",
+          background: "#840809",
+          color: "white",
+        },
+        btnPurchase: {
+          transition: "all 0.8s ease",
+          color: "black",
+          width: "130px",
+          height: "50px",
+          color: theme.palette.secondary.main,
+          border: `1px solid ${theme.palette.secondary.main}`,
+          "&:hover": {
+            background: theme.palette.secondary.main,
+            color: "black",
+          },
+        },
+      };
+
+      const itemOfListStyles = {
+        unfolded: {
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "auto",
+          padding: "0",
+          margin: "0",
+          width: "100%",
+        },
+        iconWrapper: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "0",
+        },
+        artist: {
+          fontSize: "13px",
+          color: "white",
+          transition: "all 0.3s ease",
+          borderBottom: "none",
+          textAlign: "center",
+        },
+        table: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        tableBody: {
+          maxWidth: "100%",
+        },
+        link: {
+          color: "white",
+          transition: "all 0.3s ease",
+          textDecoration: "none",
+          borderBottom: "1px solid transparent",
+          "&:hover": {
+            borderBottom: "1px solid white",
+          },
+        },
+        icon: {
+          width: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          "&:hover": {},
+        },
+        lineupTitle: {
+          fontWeight: "900",
+          color: "white",
+        },
+        lineUp: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        },
+        arrowSeeLess: {
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.1)",
+        },
+        labels: {
+          display: "flex",
+          flexDirectios: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "50px 30px",
+        },
+        btnCancelled: {
+          pointerEvents: "none",
+          background: "#840809",
+          color: "white",
+        },
+        btnPurchase: {
+          transition: "all 0.8s ease",
+          color: "black",
+          width: "130px",
+          height: "50px",
+          color: theme.palette.secondary.main,
+          border: `1px solid ${theme.palette.secondary.main}`,
+          "&:hover": {
+            background: theme.palette.secondary.main,
+            color: "black",
+          },
+        },
+      };
+      return createStyles(isStandAlone ? standAloneStyles : itemOfListStyles);
+    } else if (widthBelow600) {
+      const standAloneStyles = {
+        unfolded: {
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "auto",
+          padding: "0",
+          margin: "0",
+          width: "100%",
+        },
+        iconWrapper: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "0",
+        },
+        artist: {
+          fontSize: "13px",
+          color: "white",
+          transition: "all 0.3s ease",
+          borderBottom: "none",
+          textAlign: "center",
+        },
+        singleArtist: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+        },
+        table: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        tableBody: {
+          width: "100%",
+          overflowY: "auto",
+          height: "350px",
+        },
+        link: {
+          color: "white",
+          transition: "all 0.3s ease",
+          textDecoration: "none",
+          borderBottom: "1px solid transparent",
+          "&:hover": {
+            borderBottom: "1px solid white",
+          },
+        },
+        icon: {
+          width: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          "&:hover": {},
+        },
+        lineupLabel: {
+          fontWeight: "900",
+          // marginTop: "40px",
+          color: "white",
+        },
+        lineUp: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        },
+        arrowSeeLess: {
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.1)",
+        },
+        labels: {
+          marginTop: "20px",
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "50px 30px",
+        },
+        btnCancelled: {
+          pointerEvents: "none",
+          background: "#840809",
+          color: "white",
+        },
+        btnPurchase: {
+          transition: "all 0.8s ease",
+          color: "black",
+          width: "130px",
+          height: "50px",
+          color: theme.palette.secondary.main,
+          border: `1px solid ${theme.palette.secondary.main}`,
+          "&:hover": {
+            background: theme.palette.secondary.main,
+            color: "black",
+          },
+        },
+      };
+
+      const itemOfListStyles = {
+        unfolded: {
+          position: "relative",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          height: "auto",
+          padding: "0",
+          margin: "0",
+          width: "100%",
+        },
+        iconWrapper: {
+          width: "100%",
+          display: "flex",
+          justifyContent: "center",
+          position: "sticky",
+          top: "0",
+        },
+        artist: {
+          fontSize: "13px",
+          color: "white",
+          transition: "all 0.3s ease",
+          borderBottom: "none",
+          textAlign: "center",
+        },
+        table: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        },
+        tableBody: {
+          maxWidth: "100%",
+        },
+        link: {
+          color: "white",
+          transition: "all 0.3s ease",
+          textDecoration: "none",
+          borderBottom: "1px solid transparent",
+          "&:hover": {
+            borderBottom: "1px solid white",
+          },
+        },
+        icon: {
+          width: "50px",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+
+          "&:hover": {},
+        },
+        lineupTitle: {
+          fontWeight: "900",
+          color: "white",
+        },
+        lineUp: {
+          width: "100%",
+          display: "flex",
+          flexDirection: "column",
+        },
+        arrowSeeLess: {
+          borderRadius: "50%",
+          background: "rgba(255,255,255,0.1)",
+        },
+        labels: {
+          display: "flex",
+          flexDirectios: "row",
+          justifyContent: "space-between",
+          alignItems: "center",
+          padding: "50px 30px",
+        },
+        btnCancelled: {
+          pointerEvents: "none",
+          background: "#840809",
+          color: "white",
+        },
+        btnPurchase: {
+          transition: "all 0.8s ease",
+          color: "black",
+          width: "130px",
+          height: "50px",
+          color: theme.palette.secondary.main,
+          border: `1px solid ${theme.palette.secondary.main}`,
+          "&:hover": {
+            background: theme.palette.secondary.main,
+            color: "black",
+          },
+        },
+      };
+      return createStyles(isStandAlone ? standAloneStyles : itemOfListStyles);
+    }
+  });
 };
 
 const createTableRow = (artists, classes) => {
@@ -259,9 +1043,25 @@ const createTableRow = (artists, classes) => {
 };
 
 export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
-  const classes = useStyles(isStandAlone)();
   // If collapse prop is true, isUnfolded
   const [isUnfolded, setUnfolded] = useState(!collapse);
+
+  const widthAbove1025 = useMediaQuery("(min-width: 1025px)");
+  const widthBetween1024and960 = useMediaQuery(
+    "(min-width: 960px) and (max-width: 1024px)"
+  );
+  const widthBetween959and600 = useMediaQuery(
+    "(min-width: 600px) and (max-width: 959px)"
+  );
+  const widthBelow600 = useMediaQuery("min-width: 599px");
+
+  const classes = useCustomStyles(
+    isStandAlone,
+    widthAbove1025,
+    widthBetween1024and960,
+    widthBetween959and600,
+    widthBelow600
+  )();
   return (
     <Container className={classes.unfolded}>
       {collapse && (
