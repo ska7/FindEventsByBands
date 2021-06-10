@@ -12,6 +12,7 @@ const useCustomStyles = (
   widthBelow600
 ) => {
   return makeStyles((theme) => {
+    // Tablets and big laptops
     if (widthAbove1025) {
       return createStyles({
         searchInputListContainer: {
@@ -48,6 +49,7 @@ const useCustomStyles = (
           borderRadius: "10px",
         },
       });
+      // Tablets and small laptops
     } else if (widthBetween1024and960) {
       return createStyles({
         searchInputListContainer: {
@@ -56,17 +58,20 @@ const useCustomStyles = (
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          justifyContent: "center",
           padding: 0,
+          width: "90%",
         },
         searchInputList: {
           padding: 0,
           position: "absolute",
           zIndex: "15",
-          marginTop: "25px",
-          margin: "0px auto",
+          margin: "auto",
           left: 0,
           right: 0,
-          height: "auto",
+          top: 0,
+          bottom: 0,
+          height: "50px",
           width: "90%",
           borderRadius: "10px",
           transition: "all 0.3s ease",
@@ -125,63 +130,9 @@ const useCustomStyles = (
   });
 };
 
-const useStyles = makeStyles((theme) =>
-  createStyles({
-    searchInputListContainer: {
-      position: "relative",
-      gridArea: "search",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: 0,
-      [theme.breakpoints.up("sm")]: {
-        position: "relative",
-        gridArea: "search",
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        padding: 0,
-      },
-      // [theme.breakpoints.up("lg")]: {
-      //   position: "relative",
-      //   gridArea: "search",
-      //   display: "flex",
-      //   flexDirection: "column",
-      //   alignItems: "center",
-      //   padding: 0,
-      // },
-    },
-    searchInputList: {
-      padding: 0,
-      position: "absolute",
-      zIndex: "15",
-      marginTop: "25px",
-      margin: "0px auto",
-      left: 0,
-      right: 0,
-      height: "auto",
-      width: "90%",
-      borderRadius: "10px",
-      transition: "all 0.3s ease",
-      "&:focus-within": {
-        boxShadow: "0px 0px 10px 1px black",
-      },
-    },
-    root: {
-      ...theme.input,
-      position: "relative",
-      height: "50px",
-      width: "100%",
-    },
-    inputEmpty: {
-      borderRadius: "10px",
-    },
-  })
-);
-
 export const Search = (props) => {
   const [inputValue, setInputValue] = useState("");
+
   const widthAbove1025 = useMediaQuery("(min-width: 1025px)");
   const widthBetween1024and960 = useMediaQuery(
     "(min-width: 960px) and (max-width: 1024px)"
@@ -231,125 +182,57 @@ export const Search = (props) => {
   );
 };
 
-// const useCustomStyles = (
-//   widthAbove1025,
-//   widthBetween1024and960,
-//   widthBetween959and600
-// ) => {
-//   return makeStyles((theme) =>
-//     createStyles(() => {
-//       if (widthAbove1025) {
-//         return {
-//           searchInputListContainer: {
-//             background: "red",
-//             position: "relative",
-//             gridArea: "search",
-//             display: "flex",
-//             flexDirection: "column",
-//             alignItems: "center",
-//             padding: 0,
-//           },
-//           searchInputList: {
-//             padding: 0,
-//             position: "absolute",
-//             zIndex: "15",
-//             marginTop: "25px",
-//             margin: "0px auto",
-//             left: 0,
-//             right: 0,
-//             height: "auto",
-//             width: "90%",
-//             borderRadius: "10px",
-//             transition: "all 0.3s ease",
-//             "&:focus-within": {
-//               boxShadow: "0px 0px 10px 1px black",
-//             },
-//           },
-//           root: {
-//             ...theme.input,
-//             position: "relative",
-//             height: "50px",
-//             width: "100%",
-//           },
-//           inputEmpty: {
-//             borderRadius: "10px",
-//           },
-//         };
-//       } else if (widthBetween1024and960) {
-//         return {
-//           searchInputListContainer: {
-//             position: "relative",
-//             gridArea: "search",
-//             display: "flex",
-//             flexDirection: "column",
-//             alignItems: "center",
-//             padding: 0,
-//           },
-
-//           searchInputList: {
-//             padding: 0,
-//             position: "absolute",
-//             zIndex: "15",
-//             marginTop: "25px",
-//             margin: "0px auto",
-//             left: 0,
-//             right: 0,
-//             height: "auto",
-//             width: "90%",
-//             borderRadius: "10px",
-//             transition: "all 0.3s ease",
-//             "&:focus-within": {
-//               boxShadow: "0px 0px 10px 1px black",
-//             },
-//           },
-//           root: {
-//             ...theme.input,
-//             position: "relative",
-//             height: "50px",
-//             width: "100%",
-//           },
-//           inputEmpty: {
-//             borderRadius: "10px",
-//           },
-//         };
-//       } else if (widthBetween959and600) {
-//         return {
-//           searchInputListContainer: {
-//             position: "relative",
-//             gridArea: "search",
-//             display: "flex",
-//             flexDirection: "column",
-//             alignItems: "center",
-//             justifyContent: "center",
-//             padding: 0,
-//           },
-//           searchInputList: {
-//             padding: 0,
-//             position: "absolute",
-//             zIndex: "15",
-//             marginTop: "25px",
-//             margin: "0px auto",
-//             left: 0,
-//             right: 0,
-//             height: "auto",
-//             width: "90%",
-//             borderRadius: "10px",
-//             transition: "all 0.3s ease",
-//             "&:focus-within": {
-//               boxShadow: "0px 0px 10px 1px black",
-//             },
-//           },
-//           root: {
-//             ...theme.input,
-//             position: "relative",
-//             height: "50px",
-//             width: "100%",
-//           },
-//           inputEmpty: {
-//             borderRadius: "10px",
-//           },
-//         };
-//       }
-//     })
-//   );
-// };
+// const useStyles = makeStyles((theme) =>
+//   createStyles({
+//     searchInputListContainer: {
+//       position: "relative",
+//       gridArea: "search",
+//       display: "flex",
+//       flexDirection: "column",
+//       alignItems: "center",
+//       padding: 0,
+//       [theme.breakpoints.up("sm")]: {
+//         position: "relative",
+//         gridArea: "search",
+//         display: "flex",
+//         flexDirection: "column",
+//         alignItems: "center",
+//         justifyContent: "center",
+//         padding: 0,
+//       },
+//       // [theme.breakpoints.up("lg")]: {
+//       //   position: "relative",
+//       //   gridArea: "search",
+//       //   display: "flex",
+//       //   flexDirection: "column",
+//       //   alignItems: "center",
+//       //   padding: 0,
+//       // },
+//     },
+//     searchInputList: {
+//       padding: 0,
+//       position: "absolute",
+//       zIndex: "15",
+//       marginTop: "25px",
+//       margin: "0px auto",
+//       left: 0,
+//       right: 0,
+//       height: "auto",
+//       width: "90%",
+//       borderRadius: "10px",
+//       transition: "all 0.3s ease",
+//       "&:focus-within": {
+//         boxShadow: "0px 0px 10px 1px black",
+//       },
+//     },
+//     root: {
+//       ...theme.input,
+//       position: "relative",
+//       height: "50px",
+//       width: "100%",
+//     },
+//     inputEmpty: {
+//       borderRadius: "10px",
+//     },
+//   })
+// );
