@@ -61,6 +61,12 @@ const useStyles = (activeFilter) => {
           paddingRight: "5%",
         },
       },
+      [theme.breakpoints.up("sm")]: {
+        "&&::placeholder": {
+          textAlign: "center",
+          paddingLeft: "10%",
+        },
+      },
       [theme.breakpoints.up("lg")]: {
         "&&::placeholder": {
           textAlign: "center",

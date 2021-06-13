@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => ({
   },
   eventsList: {
     [theme.breakpoints.up("sm")]: {
-      height: "400px",
+      height: "70%",
       width: "100%",
       overflowY: "auto",
       backgroundSize: "cover",
@@ -78,7 +78,7 @@ const useStyles = makeStyles((theme) => ({
       padding: 0,
     },
     [theme.breakpoints.up("lg")]: {
-      height: "500px",
+      height: "70%",
       width: "100%",
       overflowY: "auto",
       backgroundSize: "cover",

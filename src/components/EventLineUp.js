@@ -155,10 +155,13 @@ const useStyles = (isStandAlone) => {
       alignItems: "center",
     },
     tableBody: {
-      padding: "0px 10px",
-      maxWidth: "100%",
+      width: "100%",
       overflowY: "auto",
       overflowX: "hidden",
+    },
+    tableRow: {
+      width: "100%",
+      // padding: "0px 20px",
     },
     link: {
       color: "white",
@@ -223,11 +226,11 @@ const useStyles = (isStandAlone) => {
 const createTableRow = (artists, classes) => {
   const chunks = [];
 
-  if (artists.length >= 5) {
-    for (let i = 0; i < artists.length; i += 5) {
-      const chunk = artists.slice(i, i + 5);
+  if (artists.length >= 4) {
+    for (let i = 0; i < artists.length; i += 4) {
+      const chunk = artists.slice(i, i + 4);
       chunks.push(
-        <TableRow>
+        <TableRow className={classes.tableRow}>
           {chunk.map((artist) => (
             <TableCell className={classes.artist}>
               <Link
