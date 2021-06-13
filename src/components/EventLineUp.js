@@ -42,6 +42,7 @@ const useStyles = (isStandAlone) => {
     },
     artist: {
       fontSize: "13px",
+      width: "auto",
       color: "white",
       transition: "all 0.3s ease",
       borderBottom: "none",
@@ -60,9 +61,12 @@ const useStyles = (isStandAlone) => {
       alignItems: "center",
     },
     tableBody: {
-      width: "100%",
       overflowY: "auto",
       height: "350px",
+      margin: "0px auto",
+    },
+    tableRow: {
+      width: "100%",
     },
     link: {
       color: "white",
@@ -232,7 +236,7 @@ const createTableRow = (artists, classes) => {
       chunks.push(
         <TableRow className={classes.tableRow}>
           {chunk.map((artist) => (
-            <TableCell className={classes.artist}>
+            <TableCell align="center" className={classes.artist}>
               <Link
                 to={`/band/${artist.name}?bandID=${artist.id}`}
                 className={classes.link}

@@ -11,14 +11,13 @@ const customStyles = (image) => {
   return makeStyles((theme) =>
     createStyles({
       mainContainer: {
+        position: "relative",
+        ...theme.card,
         [theme.breakpoints.up("sm")]: {
-          ...theme.card,
           height: "65vh",
         },
         [theme.breakpoints.up("lg")]: {
-          ...theme.card,
           padding: 0,
-          position: "relative",
           background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%)`,
         },
       },
