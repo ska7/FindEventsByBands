@@ -128,29 +128,23 @@ const useCustomStyles = (
 const useStyles = makeStyles((theme) =>
   createStyles({
     searchInputListContainer: {
-      position: "relative",
-      gridArea: "search",
-      display: "flex",
-      flexDirection: "column",
-      alignItems: "center",
-      padding: 0,
       [theme.breakpoints.up("sm")]: {
+        position: "relative",
+        gridArea: "search",
+        display: "flex",
+        // flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        padding: 0,
+      },
+      [theme.breakpoints.up("lg")]: {
         position: "relative",
         gridArea: "search",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        justifyContent: "center",
         padding: 0,
       },
-      // [theme.breakpoints.up("lg")]: {
-      //   position: "relative",
-      //   gridArea: "search",
-      //   display: "flex",
-      //   flexDirection: "column",
-      //   alignItems: "center",
-      //   padding: 0,
-      // },
     },
     searchInputList: {
       padding: 0,

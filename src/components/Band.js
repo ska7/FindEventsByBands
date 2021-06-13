@@ -13,7 +13,7 @@ const customStyles = (image) => {
       mainContainer: {
         [theme.breakpoints.up("sm")]: {
           ...theme.card,
-          height: "100px",
+          height: "60vh",
         },
         [theme.breakpoints.up("lg")]: {
           ...theme.card,
@@ -23,15 +23,18 @@ const customStyles = (image) => {
         },
       },
       bandWrapper: {
-        // height: "100%",
-        // background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
-        //   "${image}"
-        // )`,
         [theme.breakpoints.up("sm")]: {
+          height: "100%",
           backgroundSize: "cover",
           background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
             "${image}"
           )`,
+        },
+        [theme.breakpoints.up("lg")]: {
+          height: "100%",
+          background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
+          "${image}"
+        )`,
         },
       },
       header: {

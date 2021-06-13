@@ -21,6 +21,7 @@ import { Event } from "./Event";
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    height: "100%",
     width: "100%",
     color: "white",
     flexDirection: "column",
@@ -68,12 +69,22 @@ const useStyles = makeStyles((theme) => ({
     zIndex: "10",
   },
   eventsList: {
-    maxHeight: "500px",
-    width: "100%",
-    overflowY: "auto",
-    backgroundSize: "cover",
-    backgroundPosition: "50% 30%",
-    padding: 0,
+    [theme.breakpoints.up("sm")]: {
+      height: "400px",
+      width: "100%",
+      overflowY: "auto",
+      backgroundSize: "cover",
+      backgroundPosition: "50% 30%",
+      padding: 0,
+    },
+    [theme.breakpoints.up("lg")]: {
+      height: "500px",
+      width: "100%",
+      overflowY: "auto",
+      backgroundSize: "cover",
+      backgroundPosition: "50% 30%",
+      padding: 0,
+    },
   },
 }));
 

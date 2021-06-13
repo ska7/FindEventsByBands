@@ -155,7 +155,10 @@ const useStyles = (isStandAlone) => {
       alignItems: "center",
     },
     tableBody: {
+      padding: "0px 10px",
       maxWidth: "100%",
+      overflowY: "auto",
+      overflowX: "hidden",
     },
     link: {
       color: "white",
