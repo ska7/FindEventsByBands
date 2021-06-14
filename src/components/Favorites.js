@@ -1,10 +1,16 @@
 import React, { useState, useEffect, useContext } from "react";
+import { Link } from "react-router-dom";
+import { FavoritesContext } from "./context/favoritesContext";
+import {
+  getSavedFavorites,
+  updateFavorites,
+  useFavorites,
+} from "./hooks/useFavorites";
 
 import { Container, List, ListItem, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { getSavedFavorites, useFavorites } from "./hooks/useFavorites";
-import { FavoritesContext } from "./context/favoritesContext";
-import { Link } from "react-router-dom";
+import { IconButton } from "@material-ui/core";
+import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -36,6 +42,9 @@ const useStyles = makeStyles((theme) =>
         backgroundColor: "rgba(0, 0, 0, 0.2)",
         cursor: "pointer",
       },
+      display: "flex",
+      flexDirection: "row",
+      justifyContent: "space-between",
     },
     list: {
       width: "100%",
@@ -51,10 +60,9 @@ const useStyles = makeStyles((theme) =>
 export const Favorites = () => {
   const classes = useStyles();
 
-  const { favorites } = useContext(FavoritesContext);
+  const { favorites, setFavorites } = useContext(FavoritesContext);
 
   return (
-    // <div className="favorites-container">
     <Container className={classes.container}>
       <Typography variant="h5" className={classes.title}>
         FAVORITE EVENTS
@@ -62,15 +70,27 @@ export const Favorites = () => {
       <List className={classes.list}>
         {favorites.map((event) => {
           return (
-            <ListItem className={classes.listItem}>
+            <ListItem className={classes.listItem} key={event.id}>
               <Link to={`/event/${event.id}`} className={classes.link}>
                 {event.displayName}
               </Link>
+              <IconButton
+                aria-label="delete"
+                className={classes.margin}
+                size="small"
+              >
+                <HighlightOffIcon
+                  onClick={() =>
+                    updateFavorites(event, favorites, setFavorites)
+                  }
+                  fontSize="inherit"
+                  style={{ color: "white" }}
+                />
+              </IconButton>
             </ListItem>
           );
         })}
       </List>
     </Container>
-    // </div>
   );
 };

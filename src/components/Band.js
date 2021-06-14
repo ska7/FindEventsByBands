@@ -17,6 +17,7 @@ const customStyles = (image) => {
           height: "65vh",
         },
         [theme.breakpoints.up("lg")]: {
+          height: "90vh",
           padding: 0,
           background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%)`,
         },

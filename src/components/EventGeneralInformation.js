@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState, useEffect } from "react";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import { Container, makeStyles, Typography } from "@material-ui/core";
@@ -138,10 +138,6 @@ const formatTime = (time) => {
   return `${hours}:${minutes}`;
 };
 
-const checkIfSaved = (eventID, favorites) => {
-  return favorites.find((event) => event.id === eventID);
-};
-
 const updateFavorites = (event, favorites, setFavorites) => {
   const isPresent = checkIfSaved(event.id, favorites);
 
@@ -156,10 +152,27 @@ const updateFavorites = (event, favorites, setFavorites) => {
   }
 };
 
+const checkIfSaved = (eventID, favorites) => {
+  return favorites.find((event) => {
+    console.log(event.id);
+    console.log(eventID);
+    return event.id === eventID;
+  });
+};
+
 export const EventGeneralInformation = ({ event, isStandAlone }) => {
   const classes = useStyles(isStandAlone)();
 
   const { favorites, setFavorites } = useContext(FavoritesContext);
+
+  const [isChecked, setChecked] = useState(false);
+
+  useEffect(() => {
+    console.log(favorites);
+    const saved = checkIfSaved(event.id, favorites);
+    setChecked(saved);
+    console.log("checked", isChecked);
+  }, [favorites]);
 
   return (
     <Container className={classes.mainContainer}>
@@ -189,7 +202,7 @@ export const EventGeneralInformation = ({ event, isStandAlone }) => {
               />
             }
             onClick={() => updateFavorites(event, favorites, setFavorites)}
-            checked={checkIfSaved(event.id, favorites)}
+            checked={isChecked}
             checkedIcon={
               <Favorite fontSize={isStandAlone ? "large" : "medium"} />
             }
