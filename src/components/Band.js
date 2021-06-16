@@ -13,18 +13,19 @@ const customStyles = (image) => {
       mainContainer: {
         position: "relative",
         ...theme.card,
+        background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%)`,
         [theme.breakpoints.up("sm")]: {
           height: "65vh",
         },
         [theme.breakpoints.up("lg")]: {
           height: "90vh",
           padding: 0,
-          background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%)`,
         },
       },
       bandWrapper: {
         [theme.breakpoints.up("sm")]: {
           height: "100%",
+          backgroundPosition: "center",
           backgroundSize: "cover",
           background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
             "${image}"
@@ -35,6 +36,8 @@ const customStyles = (image) => {
           background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
           "${image}"
         )`,
+          backgroundRepeat: "no-repeat",
+          backgroundSize: "cover",
         },
       },
       header: {

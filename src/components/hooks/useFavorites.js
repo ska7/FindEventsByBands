@@ -59,7 +59,6 @@ export const useFavorites = () => {
 // };
 
 // export const getSavedFavorites = () => {
-//   console.log("Got saved favorites");
 //   const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
 
 //   // If there are saved favorites
@@ -75,6 +74,8 @@ export const useFavorites = () => {
 
 //   useEffect(() => {
 //     if (event && Object.keys(event).length) {
+//       const x = getUpdatedFavorites(event, favorites)
+//       console.log(x)
 //       setFavorites(getUpdatedFavorites(event, favorites));
 //       localStorage.setItem(
 //         "favorites",

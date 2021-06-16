@@ -32,6 +32,14 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
+const formatArtistName = (name) => {
+  if (name.length > 20) {
+    return `${name.slice(0, 20)}...`;
+  } else {
+    return name;
+  }
+};
+
 export const BandsList = ({ bands, clearInput }) => {
   const classes = useStyles();
   return (
@@ -45,7 +53,7 @@ export const BandsList = ({ bands, clearInput }) => {
               to={`/band/${band.displayName}?bandID=${band.id}`}
               onClick={clearInput}
             >
-              {band.displayName}
+              {formatArtistName(band.displayName)}
             </Link>
           );
         })

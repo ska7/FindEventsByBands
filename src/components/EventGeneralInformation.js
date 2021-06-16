@@ -10,6 +10,7 @@ import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
 import { FavoritesContext } from "./context/favoritesContext";
 import { theme } from "./Theme";
+import { checkIfSaved, updateFavorites } from "./hooks/useFavorites";
 
 const useStyles = (isStandAlone) => {
   const standAloneStyles = {
@@ -138,27 +139,25 @@ const formatTime = (time) => {
   return `${hours}:${minutes}`;
 };
 
-const updateFavorites = (event, favorites, setFavorites) => {
-  const isPresent = checkIfSaved(event.id, favorites);
+// const updateFavorites = (event, favorites, setFavorites) => {
+//   const isPresent = checkIfSaved(event.id, favorites);
 
-  if (isPresent) {
-    const updatedFavorites = favorites.filter(
-      (favoriteEvent) => favoriteEvent.id !== event.id
-    );
-    setFavorites([...updatedFavorites]);
-  } else {
-    const updatedFavorites = [...favorites, event];
-    setFavorites([...updatedFavorites]);
-  }
-};
+//   if (isPresent) {
+//     const updatedFavorites = favorites.filter(
+//       (favoriteEvent) => favoriteEvent.id !== event.id
+//     );
+//     setFavorites([...updatedFavorites]);
+//   } else {
+//     const updatedFavorites = [...favorites, event];
+//     setFavorites([...updatedFavorites]);
+//   }
+// };
 
-const checkIfSaved = (eventID, favorites) => {
-  return favorites.find((event) => {
-    console.log(event.id);
-    console.log(eventID);
-    return event.id === eventID;
-  });
-};
+// const checkIfSaved = (eventID, favorites) => {
+//   return favorites.find((event) => {
+//     return event.id === eventID;
+//   });
+// };
 
 export const EventGeneralInformation = ({ event, isStandAlone }) => {
   const classes = useStyles(isStandAlone)();
@@ -168,10 +167,7 @@ export const EventGeneralInformation = ({ event, isStandAlone }) => {
   const [isChecked, setChecked] = useState(false);
 
   useEffect(() => {
-    console.log(favorites);
-    const saved = checkIfSaved(event.id, favorites);
-    setChecked(saved);
-    console.log("checked", isChecked);
+    setChecked(checkIfSaved(event.id, favorites));
   }, [favorites]);
 
   return (
