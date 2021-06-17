@@ -14,6 +14,9 @@ const customStyles = (image) => {
         position: "relative",
         ...theme.card,
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%)`,
+        [theme.breakpoints.down("sm")]: {
+          height: "60vh",
+        },
         [theme.breakpoints.up("sm")]: {
           height: "65vh",
         },

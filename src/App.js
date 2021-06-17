@@ -11,31 +11,50 @@ import { FavoriteEvent } from "./components/FavoriteEvent";
 import { theme } from "./components/Theme";
 import { Band } from "./components/Band";
 
-import { Container, ThemeProvider, useTheme } from "@material-ui/core";
+import {
+  Container,
+  Grid,
+  Hidden,
+  ThemeProvider,
+  useMediaQuery,
+  useTheme,
+} from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
 
 const useCustomStyles = (WidthAbove1025) => {
   return makeStyles((theme) =>
     createStyles({
       mainAppContainer: {
-        // =============================================================
-        // Tablets and small laptops
-        // =============================================================
-        [theme.breakpoints.up("sm")]: {
-          display: "grid",
-          background: `radial-gradient(
+        display: "grid",
+        background: `radial-gradient(
                       circle,
                       rgba(2, 0, 36, 1) 0%,
                       rgba(169, 169, 169, 1) 0%,
                       rgba(169, 169, 169, 1) 47%,
                       rgba(145, 144, 144, 1) 100%
                     )`,
-          padding: 0,
-          margin: 0,
-          overflow: "hidden",
-          height: "100vh",
-          width: "100vw",
+        padding: 0,
+        margin: 0,
+        overflow: "hidden",
+        height: "100vh",
+        width: "100vw",
+        // =============================================================
+        // Mobile Devices
+        // =============================================================
+        [theme.breakpoints.down("xs")]: {
+          backgroundColor: "#000000",
+          backgroundImage: "linear-gradient(315deg, #000000 0%, #414141 74%)",
+          gridTemplateRows: "0.5fr 5fr",
+          gridTemplateAreas: `
+                "search"
+                "event"
+                `,
+        },
+
+        // =============================================================
+        // Tablets and small laptops
+        // =============================================================
+        [theme.breakpoints.up("sm")]: {
           gridTemplateColumns: "3fr 1fr",
           gridTemplateRows: "1fr 5fr",
           gridTemplateAreas: `
@@ -47,20 +66,7 @@ const useCustomStyles = (WidthAbove1025) => {
         // PC and big laptops
         // ============================================================
         [theme.breakpoints.up("lg")]: {
-          display: "grid",
           gridTemplateColumns: "1.5fr 3fr 1fr",
-          padding: 0,
-          margin: 0,
-          overflow: "hidden",
-          height: "100vh",
-          width: "100vw",
-          background: `radial-gradient(
-                circle,
-                rgba(2, 0, 36, 1) 0%,
-                rgba(169, 169, 169, 1) 0%,
-                rgba(169, 169, 169, 1) 47%,
-                rgba(145, 144, 144, 1) 100%
-              )`,
           backgroundSize: "cover",
           gridTemplateAreas: `"search event favorites"`,
         },
@@ -72,12 +78,15 @@ const useCustomStyles = (WidthAbove1025) => {
 const App = () => {
   const classes = useCustomStyles()();
 
+  const xsScreen = useMediaQuery("(max-width: 450px)");
+
   useEffect(() => {
     console.log(theme.breakpoints.values);
   }, []);
   return (
     <ThemeProvider theme={theme}>
-      <Container
+      <Grid
+        container
         className={classes.mainAppContainer}
         disableGutters
         maxWidth="false"
@@ -89,10 +98,10 @@ const App = () => {
               path="/"
               render={(props) => (
                 <>
-                  <Search />
                   <FavoritesContextProvider>
-                    <EventsCarousel />
+                    <Search />
                     <Favorites />
+                    <EventsCarousel />
                   </FavoritesContextProvider>
                 </>
               )}
@@ -105,7 +114,10 @@ const App = () => {
                   <Search />
                   <FavoritesContextProvider>
                     <Band {...props} />
-                    <Favorites />
+
+                    <Favorites
+                      mobile={theme.breakpoints.down("sm") ? true : false}
+                    />
                   </FavoritesContextProvider>
                 </>
               )}
@@ -118,14 +130,15 @@ const App = () => {
                   <Search />
                   <FavoritesContextProvider>
                     <FavoriteEvent {...props} />
-                    <Favorites />
+
+                    <Favorites mobile={theme.breakpoints.down("sm")} />
                   </FavoritesContextProvider>
                 </>
               )}
             />
           </Switch>
         </Router>
-      </Container>
+      </Grid>
     </ThemeProvider>
   );
 };

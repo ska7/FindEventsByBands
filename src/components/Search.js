@@ -10,6 +10,19 @@ const useStyles = makeStyles((theme) =>
     searchInputListContainer: {
       position: "relative",
       gridArea: "search",
+      // border: "1px solid red",
+
+      [theme.breakpoints.down("sm")]: {
+        zIndex: "15",
+        position: "absolute",
+        top: "0px",
+        height: "90px",
+        width: "60vw",
+        transition: "all 0.5s ease",
+        width: "100vw",
+        background: "rgba(0,0,0,0.7)",
+        boxShadow: "0px 0px 30px 10px black",
+      },
       [theme.breakpoints.down("md")]: {
         display: "flex",
         flexDirection: "column",
@@ -17,28 +30,45 @@ const useStyles = makeStyles((theme) =>
         justifyContent: "center",
         padding: 0,
       },
+      [theme.breakpoints.up("md")]: {
+        height: "200px",
+      },
     },
     searchInputList: {
       padding: 0,
       position: "absolute",
       zIndex: "15",
-      margin: "55px auto",
-      top: 0,
-      left: 0,
-      right: 0,
+      margin: "20px auto 0px auto",
       height: "auto",
-      width: "90%",
+      width: "50%",
       borderRadius: "10px",
       transition: "all 0.3s ease",
-      "&:focus-within": {
-        boxShadow: "0px 0px 10px 1px black",
+      [theme.breakpoints.down("sm")]: {
+        top: 0,
+        bottom: 0,
+        "&:focus-within": {
+          width: "90%",
+        },
+      },
+      [theme.breakpoints.up("lg")]: {
+        marginTop: "50px",
       },
     },
-    root: {
+    input: {
       ...theme.input,
       position: "relative",
       height: "50px",
       width: "100%",
+      "&:focus-within": {
+        boxShadow: "0px 0px 10px 1px black",
+      },
+    },
+    inputProps: {
+      [theme.breakpoints.down("xs")]: {
+        "&&::placeholder": {
+          fontSize: "14px",
+        },
+      },
     },
     inputEmpty: {
       borderRadius: "10px",
@@ -61,11 +91,12 @@ export const Search = (props) => {
     <Container className={classes.searchInputListContainer}>
       <List className={classes.searchInputList}>
         <Input
-          className={classes.root}
+          className={classes.input}
           classes={{
             root: !inputValue && classes.inputEmpty,
             focused: classes.focused,
           }}
+          inputProps={{ className: classes.inputProps }}
           disableUnderline="false"
           color="primary"
           autoFocus="true"

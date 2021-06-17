@@ -1,7 +1,12 @@
 import React, { useContext, useState, useEffect } from "react";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
-import { Container, makeStyles, Typography } from "@material-ui/core";
+import {
+  Container,
+  createStyles,
+  makeStyles,
+  Typography,
+} from "@material-ui/core";
 
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
 import ListItemText from "@material-ui/core/ListItemText";
@@ -62,45 +67,149 @@ const useStyles = (isStandAlone) => {
     },
   };
 
-  const itemOfListStyles = {
-    checkbox: {
-      "&:hover": {
-        backgroundColor: "rgba(255,255,255, 0.7)",
-        borderRadius: "50%",
-      },
-    },
-    eventTime: {
-      color: "rgb(220,220,220)",
-    },
-    link: {
-      ...theme.links,
-    },
-    eventDate: {
-      width: "10%",
-      padding: "0",
-      margin: "0",
-    },
-    location: {
-      fontWeight: "300",
-      color: "rgb(220,220,220)",
-    },
-    eventName: {
-      width: "80%",
-    },
-    name: { fontWeight: "700", color: "white" },
-    date: {
-      fontWeight: "900",
-    },
-    mainContainer: {
-      display: "flex",
-      flexDirection: "row",
+  // const itemOfListStyles = {
+  //   checkbox: {
+  //     "&:hover": {
+  //       backgroundColor: "rgba(255,255,255, 0.7)",
+  //       borderRadius: "50%",
+  //     },
+  //   },
+  //   eventTime: {
+  //     color: "rgb(220,220,220)",
+  //   },
+  //   link: {
+  //     ...theme.links,
+  //   },
+  //   eventDate: {
+  //     width: "10%",
+  //     padding: "0",
+  //     margin: "0",
+  //   },
+  //   location: {
+  //     fontWeight: "300",
+  //     color: "rgb(220,220,220)",
+  //   },
+  //   eventName: {
+  //     width: "80%",
+  //   },
+  //   name: { fontWeight: "700", color: "white" },
+  //   date: {
+  //     fontWeight: "900",
+  //   },
+  //   mainContainer: {
+  //     display: "flex",
+  //     flexDirection: "row",
 
-      width: "100%",
-    },
-  };
+  //     width: "100%",
+  //   },
+  // };
 
   return makeStyles((theme) =>
-    isStandAlone ? standAloneStyles : itemOfListStyles
+    createStyles(
+      isStandAlone
+        ? // Standalone Styles
+          {
+            mainContainer: {
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+              padding: "20px 30px",
+              // border: "1px solid red",
+              [theme.breakpoints.down("xs")]: {},
+            },
+            checkbox: {
+              border: "1px soldi red",
+              "&:hover": {
+                backgroundColor: "rgba(255,255,255, 0.7)",
+                borderRadius: "50%",
+              },
+            },
+            eventTime: {
+              color: "rgb(220,220,220)",
+              fontSize: "17px",
+            },
+            link: {
+              ...theme.links,
+            },
+            eventDate: {
+              width: "10%",
+              padding: "0",
+              margin: "0",
+            },
+            location: {
+              fontWeight: "500",
+              color: "rgb(220,220,220)",
+              textAlign: "center",
+              [theme.breakpoints.down("xs")]: {
+                marginTop: "10px",
+                fontSize: "15px",
+              },
+            },
+            eventName: {
+              width: "80%",
+              padding: "0px 40px",
+            },
+            name: {
+              fontWeight: "700",
+              color: "white",
+              fontSize: "27px",
+              textAlign: "center",
+
+              [theme.breakpoints.down("xs")]: {
+                fontSize: "20px",
+              },
+            },
+            date: {
+              fontWeight: "900",
+              fontSize: "25px",
+            },
+            favoriteBtn: {
+              margin: 0,
+            },
+          }
+        : // Item Of List Styles
+          {
+            checkbox: {
+              "&:hover": {
+                backgroundColor: "rgba(255,255,255, 0.7)",
+                borderRadius: "50%",
+              },
+            },
+            eventTime: {
+              color: "rgb(220,220,220)",
+            },
+            link: {
+              ...theme.links,
+            },
+            eventDate: {
+              width: "10%",
+              padding: "0",
+              margin: "0",
+            },
+            location: {
+              fontWeight: "300",
+              color: "rgb(220,220,220)",
+            },
+            eventName: {
+              width: "80%",
+            },
+            name: {
+              fontWeight: "700",
+              color: "white",
+            },
+            date: {
+              fontWeight: "900",
+            },
+            mainContainer: {
+              display: "flex",
+              flexDirection: "row",
+
+              width: "100%",
+            },
+          }
+    )
   );
 };
 
@@ -139,26 +248,6 @@ const formatTime = (time) => {
   return `${hours}:${minutes}`;
 };
 
-// const updateFavorites = (event, favorites, setFavorites) => {
-//   const isPresent = checkIfSaved(event.id, favorites);
-
-//   if (isPresent) {
-//     const updatedFavorites = favorites.filter(
-//       (favoriteEvent) => favoriteEvent.id !== event.id
-//     );
-//     setFavorites([...updatedFavorites]);
-//   } else {
-//     const updatedFavorites = [...favorites, event];
-//     setFavorites([...updatedFavorites]);
-//   }
-// };
-
-// const checkIfSaved = (eventID, favorites) => {
-//   return favorites.find((event) => {
-//     return event.id === eventID;
-//   });
-// };
-
 export const EventGeneralInformation = ({ event, isStandAlone }) => {
   const classes = useStyles(isStandAlone)();
 
@@ -168,6 +257,8 @@ export const EventGeneralInformation = ({ event, isStandAlone }) => {
 
   useEffect(() => {
     setChecked(checkIfSaved(event.id, favorites));
+    console.log(classes);
+    // console.log(classes);
   }, [favorites]);
 
   return (
@@ -189,6 +280,7 @@ export const EventGeneralInformation = ({ event, isStandAlone }) => {
         </Typography>
       </Container>
       <FormControlLabel
+        className={classes.favoriteBtn}
         control={
           <Checkbox
             icon={
