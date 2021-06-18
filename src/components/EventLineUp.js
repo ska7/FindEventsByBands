@@ -48,13 +48,14 @@ const useStyles = (isStandAlone) => {
             },
             artist: {
               fontSize: "100%",
-              // width: "auto",
               color: "white",
               transition: "all 0.3s ease",
               borderBottom: "none",
               textAlign: "center",
               // border: "1px solid red",
-              [theme.breakpoints.down("xs")]: {},
+              [theme.breakpoints.down("xs")]: {
+                width: "25%",
+              },
             },
             singleArtist: {
               width: "100%",
@@ -304,6 +305,8 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
   // If collapse prop is true, isUnfolded
 
   const xsScreen = useMediaQuery("(max-width: 450px)");
+  const lgScreen = useMediaQuery("(min-width: 1000px)");
+  const mdScreen = useMediaQuery("(min-width: 451px) and (max-width: 999px)");
   const [isUnfolded, setUnfolded] = useState(!collapse);
   return (
     <Container className={classes.unfolded}>
@@ -343,9 +346,9 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
         </Container>
         <TableContainer className={classes.table}>
           <TableBody className={classes.tableBody}>
-            {xsScreen
-              ? createTableRow(artists, classes, 3)
-              : createTableRow(artists, classes, 4)}
+            {xsScreen && createTableRow(artists, classes, 3)}
+            {mdScreen && createTableRow(artists, classes, 4)}
+            {lgScreen && createTableRow(artists, classes, 5)}
           </TableBody>
         </TableContainer>
       </Collapse>

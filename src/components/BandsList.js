@@ -8,17 +8,20 @@ import { useSpotify } from "./hooks/useSpotify";
 const useStyles = makeStyles((theme) =>
   createStyles({
     link: {
-      ...theme.centerColumn,
+      // ...theme.centerColumn,
+      display: "flex",
+      flexDirection: "column",
       fontFamily: "Inconsolata, monospace",
       textDecoration: "none",
       width: "100%",
       height: "70px",
-      textAlign: "center",
+      // textAlign: "left",
       padding: "20px 40px",
-      background: "#323a3d",
-      color: "white",
+      background: "#dddddd",
+      color: "#504f4f",
       fontWeight: "bold",
       transition: "all 0.5s ease",
+      margin: 0,
       "&:nth-last-child(1)": {
         borderBottomLeftRadius: "10px",
         borderBottomRightRadius: "10px",
@@ -27,6 +30,7 @@ const useStyles = makeStyles((theme) =>
         cursor: "pointer",
         textDecoration: "none",
         background: "#222323",
+        color: "white",
       },
     },
   })

@@ -21,6 +21,9 @@ import {
 } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
+import { IconButton } from "@material-ui/core";
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+
 const useCustomStyles = (WidthAbove1025) => {
   return makeStyles((theme) =>
     createStyles({
@@ -91,6 +94,11 @@ const App = () => {
         disableGutters
         maxWidth="false"
       >
+        {xsScreen && (
+          <IconButton className={homeBtnWrapper}>
+            <HomeOutlinedIcon />
+          </IconButton>
+        )}
         <Router>
           <Switch>
             <Route

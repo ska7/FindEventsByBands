@@ -26,7 +26,7 @@ const useStyles = makeStyles((theme) =>
   createStyles({
     container: {
       gridArea: "favorites",
-      background: `radial-gradient(circle, rgba(143,9,14,1) 0%, rgba(105,0,4,1) 0%, rgba(92,0,0,1) 47%, rgba(135,8,8,1) 100%)`,
+      background: `radial-gradient(circle, rgba(143,9,14,1) 0%, rgba(105,0,4,1) 0%, rgba(135,8,8,1) 100%)`,
       boxShadow: "1px 0px 10px 5px black",
       overflowY: "auto",
       height: "100vh",
@@ -50,6 +50,25 @@ const useStyles = makeStyles((theme) =>
       fontWeight: "500",
       textAlign: "center",
       margin: "35px 0px",
+      [theme.breakpoints.down("xs")]: {
+        margin: 0,
+        background: "rgba(0, 0, 0, 0.8)",
+        height: "100px",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        color: "white",
+        fontWeight: "900",
+        boxShadow: "0px 0px 20px 5px rgba(0, 0, 0, 0.8)",
+      },
+    },
+    list: {
+      width: "100%",
+      color: "white",
+      flexDirection: "column",
+      [theme.breakpoints.down("xs")]: {
+        marginTop: "50px",
+      },
     },
     listItem: {
       fontFamily: "Inconsolata, monospace",
@@ -63,11 +82,9 @@ const useStyles = makeStyles((theme) =>
       display: "flex",
       flexDirection: "row",
       justifyContent: "space-between",
-    },
-    list: {
-      width: "100%",
-      color: "white",
-      flexDirection: "column",
+      [theme.breakpoints.down("xs")]: {
+        margin: "10px 0px",
+      },
     },
     link: {
       ...theme.links,
@@ -116,7 +133,11 @@ export const Favorites = () => {
             {favorites.map((event) => {
               return (
                 <ListItem className={classes.listItem} key={event.id}>
-                  <Link to={`/event/${event.id}`} className={classes.link}>
+                  <Link
+                    onClick={xsScreen ? () => setOpen(false) : null}
+                    to={`/event/${event.id}`}
+                    className={classes.link}
+                  >
                     {event.displayName}
                   </Link>
                   <IconButton

@@ -40,12 +40,14 @@ const useStyles = makeStyles((theme) =>
       zIndex: "15",
       margin: "20px auto 0px auto",
       height: "auto",
-      width: "50%",
+      width: "90%",
       borderRadius: "10px",
       transition: "all 0.3s ease",
-      [theme.breakpoints.down("sm")]: {
+      border: "1px solid black",
+      [theme.breakpoints.down("xs")]: {
         top: 0,
         bottom: 0,
+        width: "50%",
         "&:focus-within": {
           width: "90%",
         },
