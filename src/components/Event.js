@@ -59,6 +59,7 @@ export const Event = ({
       }
       button={false}
       disableGutters
+      id="event-card-top"
     >
       <EventGeneralInformation event={event} isStandAlone={isStandAlone} />
       <EventLineUp

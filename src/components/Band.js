@@ -13,11 +13,13 @@ const customStyles = (image) => {
       mainContainer: {
         position: "relative",
         ...theme.card,
+        gridArea: "event",
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%)`,
-        [theme.breakpoints.down("sm")]: {
-          height: "60vh",
+        [theme.breakpoints.down("xs")]: {
+          height: "100vh !important",
+          width: "100vw",
         },
-        [theme.breakpoints.up("sm")]: {
+        [theme.breakpoints.up("xs")]: {
           height: "65vh",
         },
         [theme.breakpoints.up("lg")]: {
@@ -26,21 +28,21 @@ const customStyles = (image) => {
         },
       },
       bandWrapper: {
-        [theme.breakpoints.up("sm")]: {
-          height: "100%",
-          backgroundPosition: "center",
-          backgroundSize: "cover",
-          background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
+        height: "100%",
+        // border: "1px solid red",
+        backgroundSize: "cover",
+        background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
             "${image}"
           )`,
+        [theme.breakpoints.down("xs")]: {
+          backgroundPosition: "center",
+          marginTop: "70px",
+        },
+        [theme.breakpoints.up("sm")]: {
+          backgroundPosition: "center",
         },
         [theme.breakpoints.up("lg")]: {
-          height: "100%",
-          background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
-          "${image}"
-        )`,
           backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
         },
       },
       header: {
@@ -48,11 +50,19 @@ const customStyles = (image) => {
         justifyContent: "center",
         alignItems: "center",
         background: "rgba(0,0,0,0.6)",
-        boxShadow: "0px 0px 25px 10px black",
         color: "white",
         textAlign: "center",
         fontSize: "30px",
         height: "70px",
+        [theme.breakpoints.down("xs")]: {
+          // background: "rgba(0,0,0,0.3)",
+          height: "50px",
+          fontSize: "25px",
+          fontWeight: "900",
+        },
+        [theme.breakpoints.up("xs")]: {
+          boxShadow: "0px 0px 25px 10px black",
+        },
       },
       subHeader: {
         background: "rgba(0,0,0,0.8)",

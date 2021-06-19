@@ -12,16 +12,11 @@ const useStyles = makeStyles((theme) =>
       gridArea: "search",
       // border: "1px solid red",
 
-      [theme.breakpoints.down("sm")]: {
-        zIndex: "15",
-        position: "absolute",
-        top: "0px",
+      [theme.breakpoints.down("xs")]: {
         height: "90px",
         width: "60vw",
         transition: "all 0.5s ease",
         width: "100vw",
-        background: "rgba(0,0,0,0.7)",
-        boxShadow: "0px 0px 30px 10px black",
       },
       [theme.breakpoints.down("md")]: {
         display: "flex",
@@ -35,18 +30,18 @@ const useStyles = makeStyles((theme) =>
       },
     },
     searchInputList: {
+      top: "0",
       padding: 0,
       position: "absolute",
-      zIndex: "15",
-      margin: "20px auto 0px auto",
       height: "auto",
       width: "90%",
+      margin: "20px auto 0px auto",
       borderRadius: "10px",
       transition: "all 0.3s ease",
       border: "1px solid black",
       [theme.breakpoints.down("xs")]: {
-        top: 0,
-        bottom: 0,
+        zIndex: "25",
+        // margin: 0,
         width: "50%",
         "&:focus-within": {
           width: "90%",
@@ -58,7 +53,6 @@ const useStyles = makeStyles((theme) =>
     },
     input: {
       ...theme.input,
-      position: "relative",
       height: "50px",
       width: "100%",
       "&:focus-within": {
@@ -69,6 +63,9 @@ const useStyles = makeStyles((theme) =>
       [theme.breakpoints.down("xs")]: {
         "&&::placeholder": {
           fontSize: "14px",
+        },
+        "&:focus-within": {
+          paddingLeft: "40px",
         },
       },
     },

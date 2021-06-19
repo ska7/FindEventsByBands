@@ -1,7 +1,7 @@
 import react, { useEffect } from "react";
 
 import "./App.scss";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { Search } from "./components/Search";
 import { Favorites } from "./components/Favorites";
 import { SimilarBands } from "./components/SimilarBands";
@@ -22,9 +22,9 @@ import {
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 import { IconButton } from "@material-ui/core";
-import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import { MobileTopBar } from "./components/MobileTopBar";
 
-const useCustomStyles = (WidthAbove1025) => {
+const useCustomStyles = () => {
   return makeStyles((theme) =>
     createStyles({
       mainAppContainer: {
@@ -57,7 +57,7 @@ const useCustomStyles = (WidthAbove1025) => {
         // =============================================================
         // Tablets and small laptops
         // =============================================================
-        [theme.breakpoints.up("sm")]: {
+        [theme.breakpoints.up("xs")]: {
           gridTemplateColumns: "3fr 1fr",
           gridTemplateRows: "1fr 5fr",
           gridTemplateAreas: `
@@ -84,7 +84,10 @@ const App = () => {
   const xsScreen = useMediaQuery("(max-width: 450px)");
 
   useEffect(() => {
-    console.log(theme.breakpoints.values);
+    // console.log(theme.breakpoints.values);
+    const topContainer = document.getElementById("event-lineup");
+
+    console.log(topContainer.offsetHeight);
   }, []);
   return (
     <ThemeProvider theme={theme}>
@@ -94,11 +97,6 @@ const App = () => {
         disableGutters
         maxWidth="false"
       >
-        {xsScreen && (
-          <IconButton className={homeBtnWrapper}>
-            <HomeOutlinedIcon />
-          </IconButton>
-        )}
         <Router>
           <Switch>
             <Route
@@ -107,8 +105,15 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    <Search />
-                    <Favorites />
+                    {xsScreen ? (
+                      <MobileTopBar />
+                    ) : (
+                      <>
+                        <Search />
+                        <Favorites />
+                      </>
+                    )}
+
                     <EventsCarousel />
                   </FavoritesContextProvider>
                 </>
@@ -119,13 +124,16 @@ const App = () => {
               path="/band/:bandName"
               render={(props) => (
                 <>
-                  <Search />
                   <FavoritesContextProvider>
+                    {xsScreen ? (
+                      <MobileTopBar />
+                    ) : (
+                      <>
+                        <Search />
+                        <Favorites />
+                      </>
+                    )}
                     <Band {...props} />
-
-                    <Favorites
-                      mobile={theme.breakpoints.down("sm") ? true : false}
-                    />
                   </FavoritesContextProvider>
                 </>
               )}
@@ -135,11 +143,16 @@ const App = () => {
               path="/event/:eventID"
               render={(props) => (
                 <>
-                  <Search />
                   <FavoritesContextProvider>
+                    {xsScreen ? (
+                      <MobileTopBar />
+                    ) : (
+                      <>
+                        <Search />
+                        <Favorites />
+                      </>
+                    )}
                     <FavoriteEvent {...props} />
-
-                    <Favorites mobile={theme.breakpoints.down("sm")} />
                   </FavoritesContextProvider>
                 </>
               )}

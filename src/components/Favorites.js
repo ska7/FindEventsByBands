@@ -40,6 +40,7 @@ const useStyles = makeStyles((theme) =>
         top: 0,
         right: 0,
       },
+      [theme.breakpoints.up("xs")]: {},
     },
     title: {
       width: "100%",

@@ -4,12 +4,14 @@ import { throttle } from "lodash";
 import axios from "axios";
 import { Loader } from "./Loader";
 import { BandsList } from "./BandsList";
+import { useMediaQuery } from "@material-ui/core";
 
 export const MatchedBands = ({ searchString, onClick }) => {
   const [bands, setBands] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  //
+  const xsScreen = useMediaQuery("(max-width: 450px)");
+
   const throttledFetchBands = useRef(
     throttle((searchString) => fetchBands(searchString), 1000, {
       trailing: true,
@@ -56,7 +58,10 @@ export const MatchedBands = ({ searchString, onClick }) => {
   return (
     <>
       {loading ? (
-        <Loader customPosition={{ right: "5%" }} size="50px" />
+        <Loader
+          customPosition={xsScreen ? { left: "3%" } : { right: "5%" }}
+          size="50px"
+        />
       ) : (
         <BandsList clearInput={onClick} bands={bands} />
       )}

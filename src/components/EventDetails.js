@@ -33,7 +33,7 @@ const customStyles = (image) => {
           ${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        [theme.breakpoints.down("sm")]: {
+        [theme.breakpoints.down("xs")]: {
           paddingTop: "90px",
           height: "100vh",
           width: "100vw",

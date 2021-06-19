@@ -4,29 +4,18 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Container, Typography } from "@material-ui/core";
 import List from "@material-ui/core/List";
 
-import ListItem from "@material-ui/core/ListItem";
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
-import Checkbox from "@material-ui/core/Checkbox";
-import Favorite from "@material-ui/icons/Favorite";
-import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-
-import { useFavorites, checkIfSaved } from "./hooks/useFavorites";
-import { FavoritesContext } from "./context/favoritesContext";
-import { Link } from "react-router-dom";
-import { EventGeneralInformation } from "./EventGeneralInformation";
-import { EventLineUp } from "./EventLineUp";
 import { EventsFilter } from "./EventsFilter";
 import { Event } from "./Event";
 
 const useStyles = makeStyles((theme) => ({
-  root: {
+  eventsListContainer: {
     height: "100%",
     width: "100%",
     color: "white",
     flexDirection: "column",
     padding: 0,
     position: "relative",
+    [theme.breakpoints.down("xs")]: {},
   },
   subheader: {
     background: "#333333",
@@ -69,10 +58,14 @@ const useStyles = makeStyles((theme) => ({
     zIndex: "10",
   },
   eventsList: {
+    overflowY: "auto",
+    [theme.breakpoints.down("xs")]: {
+      height: "65%",
+    },
     [theme.breakpoints.up("sm")]: {
       height: "70%",
       width: "100%",
-      overflowY: "auto",
+
       backgroundSize: "cover",
       backgroundPosition: "50% 30%",
       padding: 0,
@@ -80,7 +73,6 @@ const useStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("lg")]: {
       height: "70%",
       width: "100%",
-      overflowY: "auto",
       backgroundSize: "cover",
       backgroundPosition: "50% 30%",
       padding: 0,
@@ -95,7 +87,7 @@ export const Events = (props) => {
   const [eventsNumber, setEventsNumber] = useState("");
 
   return (
-    <List dense className={classes.root}>
+    <List dense className={classes.eventsListContainer}>
       {events.length ? (
         <>
           <Container className={classes.filterContainer}>

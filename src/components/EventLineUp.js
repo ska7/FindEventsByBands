@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
 import {
@@ -16,11 +16,10 @@ import {
   useMediaQuery,
 } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { IconButton } from "@material-ui/core";
+import { IconButton, Link as MaterialLink, Collapse } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import TableRow from "@material-ui/core/TableRow";
-import { Collapse } from "@material-ui/core";
 import { theme } from "./Theme";
 
 const useStyles = (isStandAlone) => {
@@ -47,15 +46,16 @@ const useStyles = (isStandAlone) => {
               top: "0",
             },
             artist: {
-              fontSize: "100%",
               color: "white",
               transition: "all 0.3s ease",
               borderBottom: "none",
               textAlign: "center",
               // border: "1px solid red",
               [theme.breakpoints.down("xs")]: {
-                width: "25%",
+                width: "15%",
               },
+              [theme.breakpoints.up("xs")]: {},
+              [theme.breakpoints.up("md")]: {},
             },
             singleArtist: {
               width: "100%",
@@ -70,14 +70,16 @@ const useStyles = (isStandAlone) => {
               alignItems: "center",
             },
             tableBody: {
+              position: "relative",
               width: "100%",
-              overflowY: "auto",
-              height: "380px",
+              overflowX: "hidden",
               [theme.breakpoints.down("sm")]: {
-                height: "auto",
+                height: "100%",
                 width: "100%",
               },
-              [theme.breakpoints.up("md")]: {
+              [theme.breakpoints.up("sm")]: {
+                overflowY: "auto",
+                height: "350px",
                 "&::-webkit-scrollbar": {
                   "-webkitAppearance": "none",
                 },
@@ -123,7 +125,15 @@ const useStyles = (isStandAlone) => {
             },
             arrowSeeLess: {
               borderRadius: "50%",
-              background: "rgba(255,255,255,0.1)",
+              height: "35px",
+              width: "35px",
+              padding: "5px",
+              background: "rgba(255,255,255,0.8)",
+            },
+            arrowSeeLessMobileIcon: {
+              width: "100%",
+              display: "flex",
+              justifyContent: "center",
             },
             labels: {
               marginTop: "20px",
@@ -178,11 +188,16 @@ const useStyles = (isStandAlone) => {
               alignItems: "center",
             },
             artist: {
-              fontSize: "13px",
+              fontSize: "100%",
               color: "white",
               transition: "all 0.3s ease",
               borderBottom: "none",
               textAlign: "center",
+              [theme.breakpoints.down("xs")]: {
+                fontSize: "13px",
+                width: "33%",
+              },
+              [theme.breakpoints.up("xs")]: {},
             },
             table: {
               width: "100%",
@@ -199,6 +214,10 @@ const useStyles = (isStandAlone) => {
             tableRow: {
               width: "100%",
               // padding: "0px 20px",
+              [theme.breakpoints.down("xs")]: {
+                display: "flex",
+                justifyContent: "center",
+              },
             },
             link: {
               color: "white",
@@ -228,7 +247,16 @@ const useStyles = (isStandAlone) => {
             },
             arrowSeeLess: {
               borderRadius: "50%",
+              height: "35px",
+              width: "35px",
+              padding: "5px",
               background: "rgba(255,255,255,0.1)",
+            },
+            arrowSeeMore: {
+              borderRadius: "50%",
+              height: "35px",
+              width: "35px",
+              padding: "5px",
             },
             labels: {
               display: "flex",
@@ -236,6 +264,9 @@ const useStyles = (isStandAlone) => {
               justifyContent: "space-between",
               alignItems: "center",
               padding: "50px 30px",
+              [theme.breakpoints.down("xs")]: {
+                padding: "50px 10px",
+              },
             },
             btnCancelled: {
               pointerEvents: "none",
@@ -253,6 +284,9 @@ const useStyles = (isStandAlone) => {
                 background: theme.palette.secondary.main,
                 color: "black",
               },
+            },
+            arrowSeeLessMobileIcon: {
+              display: "none",
             },
           }
     )
@@ -301,15 +335,24 @@ const createTableRow = (artists, classes, artistsPerRow) => {
 };
 
 export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
-  const classes = useStyles(isStandAlone)();
-  // If collapse prop is true, isUnfolded
+  // Based on the lineup height, we decide whether or not to show the scroll button on the bottom
+  const [lineUpHeight, setLineUpHeight] = useState(0);
 
   const xsScreen = useMediaQuery("(max-width: 450px)");
   const lgScreen = useMediaQuery("(min-width: 1000px)");
   const mdScreen = useMediaQuery("(min-width: 451px) and (max-width: 999px)");
+
+  // If collapse prop is true, isUnfolded
   const [isUnfolded, setUnfolded] = useState(!collapse);
+
+  useEffect(() => {
+    const height = document.getElementById("event-lineup").offsetHeight;
+    setLineUpHeight(height);
+  }, [lineUpHeight]);
+
+  const classes = useStyles(isStandAlone)();
   return (
-    <Container className={classes.unfolded}>
+    <Container className={classes.unfolded} id="event-lineup">
       {collapse && (
         <Container className={classes.iconWrapper}>
           <IconButton
@@ -320,11 +363,12 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
             {isUnfolded ? (
               <ExpandLessIcon className={classes.arrowSeeLess} />
             ) : (
-              <ExpandMoreIcon />
+              <ExpandMoreIcon className={classes.arrowSeeMore} />
             )}
           </IconButton>
         </Container>
       )}
+
       <Collapse in={isUnfolded} timeout="auto">
         <Container className={classes.labels}>
           {cancelled ? (
@@ -349,6 +393,13 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
             {xsScreen && createTableRow(artists, classes, 3)}
             {mdScreen && createTableRow(artists, classes, 4)}
             {lgScreen && createTableRow(artists, classes, 5)}
+            {xsScreen & (lineUpHeight > 1000) && (
+              <IconButton className={classes.arrowSeeLessMobileIcon}>
+                <MaterialLink href="#mobile-top-bar">
+                  <ExpandLessIcon className={classes.arrowSeeLess} />
+                </MaterialLink>
+              </IconButton>
+            )}
           </TableBody>
         </TableContainer>
       </Collapse>

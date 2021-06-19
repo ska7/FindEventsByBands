@@ -18,92 +18,6 @@ import { theme } from "./Theme";
 import { checkIfSaved, updateFavorites } from "./hooks/useFavorites";
 
 const useStyles = (isStandAlone) => {
-  const standAloneStyles = {
-    checkbox: {
-      "&:hover": {
-        backgroundColor: "rgba(255,255,255, 0.7)",
-        borderRadius: "50%",
-      },
-    },
-    eventTime: {
-      color: "rgb(220,220,220)",
-      fontSize: "17px",
-    },
-    link: {
-      ...theme.links,
-    },
-    eventDate: {
-      width: "10%",
-      padding: "0",
-      margin: "0",
-    },
-    location: {
-      fontWeight: "500",
-      color: "rgb(220,220,220)",
-      textAlign: "center",
-    },
-    eventName: {
-      width: "80%",
-      padding: "0px 40px",
-    },
-    name: {
-      fontWeight: "700",
-      color: "white",
-      fontSize: "27px",
-      textAlign: "center",
-    },
-    date: {
-      fontWeight: "900",
-      fontSize: "25px",
-    },
-    mainContainer: {
-      display: "flex",
-      flexDirection: "row",
-      justifyContent: "center",
-      alignItems: "center",
-      width: "100%",
-      // background: `rgba(0, 0, 0, 0.5)`,
-      padding: "20px 30px",
-    },
-  };
-
-  // const itemOfListStyles = {
-  //   checkbox: {
-  //     "&:hover": {
-  //       backgroundColor: "rgba(255,255,255, 0.7)",
-  //       borderRadius: "50%",
-  //     },
-  //   },
-  //   eventTime: {
-  //     color: "rgb(220,220,220)",
-  //   },
-  //   link: {
-  //     ...theme.links,
-  //   },
-  //   eventDate: {
-  //     width: "10%",
-  //     padding: "0",
-  //     margin: "0",
-  //   },
-  //   location: {
-  //     fontWeight: "300",
-  //     color: "rgb(220,220,220)",
-  //   },
-  //   eventName: {
-  //     width: "80%",
-  //   },
-  //   name: { fontWeight: "700", color: "white" },
-  //   date: {
-  //     fontWeight: "900",
-  //   },
-  //   mainContainer: {
-  //     display: "flex",
-  //     flexDirection: "row",
-
-  //     width: "100%",
-  //   },
-  // };
-
   return makeStyles((theme) =>
     createStyles(
       isStandAlone
@@ -119,13 +33,7 @@ const useStyles = (isStandAlone) => {
               // border: "1px solid red",
               [theme.breakpoints.down("xs")]: {},
             },
-            checkbox: {
-              border: "1px soldi red",
-              "&:hover": {
-                backgroundColor: "rgba(255,255,255, 0.7)",
-                borderRadius: "50%",
-              },
-            },
+
             eventTime: {
               color: "rgb(220,220,220)",
               fontSize: "17px",
@@ -135,8 +43,9 @@ const useStyles = (isStandAlone) => {
             },
             eventDate: {
               width: "10%",
-              padding: "0",
+              padding: 0,
               margin: "0",
+              // border: "1px solid red",
             },
             location: {
               fontWeight: "500",
@@ -166,7 +75,10 @@ const useStyles = (isStandAlone) => {
               fontSize: "25px",
             },
             favoriteBtn: {
+              width: "10%",
+              // border: "1px solid red",
               margin: 0,
+              padding: 0,
             },
           }
         : // Item Of List Styles
@@ -205,8 +117,11 @@ const useStyles = (isStandAlone) => {
             mainContainer: {
               display: "flex",
               flexDirection: "row",
-
               width: "100%",
+            },
+            favoriteBtn: {
+              // height: "40px",
+              // width: "40px",
             },
           }
     )
@@ -243,8 +158,6 @@ const formatTime = (time) => {
 
   const [hours, minutes] = time.split(":");
 
-  console.log(hours, minutes);
-
   return `${hours}:${minutes}`;
 };
 
@@ -257,8 +170,6 @@ export const EventGeneralInformation = ({ event, isStandAlone }) => {
 
   useEffect(() => {
     setChecked(checkIfSaved(event.id, favorites));
-    console.log(classes);
-    // console.log(classes);
   }, [favorites]);
 
   return (
