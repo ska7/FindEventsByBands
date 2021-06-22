@@ -18,6 +18,7 @@ const customStyles = (image) => {
         [theme.breakpoints.down("xs")]: {
           height: "100vh !important",
           width: "100vw",
+          // border: "1px solid red",
         },
         [theme.breakpoints.up("xs")]: {
           height: "65vh",
@@ -31,12 +32,12 @@ const customStyles = (image) => {
         height: "100%",
         // border: "1px solid red",
         backgroundSize: "cover",
-        background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%) ,url(
+        background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, .8) 100%) ,url(
             "${image}"
           )`,
         [theme.breakpoints.down("xs")]: {
           backgroundPosition: "center",
-          marginTop: "70px",
+          minHeight: "100%",
         },
         [theme.breakpoints.up("sm")]: {
           backgroundPosition: "center",
@@ -49,7 +50,6 @@ const customStyles = (image) => {
         display: "flex",
         justifyContent: "center",
         alignItems: "center",
-        background: "rgba(0,0,0,0.6)",
         color: "white",
         textAlign: "center",
         fontSize: "30px",
@@ -59,8 +59,10 @@ const customStyles = (image) => {
           height: "50px",
           fontSize: "25px",
           fontWeight: "900",
+          marginTop: "100px",
         },
-        [theme.breakpoints.up("xs")]: {
+        [theme.breakpoints.up("sm")]: {
+          background: "rgba(0,0,0,0.6)",
           boxShadow: "0px 0px 25px 10px black",
         },
       },

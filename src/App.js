@@ -24,6 +24,10 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
 import { MobileTopBar } from "./components/MobileTopBar";
 
+// TEST HOME ICON
+
+import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+
 const useCustomStyles = () => {
   return makeStyles((theme) =>
     createStyles({
@@ -74,6 +78,37 @@ const useCustomStyles = () => {
           gridTemplateAreas: `"search event favorites"`,
         },
       },
+      homeBtnWrapper: {
+        position: "absolute",
+        width: "50px",
+        height: "50px",
+        zIndex: "14",
+        top: "15px",
+        left: "15px",
+        color: "white",
+        "&:hover": {
+          background: "none",
+        },
+      },
+      homeBtn: {
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "center",
+        alignItems: "center",
+        borderRadius: "50%",
+        background: "#676563",
+        height: "40px",
+        width: "40px",
+        padding: "5px",
+        transition: "all 0.5s ease",
+        "&:hover": {
+          background: "rgba(0,0,0,0.7)",
+        },
+      },
+      link: {
+        color: "white",
+        textDecoration: "none",
+      },
     })
   );
 };
@@ -85,9 +120,6 @@ const App = () => {
 
   useEffect(() => {
     // console.log(theme.breakpoints.values);
-    const topContainer = document.getElementById("event-lineup");
-
-    console.log(topContainer.offsetHeight);
   }, []);
   return (
     <ThemeProvider theme={theme}>
@@ -105,16 +137,14 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    {xsScreen ? (
-                      <MobileTopBar />
-                    ) : (
-                      <>
-                        <Search />
-                        <Favorites />
-                      </>
-                    )}
-
+                    <IconButton className={classes.homeBtnWrapper}>
+                      <Link to={`/`} className={classes.link}>
+                        <HomeOutlinedIcon className={classes.homeBtn} />
+                      </Link>
+                    </IconButton>
+                    <Search />
                     <EventsCarousel />
+                    <Favorites />
                   </FavoritesContextProvider>
                 </>
               )}
@@ -125,14 +155,13 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    {xsScreen ? (
-                      <MobileTopBar />
-                    ) : (
-                      <>
-                        <Search />
-                        <Favorites />
-                      </>
-                    )}
+                    <IconButton className={classes.homeBtnWrapper}>
+                      <Link to={`/`} className={classes.link}>
+                        <HomeOutlinedIcon className={classes.homeBtn} />
+                      </Link>
+                    </IconButton>
+                    <Search />
+                    <Favorites />
                     <Band {...props} />
                   </FavoritesContextProvider>
                 </>
@@ -144,14 +173,13 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    {xsScreen ? (
-                      <MobileTopBar />
-                    ) : (
-                      <>
-                        <Search />
-                        <Favorites />
-                      </>
-                    )}
+                    <IconButton className={classes.homeBtnWrapper}>
+                      <Link to={`/`} className={classes.link}>
+                        <HomeOutlinedIcon className={classes.homeBtn} />
+                      </Link>
+                    </IconButton>
+                    <Search />
+                    <Favorites />
                     <FavoriteEvent {...props} />
                   </FavoritesContextProvider>
                 </>

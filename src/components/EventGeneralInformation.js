@@ -29,11 +29,16 @@ const useStyles = (isStandAlone) => {
               justifyContent: "center",
               alignItems: "center",
               width: "100%",
-              padding: "20px 30px",
+              padding: "20px",
               // border: "1px solid red",
+              // background: `linear-gradient(top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.9) 59%, rgba(0, 0, 0, 0.8) 100%)`,
+              // boxShadow: "0px 0px 20px 10px black",
               [theme.breakpoints.down("xs")]: {},
+              [theme.breakpoints.up("xs")]: {
+                marginTop: "100px",
+                padding: "0px 40px",
+              },
             },
-
             eventTime: {
               color: "rgb(220,220,220)",
               fontSize: "17px",
@@ -59,6 +64,7 @@ const useStyles = (isStandAlone) => {
             eventName: {
               width: "80%",
               padding: "0px 40px",
+              [theme.breakpoints.up("xs")]: {},
             },
             name: {
               fontWeight: "700",
@@ -68,6 +74,12 @@ const useStyles = (isStandAlone) => {
 
               [theme.breakpoints.down("xs")]: {
                 fontSize: "20px",
+              },
+              [theme.breakpoints.down("md")]: {
+                fontSize: "23px",
+              },
+              [theme.breakpoints.up("md")]: {
+                fontSize: "27px",
               },
             },
             date: {
@@ -83,6 +95,13 @@ const useStyles = (isStandAlone) => {
           }
         : // Item Of List Styles
           {
+            mainContainer: {
+              display: "flex",
+              flexDirection: "row",
+              justifyContent: "center",
+              alignItems: "center",
+              width: "100%",
+            },
             checkbox: {
               "&:hover": {
                 backgroundColor: "rgba(255,255,255, 0.7)",
@@ -91,6 +110,9 @@ const useStyles = (isStandAlone) => {
             },
             eventTime: {
               color: "rgb(220,220,220)",
+              [theme.breakpoints.down("xs")]: {
+                fontSize: "15px",
+              },
             },
             link: {
               ...theme.links,
@@ -103,6 +125,9 @@ const useStyles = (isStandAlone) => {
             location: {
               fontWeight: "300",
               color: "rgb(220,220,220)",
+              [theme.breakpoints.down("xs")]: {
+                padding: "0px 20px",
+              },
             },
             eventName: {
               width: "80%",
@@ -110,18 +135,19 @@ const useStyles = (isStandAlone) => {
             name: {
               fontWeight: "700",
               color: "white",
+              [theme.breakpoints.down("xs")]: {
+                padding: "0px 20px",
+              },
             },
             date: {
               fontWeight: "900",
             },
-            mainContainer: {
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-            },
             favoriteBtn: {
               // height: "40px",
               // width: "40px",
+              [theme.breakpoints.down("xs")]: {
+                margin: 0,
+              },
             },
           }
     )
@@ -173,7 +199,7 @@ export const EventGeneralInformation = ({ event, isStandAlone }) => {
   }, [favorites]);
 
   return (
-    <Container className={classes.mainContainer}>
+    <Container className={classes.mainContainer} id="event-general-information">
       <Container className={classes.eventDate}>
         <Typography color="secondary" className={classes.date}>
           {formatDate(event.start.date)}

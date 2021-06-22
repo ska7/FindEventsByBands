@@ -30,33 +30,34 @@ const useStyles = makeStyles((theme) =>
       },
     },
     searchInputList: {
-      top: "0",
       padding: 0,
       position: "absolute",
+      top: 0,
       height: "auto",
       width: "90%",
-      margin: "20px auto 0px auto",
+      zIndex: "25",
+      margin: "auto 0px auto 0px",
       borderRadius: "10px",
       transition: "all 0.3s ease",
       border: "1px solid black",
       [theme.breakpoints.down("xs")]: {
-        zIndex: "25",
-        // margin: 0,
+        marginTop: "20px",
         width: "50%",
         "&:focus-within": {
           width: "90%",
         },
       },
-      [theme.breakpoints.up("lg")]: {
-        marginTop: "50px",
+      [theme.breakpoints.up("sm")]: {
+        marginTop: "100px",
       },
     },
     input: {
       ...theme.input,
       height: "50px",
       width: "100%",
+      boxShadow: "0px 0px 10px 1px black",
       "&:focus-within": {
-        boxShadow: "0px 0px 10px 1px black",
+        boxShadow: "0px 0px 10px 3px black",
       },
     },
     inputProps: {
@@ -77,7 +78,7 @@ const useStyles = makeStyles((theme) =>
 
 export const Search = (props) => {
   const [inputValue, setInputValue] = useState("");
-
+  const xsScreen = useMediaQuery("(max-width: 450px)");
   const inputRef = useRef(null);
 
   const handleChange = (e) => {
@@ -98,7 +99,8 @@ export const Search = (props) => {
           inputProps={{ className: classes.inputProps }}
           disableUnderline="false"
           color="primary"
-          autoFocus="true"
+          autoFocus={xsScreen ? true : false}
+          // autoFocus={false}
           value={inputValue}
           onChange={handleChange}
           placeholder="type in a band name"

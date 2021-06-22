@@ -11,18 +11,21 @@ const useStyles = () => {
   return makeStyles((theme) =>
     createStyles({
       standAloneStyles: {
-        paddingTop: "20px",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",
-        height: "auto",
+        height: "100%",
         transition: "all 0.5s ease",
         borderTop: "1px solid rgba(255, 255, 255, 0.0)",
         borderBottom: "1px solid rgba(255, 255, 255, 0)",
+        overflowY: "auto",
         "&:hover": {
           backgroundColor: "transparent",
         },
-        [theme.breakpoints.down("xs")]: {},
+        [theme.breakpoints.down("xs")]: {
+          // paddingTop: "30px",
+          paddingTop: "50px",
+        },
       },
       itemOfListStyles: {
         paddingTop: "20px",

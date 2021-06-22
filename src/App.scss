@@ -13,7 +13,9 @@
   align-items: center;
 }
 
-$app_green: #1d7d51;
+html {
+  scroll-behavior: smooth;
+}
 
 * {
   margin: 0;
@@ -143,6 +145,17 @@ li {
 }
 
 // Carousel
+@media (min-width: 1024px) {
+  .Carousel-next-27 {
+    right: 10px !important;
+  }
+  .Carousel-prev-28 {
+    left: 10px !important;
+  }
+  .Carousel-button-26 {
+    // background: rgb(39, 38, 43) !important;
+  }
+}
 
 // Animations
 

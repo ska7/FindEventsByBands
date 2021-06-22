@@ -22,6 +22,7 @@ const useStyles = (activeFilter) => {
       background: "#333333",
       width: "90%",
       [theme.breakpoints.down("sm")]: {
+        margin: "15px auto 40px auto",
         width: "100%",
       },
     },
@@ -31,7 +32,11 @@ const useStyles = (activeFilter) => {
       borderRadius: "15px",
       textAlign: "center",
       height: "100%",
-      fontSize: "13px",
+      // fontSize: "13px",
+      display: "flex",
+      flexDirection: "column",
+      justifyContent: "center",
+      alignItems: "center",
     },
     applyFilterSlide: {
       position: "absolute",
@@ -58,8 +63,11 @@ const useStyles = (activeFilter) => {
       [theme.breakpoints.down("sm")]: {
         "&&::placeholder": {
           textAlign: `${activeFilter ? "right" : "center"} `,
-          paddingRight: "5%",
+          paddingRight: `${activeFilter ? "18%" : 0}`,
+          margin: 0,
+          fontSize: "13px",
         },
+        fontSize: "13px",
       },
       [theme.breakpoints.up("sm")]: {
         "&&::placeholder": {
@@ -111,12 +119,14 @@ export const EventsFilter = ({ setFilterStringFunc }) => {
           onClick={() => {
             setFilterStringFunc(value);
             setActiveFilter(
-              theme.breakpoints.down("sm") ? `${value.slice(0, 7)}...` : value
+              theme.breakpoints.down("sm") && value.length > 7
+                ? `${value.slice(0, 7)}...`
+                : value
             );
             setValue("");
           }}
         >
-          APPLY FILTER
+          FILTER
         </Button>
       </Slide>
       <Slide

@@ -108,6 +108,10 @@ const useStyles = makeStyles((theme) =>
       width: "40px",
       padding: "5px",
     },
+    noFavoriteEvents: {
+      display: "flex",
+      justifyContent: "center",
+    },
   })
 );
 
@@ -131,32 +135,38 @@ export const Favorites = () => {
             FAVORITE EVENTS
           </Typography>
           <List className={classes.list}>
-            {favorites.map((event) => {
-              return (
-                <ListItem className={classes.listItem} key={event.id}>
-                  <Link
-                    onClick={xsScreen ? () => setOpen(false) : null}
-                    to={`/event/${event.id}`}
-                    className={classes.link}
-                  >
-                    {event.displayName}
-                  </Link>
-                  <IconButton
-                    aria-label="delete"
-                    className={classes.margin}
-                    size="small"
-                  >
-                    <HighlightOffIcon
-                      onClick={() =>
-                        updateFavorites(event, favorites, setFavorites)
-                      }
-                      fontSize="inherit"
-                      style={{ color: "white" }}
-                    />
-                  </IconButton>
-                </ListItem>
-              );
-            })}
+            {favorites.length ? (
+              favorites.map((event) => {
+                return (
+                  <ListItem className={classes.listItem} key={event.id}>
+                    <Link
+                      onClick={xsScreen ? () => setOpen(false) : null}
+                      to={`/event/${event.id}`}
+                      className={classes.link}
+                    >
+                      {event.displayName}
+                    </Link>
+                    <IconButton
+                      aria-label="delete"
+                      className={classes.margin}
+                      size="small"
+                    >
+                      <HighlightOffIcon
+                        onClick={() =>
+                          updateFavorites(event, favorites, setFavorites)
+                        }
+                        fontSize="inherit"
+                        style={{ color: "white" }}
+                      />
+                    </IconButton>
+                  </ListItem>
+                );
+              })
+            ) : (
+              <ListItem className={classes.noFavoriteEvents}>
+                You don't have any favorite events yet
+              </ListItem>
+            )}
           </List>
         </Grid>
       )}

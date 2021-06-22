@@ -29,7 +29,7 @@ export const theme = createMuiTheme({
     height: "700px",
     width: "80%",
     borderRadius: "10px",
-    boxShadow: "-5px 0px 10px 2px black",
+    boxShadow: "0px 0px 10px 2px black",
   },
   links: {
     color: "white",
@@ -46,5 +46,18 @@ export const theme = createMuiTheme({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
+  },
+  visibleScrollbar: {
+    "&::-webkit-scrollbar": {
+      "-webkitAppearance": "none",
+    },
+    "&::-webkit-scrollbar:vertical": {
+      width: "4px",
+      background: "transparent",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      borderRadius: "4px",
+      backgroundColor: "grey",
+    },
   },
 });

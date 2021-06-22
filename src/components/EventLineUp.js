@@ -32,8 +32,7 @@ const useStyles = (isStandAlone) => {
               position: "relative",
               display: "flex",
               flexDirection: "column",
-              justifyContent: "center",
-              height: "auto",
+              height: "80%",
               padding: "0",
               margin: "0",
               width: "100%",
@@ -51,11 +50,12 @@ const useStyles = (isStandAlone) => {
               borderBottom: "none",
               textAlign: "center",
               // border: "1px solid red",
-              [theme.breakpoints.down("xs")]: {
-                width: "15%",
+              width: "15%",
+              [theme.breakpoints.down("xs")]: {},
+              [theme.breakpoints.up("xs")]: {
+                // fontSize: "100%",
+                width: "19%",
               },
-              [theme.breakpoints.up("xs")]: {},
-              [theme.breakpoints.up("md")]: {},
             },
             singleArtist: {
               width: "100%",
@@ -68,6 +68,9 @@ const useStyles = (isStandAlone) => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              // border: "1px solid green",
+              height: "auto",
+              margin: 0,
             },
             tableBody: {
               position: "relative",
@@ -79,7 +82,7 @@ const useStyles = (isStandAlone) => {
               },
               [theme.breakpoints.up("sm")]: {
                 overflowY: "auto",
-                height: "350px",
+                height: "100%",
                 "&::-webkit-scrollbar": {
                   "-webkitAppearance": "none",
                 },
@@ -92,9 +95,15 @@ const useStyles = (isStandAlone) => {
                   backgroundColor: "grey",
                 },
               },
+              [theme.breakpoints.up("md")]: {
+                // overflowY: "auto",
+                height: "auto",
+                padding: "0px 30px",
+              },
             },
             tableRow: {
               width: "100%",
+              [theme.breakpoints.up("md")]: {},
             },
             link: {
               color: "white",
@@ -347,6 +356,7 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
 
   useEffect(() => {
     const height = document.getElementById("event-lineup").offsetHeight;
+    console.log(height);
     setLineUpHeight(height);
   }, [lineUpHeight]);
 
@@ -393,13 +403,14 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
             {xsScreen && createTableRow(artists, classes, 3)}
             {mdScreen && createTableRow(artists, classes, 4)}
             {lgScreen && createTableRow(artists, classes, 5)}
-            {xsScreen & (lineUpHeight > 1000) && (
-              <IconButton className={classes.arrowSeeLessMobileIcon}>
-                <MaterialLink href="#mobile-top-bar">
-                  <ExpandLessIcon className={classes.arrowSeeLess} />
-                </MaterialLink>
-              </IconButton>
-            )}
+            {xsScreen & (lineUpHeight > 1000) ||
+              (xsScreen & (lineUpHeight > 500) ? (
+                <IconButton className={classes.arrowSeeLessMobileIcon}>
+                  <MaterialLink href="#event-general-information">
+                    <ExpandLessIcon className={classes.arrowSeeLess} />
+                  </MaterialLink>
+                </IconButton>
+              ) : null)}
           </TableBody>
         </TableContainer>
       </Collapse>

@@ -33,6 +33,7 @@ const customStyles = (image) => {
           ${image})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
+        // border: "1px solid orange",
         [theme.breakpoints.down("xs")]: {
           paddingTop: "90px",
           height: "100vh",
@@ -51,6 +52,12 @@ const customStyles = (image) => {
             borderRadius: "4px",
             backgroundColor: "grey",
           },
+        },
+        [theme.breakpoints.up("sm")]: {
+          height: "65vh",
+        },
+        [theme.breakpoints.up("lg")]: {
+          height: "90vh",
         },
       },
     })

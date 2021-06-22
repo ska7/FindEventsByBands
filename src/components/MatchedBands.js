@@ -59,8 +59,12 @@ export const MatchedBands = ({ searchString, onClick }) => {
     <>
       {loading ? (
         <Loader
-          customPosition={xsScreen ? { left: "3%" } : { right: "5%" }}
-          size="50px"
+          customPosition={
+            xsScreen
+              ? { left: "3%", top: 0, bottom: 0, margin: "auto 0px" }
+              : { right: "5%" }
+          }
+          size={xsScreen ? "35px" : "50px"}
         />
       ) : (
         <BandsList clearInput={onClick} bands={bands} />
