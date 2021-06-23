@@ -6,6 +6,7 @@ import {
   createStyles,
   makeStyles,
   Typography,
+  useMediaQuery,
 } from "@material-ui/core";
 
 import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
@@ -33,8 +34,10 @@ const useStyles = (isStandAlone) => {
               // border: "1px solid red",
               // background: `linear-gradient(top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.9) 59%, rgba(0, 0, 0, 0.8) 100%)`,
               // boxShadow: "0px 0px 20px 10px black",
-              [theme.breakpoints.down("xs")]: {},
-              [theme.breakpoints.up("xs")]: {
+              [theme.breakpoints.down("sm")]: {
+                // marginDown: "20px",
+              },
+              [theme.breakpoints.up("md")]: {
                 marginTop: "100px",
                 padding: "0px 40px",
               },
@@ -64,21 +67,24 @@ const useStyles = (isStandAlone) => {
             eventName: {
               width: "80%",
               padding: "0px 40px",
-              [theme.breakpoints.up("xs")]: {},
+              [theme.breakpoints.down("xs")]: {
+                // fontSize: "23px",
+              },
             },
             name: {
               fontWeight: "700",
               color: "white",
               fontSize: "27px",
+              // fontSize: "100%",
               textAlign: "center",
-
               [theme.breakpoints.down("xs")]: {
-                fontSize: "20px",
-              },
-              [theme.breakpoints.down("md")]: {
-                fontSize: "23px",
+                // fontSize: "2px",
+                fontWeight: "900",
               },
               [theme.breakpoints.up("md")]: {
+                fontSize: "23px",
+              },
+              [theme.breakpoints.up("lg")]: {
                 fontSize: "27px",
               },
             },
@@ -187,10 +193,15 @@ const formatTime = (time) => {
   return `${hours}:${minutes}`;
 };
 
+// const formatName = (name) => {
+//   return name.length > 40 ? `${name.slice(0, 40)}...` : name;
+// };
+
 export const EventGeneralInformation = ({ event, isStandAlone }) => {
   const classes = useStyles(isStandAlone)();
 
   const { favorites, setFavorites } = useContext(FavoritesContext);
+  const xsScreen = useMediaQuery("(max-width: 450px)");
 
   const [isChecked, setChecked] = useState(false);
 

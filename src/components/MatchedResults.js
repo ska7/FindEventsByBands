@@ -6,7 +6,7 @@ import { Loader } from "./Loader";
 import { SearchResultsList } from "./SearchResultsList";
 import { useMediaQuery } from "@material-ui/core";
 
-export const MatchedBands = ({ searchString, onClick }) => {
+export const MatchedResults = ({ searchString, onClick }) => {
   const [artists, setArtists] = useState([]);
   const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -31,6 +31,7 @@ export const MatchedBands = ({ searchString, onClick }) => {
       .then((res) => {
         console.log("locations", res);
         if (res.data.resultsPage.results.hasOwnProperty("location")) {
+          console.log("huy", res.data.resultsPage.results.location.slice(0, 3));
           setLocations(res.data.resultsPage.results.location.slice(0, 3));
         } else {
           return [];
@@ -54,7 +55,7 @@ export const MatchedBands = ({ searchString, onClick }) => {
             }
           );
 
-          setArtists(matchedArtists.slice(0, 8));
+          setArtists(matchedArtists.slice(0, 5));
         } catch (e) {
           console.log(e);
         } finally {
@@ -66,19 +67,6 @@ export const MatchedBands = ({ searchString, onClick }) => {
         setLoading(false);
       });
   };
-
-  // for (const id of metroAreaIDs) {
-  //   const location = await axios
-  //     .get(
-  //       `https://api.songkick.com/api/3.0/events.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}&location=sk:${id}`
-  //     )
-  //     .then((res) => console.log("locs and artists", res))
-  //     .catch((e) => console.log(e));
-
-  //   cities.push(location);
-  // }
-
-  // Third we fetch artists
 
   useEffect(() => {
     if (searchString) {

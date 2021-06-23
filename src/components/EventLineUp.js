@@ -59,7 +59,7 @@ const useStyles = (isStandAlone) => {
             },
             singleArtist: {
               width: "100%",
-              display: "flex",
+              // display: "flex",
               justifyContent: "center",
             },
             table: {
@@ -112,6 +112,13 @@ const useStyles = (isStandAlone) => {
               borderBottom: "1px solid transparent",
               "&:hover": {
                 borderBottom: "1px solid white",
+              },
+            },
+            removeDecoration: {
+              border: "none",
+              textDecoration: "none !important",
+              "&:hover": {
+                border: "none",
               },
             },
             icon: {
@@ -237,6 +244,13 @@ const useStyles = (isStandAlone) => {
                 borderBottom: "1px solid white",
               },
             },
+            removeDecoration: {
+              border: "none",
+              textDecoration: "none !important",
+              "&:hover": {
+                border: "none",
+              },
+            },
             icon: {
               width: "50px",
               display: "flex",
@@ -343,7 +357,13 @@ const createTableRow = (artists, classes, artistsPerRow) => {
   return chunks;
 };
 
-export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
+export const EventLineUp = ({
+  artists,
+  cancelled,
+  collapse,
+  isStandAlone,
+  eventURL,
+}) => {
   // Based on the lineup height, we decide whether or not to show the scroll button on the bottom
   const [lineUpHeight, setLineUpHeight] = useState(0);
 
@@ -356,7 +376,7 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
 
   useEffect(() => {
     const height = document.getElementById("event-lineup").offsetHeight;
-    console.log(height);
+    // console.log(height);
     setLineUpHeight(height);
   }, [lineUpHeight]);
 
@@ -386,13 +406,21 @@ export const EventLineUp = ({ artists, cancelled, collapse, isStandAlone }) => {
               Cancelled
             </Button>
           ) : (
-            <Button
-              // variant=""
-              color="secondary"
-              className={classes.btnPurchase}
+            <MaterialLink
+              href={eventURL}
+              // onClick={(e) => e.preventDefault()}
+              rel="noopener"
+              target="_blank"
+              className={`${classes.link} ${classes.removeDecoration}`}
             >
-              Buy Tickets
-            </Button>
+              <Button
+                // variant=""
+                color="secondary"
+                className={classes.btnPurchase}
+              >
+                Buy Tickets
+              </Button>
+            </MaterialLink>
           )}
           <Typography className={classes.lineupLabel}>
             {artists.length === 1 ? "SOLO CONCERT" : "WHO'S PERFORMING?"}

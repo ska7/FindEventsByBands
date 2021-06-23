@@ -27,6 +27,7 @@ import { MobileTopBar } from "./components/MobileTopBar";
 // TEST HOME ICON
 
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
+import { Location } from "./components/Location";
 
 const useCustomStyles = () => {
   return makeStyles((theme) =>
@@ -85,7 +86,7 @@ const useCustomStyles = () => {
 const App = () => {
   const classes = useCustomStyles()();
 
-  const xsScreen = useMediaQuery("(max-width: 450px)");
+  const smScreen = useMediaQuery("(max-width: 550px)");
 
   useEffect(() => {
     // console.log(theme.breakpoints.values);
@@ -106,7 +107,7 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    {xsScreen ? (
+                    {smScreen ? (
                       <MobileTopBar />
                     ) : (
                       <>
@@ -125,7 +126,7 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    {xsScreen ? (
+                    {smScreen ? (
                       <MobileTopBar />
                     ) : (
                       <>
@@ -140,11 +141,11 @@ const App = () => {
             />
             <Route
               exact
-              path="/location/:locationID"
+              path="/location/:locationName"
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    {xsScreen ? (
+                    {smScreen ? (
                       <MobileTopBar />
                     ) : (
                       <>
@@ -152,7 +153,7 @@ const App = () => {
                         <Favorites />
                       </>
                     )}
-                    <Band {...props} />
+                    <Location {...props} />
                   </FavoritesContextProvider>
                 </>
               )}
@@ -163,7 +164,7 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    {xsScreen ? (
+                    {smScreen ? (
                       <MobileTopBar />
                     ) : (
                       <>

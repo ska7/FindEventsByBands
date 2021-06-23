@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) =>
       width: "100%",
       height: "70px",
       // textAlign: "left",
-      padding: "20px 40px",
+      padding: "20px 40px 20px 15px",
       background: "#dddddd",
       color: "#504f4f",
       fontWeight: "bold",
@@ -44,6 +44,9 @@ const useStyles = makeStyles((theme) =>
     },
     country: {
       fontWeight: "100",
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
     },
     font: {
       fontFamily: "Inconsolata, monospace",
@@ -58,6 +61,11 @@ const useStyles = makeStyles((theme) =>
     },
     alignCentrally: {
       justifyContent: "center",
+      alignItems: "center",
+    },
+    alignArtist: {
+      display: "flex",
+      flexDirection: "row",
       alignItems: "center",
     },
   })
@@ -75,34 +83,35 @@ export const SearchResultsList = ({ artists, locations, clearInput }) => {
   const classes = useStyles();
   return (
     <>
-      {locations.length &&
-        locations.map((location) => {
-          return (
-            <Link
-              className={`${classes.link} ${classes.location}`}
-              key={location.id}
-              to={`/location/${location.name}?locationID=${location.id}`}
-              onClick={clearInput}
-            >
-              <span
-                className={`${classes.font} ${classes.alignRow} ${classes.alignCentrally}`}
+      {locations.length
+        ? locations.map((location) => {
+            return (
+              <Link
+                className={`${classes.link} ${classes.location} ${classes.alignRow}`}
+                key={location.metroArea.id}
+                to={`/location/${location.metroArea.displayName}?locationID=${location.metroArea.id}`}
+                onClick={clearInput}
               >
-                <Icon className={classes.locationIcon}>
-                  <LocationOnIcon />
-                </Icon>
-                {formatArtistName(location.metroArea.displayName)}
-              </span>
-              <span className={`${classes.country} ${classes.font}`}>
-                {formatArtistName(location.metroArea.country.displayName)}
-              </span>
-            </Link>
-          );
-        })}
+                <span
+                  className={`${classes.font} ${classes.alignRow} ${classes.alignCentrally}`}
+                >
+                  <Icon className={classes.locationIcon}>
+                    <LocationOnIcon />
+                  </Icon>
+                  {formatArtistName(location.metroArea.displayName)}
+                </span>
+                <span className={`${classes.country} ${classes.font}`}>
+                  {formatArtistName(location.metroArea.country.displayName)}
+                </span>
+              </Link>
+            );
+          })
+        : null}
       {artists.length &&
         artists.map((band) => {
           return (
             <Link
-              className={`${classes.link} ${classes.alignRow}`}
+              className={`${classes.link} ${classes.alignArtist}`}
               key={band.id}
               to={`/band/${band.displayName}?bandID=${band.id}`}
               onClick={clearInput}

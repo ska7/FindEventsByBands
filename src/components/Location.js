@@ -16,10 +16,9 @@ const customStyles = (image) => {
         gridArea: "event",
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%)`,
         [theme.breakpoints.down("xs")]: {
-          margin: "0px auto 0px auto",
           height: "100vh !important",
           width: "100vw",
-          // border: "1px solid green",
+          // border: "1px solid red",
         },
         [theme.breakpoints.up("xs")]: {
           height: "65vh",
@@ -31,13 +30,14 @@ const customStyles = (image) => {
       },
       bandWrapper: {
         height: "100%",
+        // border: "1px solid red",
         backgroundSize: "cover",
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, .8) 100%) ,url(
             "${image}"
           )`,
         [theme.breakpoints.down("xs")]: {
           backgroundPosition: "center",
-          height: "100%",
+          minHeight: "100%",
         },
         [theme.breakpoints.up("sm")]: {
           backgroundPosition: "center",
@@ -55,12 +55,14 @@ const customStyles = (image) => {
         fontSize: "30px",
         height: "70px",
         [theme.breakpoints.down("xs")]: {
+          // background: "rgba(0,0,0,0.3)",
+          height: "50px",
           fontSize: "25px",
           fontWeight: "900",
           marginTop: "100px",
         },
         [theme.breakpoints.up("sm")]: {
-          background: "rgba(0,0,0,0.8)",
+          background: "rgba(0,0,0,0.6)",
           boxShadow: "0px 0px 25px 10px black",
         },
       },
@@ -79,40 +81,50 @@ const customStyles = (image) => {
   );
 };
 
-export const Band = (props) => {
+const fetchLocationImage = async (location) => {
+  return await axios
+    .get(
+      `https://api.unsplash.com/search/photos?page=1&per_page=1&query=${location}%20city&client_id=W4SvpnAM4e_HgIbOogVL-4GKDr8KWpH6MgC2JW6TDG8`
+    )
+    .then((res) => res.data.results[0].urls.full)
+    .catch((e) => console.log(e));
+};
+
+export const Location = (props) => {
   const { match, location } = props;
 
+  const [locationImage, setLocationImage] = useState("");
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [artistImage, setArtistImage] = useSpotify(match.params.bandName);
-
   useEffect(() => {
-    const bandID = new URLSearchParams(location.search).get("bandID");
+    const locationID = new URLSearchParams(location.search).get("locationID");
     setLoading(true);
-    setArtistImage("");
+    // setLocationImage(fetchLocationImage(match.params.locationName))
 
-    const init = async () => {
+    const init = async (locationID) => {
+      // Fetching location image to apply as a background to the wrapper
+
+      const image = await fetchLocationImage(match.params.locationName);
+      setLocationImage(image);
+
+      // Fetching events by location
       await axios
         .get(
-          `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
+          `https://api.songkick.com/api/3.0/events.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}&location=sk:${locationID}`
         )
         .then((res) => {
-          const events = res.data.resultsPage.results.event;
-          if (events !== undefined) {
-            setEvents(events);
-          }
+          //   console.log("loca", res.data.resultsPage.results.event);
+          setEvents(res.data.resultsPage.results.event);
         })
-        .catch((e) => console.log("error", e))
-        .finally(() => {
-          setLoading(false);
-        });
+        .catch((e) => console.log(e))
+        .finally(() => setLoading(false));
     };
 
-    init();
+    init(locationID);
   }, [location]);
 
-  const classes = customStyles(artistImage)();
+  const classes = customStyles(locationImage)();
   return (
     <Container className={classes.mainContainer} disableGutters>
       {loading ? (
@@ -128,7 +140,7 @@ export const Band = (props) => {
       ) : (
         <Card className={classes.bandWrapper}>
           <Typography className={classes.header}>
-            {match.params.bandName}
+            {match.params.locationName}
           </Typography>
           <Events events={events} {...props} />
         </Card>

@@ -117,7 +117,7 @@ const useStyles = makeStyles((theme) =>
 
 export const Favorites = () => {
   const classes = useStyles();
-  const xsScreen = useMediaQuery("(max-width: 450px)");
+  const xsScreen = useMediaQuery("(max-width: 550px)");
 
   const [isOpen, setOpen] = useState(true);
 

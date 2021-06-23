@@ -2,7 +2,7 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Container, Input, List, useMediaQuery } from "@material-ui/core";
 
 import React, { useEffect, useRef, useState } from "react";
-import { MatchedBands } from "./MatchedBands";
+import { MatchedResults } from "./MatchedResults";
 import { theme } from "./Theme";
 
 const useStyles = makeStyles((theme) =>
@@ -46,13 +46,13 @@ const useStyles = makeStyles((theme) =>
         },
       },
       [theme.breakpoints.up("sm")]: {
-        marginTop: "100px",
+        marginTop: "70px",
       },
       [theme.breakpoints.up("md")]: {
-        marginTop: "100px",
+        marginTop: "80px",
       },
       [theme.breakpoints.up("lg")]: {
-        // marginTop: 0,
+        marginTop: "40px",
       },
     },
     input: {
@@ -104,13 +104,14 @@ export const Search = (props) => {
           disableUnderline="false"
           color="primary"
           autoFocus={xsScreen ? true : false}
+          onBlur={() => setInputValue("")}
           // autoFocus={false}
           value={inputValue}
           onChange={handleChange}
           placeholder="type in a band name"
         />
         {inputValue ? (
-          <MatchedBands
+          <MatchedResults
             searchString={inputValue}
             onClick={() => setInputValue("")}
           />

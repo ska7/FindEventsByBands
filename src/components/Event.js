@@ -14,7 +14,7 @@ const useStyles = () => {
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-around",
-        height: "100%",
+
         transition: "all 0.5s ease",
         borderTop: "1px solid rgba(255, 255, 255, 0.0)",
         borderBottom: "1px solid rgba(255, 255, 255, 0)",
@@ -24,7 +24,10 @@ const useStyles = () => {
         },
         [theme.breakpoints.down("xs")]: {
           // paddingTop: "30px",
-          paddingTop: "50px",
+          // paddingTop: "50px",
+        },
+        [theme.breakpoints.up("sm")]: {
+          height: "100%",
         },
       },
       itemOfListStyles: {
@@ -72,6 +75,7 @@ export const Event = ({
         collapse={collapse}
         isStandAlone={isStandAlone}
         cancelled={event.status === "cancelled" ? true : false}
+        eventURL={event.uri}
       />
     </ListItem>
   );

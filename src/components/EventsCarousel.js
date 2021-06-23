@@ -73,7 +73,7 @@ export const EventsCarousel = () => {
       }}
       navButtonsProps={{
         style: {
-          padding: xsScreen ? "2px" : "9px",
+          padding: xsScreen ? "4px" : "9px",
           background: "transparent",
           border: xsScreen
             ? `1px solid ${theme.palette.secondary.main}`
