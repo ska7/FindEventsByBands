@@ -3,38 +3,58 @@ import { Link } from "react-router-dom";
 import { throttle } from "lodash";
 import axios from "axios";
 import { Loader } from "./Loader";
-import { BandsList } from "./BandsList";
+import { SearchResultsList } from "./SearchResultsList";
 import { useMediaQuery } from "@material-ui/core";
 
 export const MatchedBands = ({ searchString, onClick }) => {
-  const [bands, setBands] = useState([]);
+  const [artists, setArtists] = useState([]);
+  const [locations, setLocations] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const xsScreen = useMediaQuery("(max-width: 450px)");
 
-  const throttledFetchBands = useRef(
-    throttle((searchString) => fetchBands(searchString), 1000, {
+  const throttledFetchResults = useRef(
+    throttle((searchString) => fetchResults(searchString), 1000, {
       trailing: true,
     })
   );
 
-  const fetchBands = async (bandName) => {
+  const fetchResults = async (searchQuery) => {
     setLoading(true);
+    // First we fetch locations
+
     await axios
       .get(
-        `https://api.songkick.com/api/3.0/search/artists.json?apikey=K0cI0s0IC8ii7i2w&query=${bandName}`
+        `https://api.songkick.com/api/3.0/search/locations.json?query=${searchQuery}&apikey=${process.env.REACT_APP_SONGKICK_API_KEY}
+        `
+      )
+      .then((res) => {
+        console.log("locations", res);
+        if (res.data.resultsPage.results.hasOwnProperty("location")) {
+          setLocations(res.data.resultsPage.results.location.slice(0, 3));
+        } else {
+          return [];
+        }
+      })
+      .catch((e) => console.log(e));
+
+    // Second we fetch artists
+
+    await axios
+      .get(
+        `https://api.songkick.com/api/3.0/search/artists.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}&query=${searchQuery}`
       )
       .then((res) => {
         try {
-          const matchedBands = res.data.resultsPage.results.artist.filter(
+          const matchedArtists = res.data.resultsPage.results.artist.filter(
             (band) => {
               return band.displayName
                 .toLowerCase()
-                .includes(bandName.toLowerCase());
+                .includes(searchQuery.toLowerCase());
             }
           );
 
-          setBands(matchedBands.slice(0, 8));
+          setArtists(matchedArtists.slice(0, 8));
         } catch (e) {
           console.log(e);
         } finally {
@@ -47,11 +67,24 @@ export const MatchedBands = ({ searchString, onClick }) => {
       });
   };
 
+  // for (const id of metroAreaIDs) {
+  //   const location = await axios
+  //     .get(
+  //       `https://api.songkick.com/api/3.0/events.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}&location=sk:${id}`
+  //     )
+  //     .then((res) => console.log("locs and artists", res))
+  //     .catch((e) => console.log(e));
+
+  //   cities.push(location);
+  // }
+
+  // Third we fetch artists
+
   useEffect(() => {
     if (searchString) {
-      throttledFetchBands.current(searchString);
+      throttledFetchResults.current(searchString);
     } else {
-      setBands([]);
+      setArtists([]);
     }
   }, [searchString]);
 
@@ -67,7 +100,11 @@ export const MatchedBands = ({ searchString, onClick }) => {
           size={xsScreen ? "35px" : "50px"}
         />
       ) : (
-        <BandsList clearInput={onClick} bands={bands} />
+        <SearchResultsList
+          clearInput={onClick}
+          artists={artists}
+          locations={locations}
+        />
       )}
     </>
   );

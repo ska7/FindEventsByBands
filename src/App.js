@@ -78,37 +78,6 @@ const useCustomStyles = () => {
           gridTemplateAreas: `"search event favorites"`,
         },
       },
-      homeBtnWrapper: {
-        position: "absolute",
-        width: "50px",
-        height: "50px",
-        zIndex: "14",
-        top: "15px",
-        left: "15px",
-        color: "white",
-        "&:hover": {
-          background: "none",
-        },
-      },
-      homeBtn: {
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "center",
-        alignItems: "center",
-        borderRadius: "50%",
-        background: "#676563",
-        height: "40px",
-        width: "40px",
-        padding: "5px",
-        transition: "all 0.5s ease",
-        "&:hover": {
-          background: "rgba(0,0,0,0.7)",
-        },
-      },
-      link: {
-        color: "white",
-        textDecoration: "none",
-      },
     })
   );
 };
@@ -137,14 +106,15 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    <IconButton className={classes.homeBtnWrapper}>
-                      <Link to={`/`} className={classes.link}>
-                        <HomeOutlinedIcon className={classes.homeBtn} />
-                      </Link>
-                    </IconButton>
-                    <Search />
+                    {xsScreen ? (
+                      <MobileTopBar />
+                    ) : (
+                      <>
+                        <Search />
+                        <Favorites />
+                      </>
+                    )}
                     <EventsCarousel />
-                    <Favorites />
                   </FavoritesContextProvider>
                 </>
               )}
@@ -155,13 +125,33 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    <IconButton className={classes.homeBtnWrapper}>
-                      <Link to={`/`} className={classes.link}>
-                        <HomeOutlinedIcon className={classes.homeBtn} />
-                      </Link>
-                    </IconButton>
-                    <Search />
-                    <Favorites />
+                    {xsScreen ? (
+                      <MobileTopBar />
+                    ) : (
+                      <>
+                        <Search />
+                        <Favorites />
+                      </>
+                    )}
+                    <Band {...props} />
+                  </FavoritesContextProvider>
+                </>
+              )}
+            />
+            <Route
+              exact
+              path="/location/:locationID"
+              render={(props) => (
+                <>
+                  <FavoritesContextProvider>
+                    {xsScreen ? (
+                      <MobileTopBar />
+                    ) : (
+                      <>
+                        <Search />
+                        <Favorites />
+                      </>
+                    )}
                     <Band {...props} />
                   </FavoritesContextProvider>
                 </>
@@ -173,13 +163,14 @@ const App = () => {
               render={(props) => (
                 <>
                   <FavoritesContextProvider>
-                    <IconButton className={classes.homeBtnWrapper}>
-                      <Link to={`/`} className={classes.link}>
-                        <HomeOutlinedIcon className={classes.homeBtn} />
-                      </Link>
-                    </IconButton>
-                    <Search />
-                    <Favorites />
+                    {xsScreen ? (
+                      <MobileTopBar />
+                    ) : (
+                      <>
+                        <Search />
+                        <Favorites />
+                      </>
+                    )}
                     <FavoriteEvent {...props} />
                   </FavoritesContextProvider>
                 </>

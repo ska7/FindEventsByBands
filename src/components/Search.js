@@ -25,9 +25,7 @@ const useStyles = makeStyles((theme) =>
         justifyContent: "center",
         padding: 0,
       },
-      [theme.breakpoints.up("md")]: {
-        height: "200px",
-      },
+      [theme.breakpoints.up("md")]: {},
     },
     searchInputList: {
       padding: 0,
@@ -49,6 +47,12 @@ const useStyles = makeStyles((theme) =>
       },
       [theme.breakpoints.up("sm")]: {
         marginTop: "100px",
+      },
+      [theme.breakpoints.up("md")]: {
+        marginTop: "100px",
+      },
+      [theme.breakpoints.up("lg")]: {
+        // marginTop: 0,
       },
     },
     input: {

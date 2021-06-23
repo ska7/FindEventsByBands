@@ -130,6 +130,9 @@ export const Events = (props) => {
         <ListItem
           id="no-events"
           style={{
+            // textAlign: "center !important",
+            display: "flex",
+            justifyContent: "center",
             marginTop: "50%",
             fontSize: "25px",
           }}
