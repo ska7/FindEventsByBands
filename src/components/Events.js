@@ -61,7 +61,7 @@ const useStyles = (eventsListHeight) => {
     eventsList: {
       overflowY: "auto",
       [theme.breakpoints.down("xs")]: {
-        height: `${eventsListHeight - 270}px`,
+        height: `${eventsListHeight - 260}px`,
         // height: `545px`,
       },
       [theme.breakpoints.up("sm")]: {

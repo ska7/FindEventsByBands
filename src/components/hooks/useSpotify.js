@@ -37,7 +37,7 @@ const getBand = async (searchString, token) => {
 let accessToken = "";
 const throttledFetchAccessToken = throttle(
   async () => {
-    console.log(new Date());
+    // console.log(new Date());
     return await getAccessToken();
   },
   3600000,
@@ -48,15 +48,22 @@ const throttledFetchAccessToken = throttle(
 export const fetchBandImage = async (searchString) => {
   accessToken = await throttledFetchAccessToken();
   const bandInfo = await getBand(searchString, accessToken);
-  console.log("images", bandInfo);
-  if (
-    !bandInfo.artists.items[0].name
-      .toLowerCase()
-      .replace(/\s/g, "")
-      .includes(searchString.toLowerCase().replace(/\s/g, ""))
-  ) {
-    return defaultBackground;
-  }
+  // console.log("images", bandInfo);
+  //   Logic for cases when spotify doesn't have searched for artist
+  // if (
+  //   !bandInfo.artists.items[0].name
+  //     .toLowerCase()
+  //     .replace(/\s/g, "")
+  //     .includes(searchString.toLowerCase().replace(/\s/g, ""))
+  // ) {
+
+  //   console.log("string search", searchString.toLowerCase().replace(/\s/g, ""));
+  //   console.log(
+  //     "spotify name",
+  //     bandInfo.artists.items[0].name.toLowerCase().replace(/\s/g, "")
+  //   );
+  //   return defaultBackground;
+  // }
 
   return bandInfo.artists.items[0].images[0].url;
 };

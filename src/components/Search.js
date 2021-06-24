@@ -66,7 +66,7 @@ const useStyles = makeStyles((theme) =>
     inputProps: {
       [theme.breakpoints.down("xs")]: {
         "&&::placeholder": {
-          fontSize: "14px",
+          fontSize: "12px",
         },
         "&:focus-within": {
           paddingLeft: "40px",
@@ -106,10 +106,11 @@ export const Search = (props) => {
           disableUnderline="false"
           color="primary"
           autoFocus
+          onBlur={xsScreen ? () => setInputValue("") : null}
           // autoFocus={false}
           value={inputValue}
           onChange={handleChange}
-          placeholder="type in a band name"
+          placeholder="search artist or location"
         />
         {inputValue ? (
           <MatchedResults

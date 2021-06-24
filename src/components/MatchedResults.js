@@ -29,9 +29,9 @@ export const MatchedResults = ({ searchString, onClick }) => {
         `
       )
       .then((res) => {
-        console.log("locations", res);
+        // console.log("locations", res);
         if (res.data.resultsPage.results.hasOwnProperty("location")) {
-          console.log("huy", res.data.resultsPage.results.location.slice(0, 3));
+          // console.log("huy", res.data.resultsPage.results.location.slice(0, 3));
           setLocations(res.data.resultsPage.results.location.slice(0, 3));
         } else {
           return [];

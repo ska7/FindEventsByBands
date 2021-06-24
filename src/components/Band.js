@@ -115,7 +115,7 @@ export const Band = (props) => {
   const classes = customStyles(artistImage)();
   return (
     <Container className={classes.mainContainer} disableGutters>
-      {loading ? (
+      {loading & !artistImage ? (
         <Loader
           customPosition={{
             margin: "auto",
