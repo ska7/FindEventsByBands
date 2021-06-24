@@ -1,12 +1,15 @@
 import React from "react";
 
 import Carousel from "react-material-ui-carousel";
-import { Container, useMediaQuery } from "@material-ui/core";
+import { Container, Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useFavorites } from "./hooks/useFavorites";
 import { EventDetails } from "./EventDetails";
 import { useTheme } from "@material-ui/styles";
 import backgroundImage from "../img/no-favorite-events.jpeg";
+
+import MicIcon from "@material-ui/icons/Mic";
+import { Icon } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -24,7 +27,7 @@ const useStyles = makeStyles((theme) =>
       },
       [theme.breakpoints.up("lg")]: {},
     },
-    noFavoriteEvents: {
+    noFavoriteEventsWrapper: {
       ...theme.card,
       background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%), url(${backgroundImage})`,
       backgroundSize: "cove",
@@ -40,6 +43,20 @@ const useStyles = makeStyles((theme) =>
         width: "100vw",
         height: "100vh",
         fontSize: "50px",
+      },
+      [theme.breakpoints.up("sm")]: {
+        height: "70vh",
+      },
+      [theme.breakpoints.up("lg")]: {
+        height: "90vh",
+      },
+    },
+    noFavoriteEventsText: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      [theme.breakpoints.up("xs")]: {
+        fontSize: "40px",
       },
     },
     carouselButtons: {
@@ -86,11 +103,13 @@ export const EventsCarousel = () => {
       {favorites.length ? (
         favorites.map((event) => <EventDetails event={event} />)
       ) : (
-        <Container className={classes.noFavoriteEvents}>
-          START
-          <br /> EXPLORING
-          <br />
-          EVENTS!
+        <Container className={classes.noFavoriteEventsWrapper}>
+          <span className={classes.noFavoriteEventsText}>
+            START
+            <br /> EXPLORING
+            <br />
+            EVENTS!
+          </span>
         </Container>
       )}
     </Carousel>

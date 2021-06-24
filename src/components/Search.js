@@ -105,7 +105,7 @@ export const Search = (props) => {
           inputProps={{ className: classes.inputProps }}
           disableUnderline="false"
           color="primary"
-          autoFocus={xsScreen ? true : false}
+          autoFocus
           // autoFocus={false}
           value={inputValue}
           onChange={handleChange}
