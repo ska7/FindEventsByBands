@@ -11,7 +11,6 @@ const useStyles = makeStyles((theme) =>
       position: "relative",
       gridArea: "search",
       // border: "1px solid red",
-
       [theme.breakpoints.down("xs")]: {
         height: "90px",
         width: "60vw",
@@ -93,7 +92,10 @@ export const Search = (props) => {
   const classes = useStyles();
   return (
     <Container className={classes.searchInputListContainer}>
-      <List className={classes.searchInputList}>
+      <List
+        className={classes.searchInputList}
+        // onBlur={xsScreen ? () => setInputValue("") : null}
+      >
         <Input
           className={classes.input}
           classes={{
@@ -104,7 +106,6 @@ export const Search = (props) => {
           disableUnderline="false"
           color="primary"
           autoFocus={xsScreen ? true : false}
-          onBlur={() => setInputValue("")}
           // autoFocus={false}
           value={inputValue}
           onChange={handleChange}

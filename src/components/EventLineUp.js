@@ -382,7 +382,11 @@ export const EventLineUp = ({
 
   const classes = useStyles(isStandAlone)();
   return (
-    <Container className={classes.unfolded} id="event-lineup">
+    <Container
+      className={classes.unfolded}
+      id="event-lineup"
+      onTouchStart={() => setUnfolded(!collapse)}
+    >
       {collapse && (
         <Container className={classes.iconWrapper}>
           <IconButton

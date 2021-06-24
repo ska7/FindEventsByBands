@@ -107,23 +107,28 @@ export const SearchResultsList = ({ artists, locations, clearInput }) => {
             );
           })
         : null}
-      {artists.length &&
-        artists.map((band) => {
-          return (
-            <Link
-              className={`${classes.link} ${classes.alignArtist}`}
-              key={band.id}
-              to={`/band/${band.displayName}?bandID=${band.id}`}
-              onClick={clearInput}
-            >
-              <Icon className={classes.locationIcon}>
-                <MicIcon />
-              </Icon>
-              {formatArtistName(band.displayName)}
-            </Link>
-          );
-        })}
-      {!artists.length && !locations.length && <Link>No band found!</Link>}
+      {artists.length
+        ? artists.map((band) => {
+            return (
+              <Link
+                className={`${classes.link} ${classes.alignArtist}`}
+                key={band.id}
+                to={`/band/${band.displayName}?bandID=${band.id}`}
+                onClick={clearInput}
+              >
+                <Icon className={classes.locationIcon}>
+                  <MicIcon />
+                </Icon>
+                {formatArtistName(band.displayName)}
+              </Link>
+            );
+          })
+        : null}
+      {!artists.length && !locations.length && (
+        <Link className={`${classes.link} ${classes.alignArtist}`}>
+          No band found!
+        </Link>
+      )}
     </>
   );
 };

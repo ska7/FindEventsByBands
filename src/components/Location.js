@@ -104,6 +104,7 @@ export const Location = (props) => {
 
     const init = async (locationID) => {
       // Fetching location image to apply as a background to the wrapper
+      // https://unsplash.com/documentation#public-authentication
 
       const image = await fetchLocationImage(match.params.locationName);
       setLocationImage(image);

@@ -21,6 +21,7 @@ import { IconButton } from "@material-ui/core";
 import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import MenuBookOutlinedIcon from "@material-ui/icons/MenuBookOutlined";
 import Hidden from "@material-ui/core/Hidden";
+import Fade from "@material-ui/core/Fade";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -130,45 +131,47 @@ export const Favorites = () => {
   return (
     <>
       {isOpen && (
-        <Grid className={classes.container}>
-          <Typography variant="h5" className={classes.title}>
-            FAVORITE EVENTS
-          </Typography>
-          <List className={classes.list}>
-            {favorites.length ? (
-              favorites.map((event) => {
-                return (
-                  <ListItem className={classes.listItem} key={event.id}>
-                    <Link
-                      onClick={xsScreen ? () => setOpen(false) : null}
-                      to={`/event/${event.id}`}
-                      className={classes.link}
-                    >
-                      {event.displayName}
-                    </Link>
-                    <IconButton
-                      aria-label="delete"
-                      className={classes.margin}
-                      size="small"
-                    >
-                      <HighlightOffIcon
-                        onClick={() =>
-                          updateFavorites(event, favorites, setFavorites)
-                        }
-                        fontSize="inherit"
-                        style={{ color: "white" }}
-                      />
-                    </IconButton>
-                  </ListItem>
-                );
-              })
-            ) : (
-              <ListItem className={classes.noFavoriteEvents}>
-                You don't have any favorite events yet
-              </ListItem>
-            )}
-          </List>
-        </Grid>
+        <Fade in={isOpen} timeout={500}>
+          <Grid className={classes.container}>
+            <Typography variant="h5" className={classes.title}>
+              FAVORITE EVENTS
+            </Typography>
+            <List className={classes.list}>
+              {favorites.length ? (
+                favorites.map((event) => {
+                  return (
+                    <ListItem className={classes.listItem} key={event.id}>
+                      <Link
+                        onClick={xsScreen ? () => setOpen(false) : null}
+                        to={`/event/${event.id}`}
+                        className={classes.link}
+                      >
+                        {event.displayName}
+                      </Link>
+                      <IconButton
+                        aria-label="delete"
+                        className={classes.margin}
+                        size="small"
+                      >
+                        <HighlightOffIcon
+                          onClick={() =>
+                            updateFavorites(event, favorites, setFavorites)
+                          }
+                          fontSize="inherit"
+                          style={{ color: "white" }}
+                        />
+                      </IconButton>
+                    </ListItem>
+                  );
+                })
+              ) : (
+                <ListItem className={classes.noFavoriteEvents}>
+                  You don't have any favorite events yet
+                </ListItem>
+              )}
+            </List>
+          </Grid>
+        </Fade>
       )}
 
       <IconButton

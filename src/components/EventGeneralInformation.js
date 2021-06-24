@@ -131,16 +131,22 @@ const useStyles = (isStandAlone) => {
             location: {
               fontWeight: "300",
               color: "rgb(220,220,220)",
+              textAlign: "center",
               [theme.breakpoints.down("xs")]: {
                 padding: "0px 20px",
               },
             },
             eventName: {
               width: "80%",
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+              alignItems: "center",
             },
             name: {
               fontWeight: "700",
               color: "white",
+              textAlign: "center",
               [theme.breakpoints.down("xs")]: {
                 padding: "0px 20px",
               },

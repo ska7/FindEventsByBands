@@ -1,6 +1,8 @@
 import axios from "axios";
 import { throttle } from "lodash";
 import { useRef, useState, useEffect } from "react";
+import defaultBackground from "img/no-favorite-events.jpeg";
+
 const getAccessToken = async () => {
   return await axios({
     method: "post",
@@ -46,7 +48,16 @@ const throttledFetchAccessToken = throttle(
 export const fetchBandImage = async (searchString) => {
   accessToken = await throttledFetchAccessToken();
   const bandInfo = await getBand(searchString, accessToken);
-  console.log("images", bandInfo.artists.items[0].images);
+  console.log("images", bandInfo);
+  if (
+    !bandInfo.artists.items[0].name
+      .toLowerCase()
+      .replace(/\s/g, "")
+      .includes(searchString.toLowerCase().replace(/\s/g, ""))
+  ) {
+    return defaultBackground;
+  }
+
   return bandInfo.artists.items[0].images[0].url;
 };
 export const useSpotify = (searchString) => {
