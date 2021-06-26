@@ -17,7 +17,6 @@ export const theme = createMuiTheme({
     fontFamily: `'Inconsolata', monospace`,
   },
   input: {
-    paddingLeft: "20px",
     background: "#eeeeee",
     borderTopRightRadius: "10px",
     borderTopLeftRadius: "10px",
@@ -25,10 +24,39 @@ export const theme = createMuiTheme({
     boxShadow: "0px 0px 3px 1px black",
   },
   card: {
-    margin: "50px auto 0px auto",
-    height: "650px",
+    margin: "25px auto 0px auto",
+    height: "700px",
     width: "80%",
     borderRadius: "10px",
-    boxShadow: "1px 0px 10px 2px black",
+    boxShadow: "0px 0px 10px 2px black",
+  },
+  links: {
+    color: "white",
+    textDecoration: "none",
+  },
+  centerColumn: {
+    display: "flex",
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  centerRow: {
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  visibleScrollbar: {
+    "&::-webkit-scrollbar": {
+      "-webkitAppearance": "none",
+    },
+    "&::-webkit-scrollbar:vertical": {
+      width: "4px",
+      background: "transparent",
+    },
+    "&::-webkit-scrollbar-thumb": {
+      borderRadius: "4px",
+      backgroundColor: "grey",
+    },
   },
 });
