@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-
-import { fetchBandImage, useSpotify } from "./hooks/useSpotify";
-import { Card, CardContent, Container, Typography } from "@material-ui/core";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
-import { Events } from "./Events";
+import { EventList } from "./Event/EventList";
+
+import { Card, Container } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const customStyles = (image) => {
   return makeStyles((theme) =>
@@ -18,7 +17,6 @@ const customStyles = (image) => {
         [theme.breakpoints.down("xs")]: {
           height: "100vh !important",
           width: "100vw",
-          // border: "1px solid red",
         },
         [theme.breakpoints.up("xs")]: {
           height: "65vh",
@@ -28,9 +26,8 @@ const customStyles = (image) => {
           padding: 0,
         },
       },
-      bandWrapper: {
+      locationEventsWrapper: {
         height: "100%",
-        // border: "1px solid red",
         backgroundSize: "cover",
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, .8) 100%) ,url(
             "${image}"
@@ -55,7 +52,6 @@ const customStyles = (image) => {
         fontSize: "30px",
         height: "70px",
         [theme.breakpoints.down("xs")]: {
-          // background: "rgba(0,0,0,0.3)",
           height: "50px",
           fontSize: "25px",
           fontWeight: "900",
@@ -84,7 +80,7 @@ const customStyles = (image) => {
 const fetchLocationImage = async (location) => {
   return await axios
     .get(
-      `https://api.unsplash.com/search/photos?page=1&per_page=1&query=${location}%20city&client_id=W4SvpnAM4e_HgIbOogVL-4GKDr8KWpH6MgC2JW6TDG8`
+      `https://api.unsplash.com/search/photos?page=1&per_page=1&query=${location}%20city&client_id=${process.env.REACT_APP_UNSPLASH_API_KEY}`
     )
     .then((res) => res.data.results[0].urls.full)
     .catch((e) => console.log(e));
@@ -100,7 +96,6 @@ export const Location = (props) => {
   useEffect(() => {
     const locationID = new URLSearchParams(location.search).get("locationID");
     setLoading(true);
-    // setLocationImage(fetchLocationImage(match.params.locationName))
 
     const init = async (locationID) => {
       // Fetching location image to apply as a background to the wrapper
@@ -139,11 +134,12 @@ export const Location = (props) => {
           }}
         />
       ) : (
-        <Card className={classes.bandWrapper}>
-          <Typography className={classes.header}>
-            {match.params.locationName}
-          </Typography>
-          <Events events={events} {...props} />
+        <Card className={classes.locationEventsWrapper}>
+          <EventList
+            events={events}
+            displayName={`Events in ${match.params.locationName}`}
+            {...props}
+          />
         </Card>
       )}
     </Container>

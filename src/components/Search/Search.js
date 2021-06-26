@@ -63,13 +63,22 @@ const useStyles = makeStyles((theme) =>
     },
     inputProps: {
       [theme.breakpoints.down("xs")]: {
+        padding: 0,
         "&&::placeholder": {
           fontSize: "12px",
+          textAlign: "center",
         },
         "&:focus-within": {
-          paddingLeft: "40px",
+          paddingLeft: "50px",
+          textAlign: "left",
           fontSize: "16px",
+          "&&::placeholder": {
+            textAlign: "left",
+          },
         },
+      },
+      [theme.breakpoints.up("sm")]: {
+        paddingLeft: "50px",
       },
     },
     inputEmpty: {
@@ -102,8 +111,6 @@ export const Search = (props) => {
           disableUnderline="false"
           color="primary"
           autoFocus
-          onBlur={xsScreen ? () => setInputValue("") : null}
-          // autoFocus={false}
           value={inputValue}
           onChange={handleChange}
           placeholder="search artist or location"

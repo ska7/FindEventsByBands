@@ -1,27 +1,12 @@
 import React, { useState, useEffect, useContext } from "react";
-import { Link } from "react-router-dom";
-import { FavoritesContext } from "./context/favoritesContext";
-import {
-  getSavedFavorites,
-  updateFavorites,
-  useFavorites,
-} from "./hooks/useFavorites";
 
-import {
-  Container,
-  Grid,
-  List,
-  ListItem,
-  Typography,
-  useMediaQuery,
-  useTheme,
-} from "@material-ui/core";
+import { Grid, List, Typography, useMediaQuery } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { IconButton } from "@material-ui/core";
-import HighlightOffIcon from "@material-ui/icons/HighlightOff";
 import MenuBookOutlinedIcon from "@material-ui/icons/MenuBookOutlined";
-import Hidden from "@material-ui/core/Hidden";
 import Fade from "@material-ui/core/Fade";
+import { FavoritesContext } from "components/context/favoritesContext";
+import { FavoriteList } from "./FavoriteList";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -109,25 +94,20 @@ const useStyles = makeStyles((theme) =>
       width: "40px",
       padding: "5px",
     },
-    noFavoriteEvents: {
-      display: "flex",
-      justifyContent: "center",
-    },
   })
 );
 
 export const Favorites = () => {
-  const classes = useStyles();
-  const xsScreen = useMediaQuery("(max-width: 550px)");
+  const { favorites, setFavorites } = useContext(FavoritesContext);
+  const isXsScreen = useMediaQuery("(max-width: 550px)");
 
   const [isOpen, setOpen] = useState(true);
 
-  const { favorites, setFavorites } = useContext(FavoritesContext);
-
   useEffect(() => {
-    xsScreen ? setOpen(false) : setOpen(true);
-  }, [xsScreen]);
+    isXsScreen ? setOpen(false) : setOpen(true);
+  }, [isXsScreen]);
 
+  const classes = useStyles();
   return (
     <>
       {isOpen && (
@@ -137,45 +117,14 @@ export const Favorites = () => {
               FAVORITE EVENTS
             </Typography>
             <List className={classes.list}>
-              {favorites.length ? (
-                favorites.map((event) => {
-                  return (
-                    <ListItem className={classes.listItem} key={event.id}>
-                      <Link
-                        onClick={xsScreen ? () => setOpen(false) : null}
-                        to={`/event/${event.id}`}
-                        className={classes.link}
-                      >
-                        {event.displayName}
-                      </Link>
-                      <IconButton
-                        aria-label="delete"
-                        className={classes.margin}
-                        size="small"
-                      >
-                        <HighlightOffIcon
-                          onClick={() =>
-                            updateFavorites(event, favorites, setFavorites)
-                          }
-                          fontSize="inherit"
-                          style={{ color: "white" }}
-                        />
-                      </IconButton>
-                    </ListItem>
-                  );
-                })
-              ) : (
-                <ListItem className={classes.noFavoriteEvents}>
-                  You don't have any favorite events yet
-                </ListItem>
-              )}
+              <FavoriteList isXsScreen={isXsScreen} favorites={favorites} />
             </List>
           </Grid>
         </Fade>
       )}
 
       <IconButton
-        className={xsScreen ? classes.mobileOpenFavoritesBtn : classes.hidden}
+        className={isXsScreen ? classes.mobileOpenFavoritesBtn : classes.hidden}
         size="medium"
       >
         <MenuBookOutlinedIcon

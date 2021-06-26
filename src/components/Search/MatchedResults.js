@@ -50,8 +50,9 @@ export const MatchedResults = ({ searchString, onClick }) => {
           const matchedArtists = res.data.resultsPage.results.artist.filter(
             (band) => {
               return band.displayName
+                .replace(/\s/g, "")
                 .toLowerCase()
-                .includes(searchQuery.toLowerCase());
+                .includes(searchQuery.replace(/\s/g, "").toLowerCase());
             }
           );
 

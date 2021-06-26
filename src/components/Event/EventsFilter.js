@@ -1,9 +1,8 @@
-import { Button, Container, InputLabel, TextField } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import { Button, Container, TextField } from "@material-ui/core";
+import React, { useState } from "react";
 
-import { makeStyles, createStyles, useTheme } from "@material-ui/core/styles";
+import { makeStyles, useTheme } from "@material-ui/core/styles";
 import { Slide } from "@material-ui/core";
-import { Input } from "@material-ui/core";
 import DeleteIcon from "@material-ui/icons/Delete";
 
 const useStyles = (activeFilter) => {
@@ -32,7 +31,6 @@ const useStyles = (activeFilter) => {
       borderRadius: "15px",
       textAlign: "center",
       height: "100%",
-      // fontSize: "13px",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",

@@ -48,7 +48,8 @@ const throttledFetchAccessToken = throttle(
 export const fetchBandImage = async (searchString) => {
   accessToken = await throttledFetchAccessToken();
   const bandInfo = await getBand(searchString, accessToken);
-  // console.log("images", bandInfo);
+  // console.log(bandInfo.artists.items[0].images);
+
   //   Logic for cases when spotify doesn't have searched for artist
   // if (
   //   !bandInfo.artists.items[0].name
@@ -74,7 +75,9 @@ export const useSpotify = (searchString) => {
       const image = await fetchBandImage(searchString);
       setArtistImage(image);
     };
-    init();
+
+    // Run init only if there's a search string
+    searchString && init();
   }, [searchString]);
   return [artistImage, setArtistImage];
 };

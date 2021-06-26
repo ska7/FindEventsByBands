@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 
 import { makeStyles } from "@material-ui/core/styles";
 import { Container, ListItem, Typography } from "@material-ui/core";
@@ -18,14 +18,30 @@ const useStyles = (eventsListHeight) => {
       position: "relative",
       [theme.breakpoints.down("xs")]: {},
     },
+    header: {
+      display: "flex",
+      justifyContent: "center",
+      alignItems: "center",
+      color: "white",
+      textAlign: "center",
+      fontSize: "30px",
+      height: "70px",
+      [theme.breakpoints.down("xs")]: {
+        fontSize: "25px",
+        fontWeight: "900",
+        marginTop: "100px",
+      },
+      [theme.breakpoints.up("sm")]: {
+        background: "rgba(0,0,0,0.8)",
+        boxShadow: "0px 0px 25px 10px black",
+      },
+    },
     subheader: {
       background: "#333333",
       textAlign: "center",
       padding: "10px 0px",
     },
-    container: {},
     filterContainer: {
-      // position: "fixed",
       width: "100%",
       height: "70px",
     },
@@ -61,8 +77,7 @@ const useStyles = (eventsListHeight) => {
     eventsList: {
       overflowY: "auto",
       [theme.breakpoints.down("xs")]: {
-        height: `${eventsListHeight - 260}px`,
-        // height: `545px`,
+        height: `${eventsListHeight - 290}px`,
       },
       [theme.breakpoints.up("sm")]: {
         height: "70%",
@@ -86,8 +101,8 @@ const useStyles = (eventsListHeight) => {
   }));
 };
 
-export const Events = (props) => {
-  const { events, match, location } = props;
+export const EventList = (props) => {
+  const { events, match, location, displayName } = props;
   const [filterString, setFilterString] = useState("");
   const [eventsNumber, setEventsNumber] = useState("");
   const [eventsListHeight, setEventsListHeight] = useState(0);
@@ -96,50 +111,56 @@ export const Events = (props) => {
     if (events.length) {
       const height = document.getElementById("list-of-events").offsetHeight;
       setEventsListHeight(height);
-      // console.log(height);
     }
   }, []);
 
   const classes = useStyles(eventsListHeight)();
   return (
-    <List dense className={classes.eventsListContainer} id="list-of-events">
-      {events.length ? (
-        <>
-          <Container className={classes.filterContainer}>
-            <EventsFilter setFilterStringFunc={setFilterString} />
-          </Container>
-          <Container className={classes.eventsList}>
-            {filterString
-              ? events
-                  .filter((event) =>
-                    event.location.city
-                      .toLowerCase()
-                      .includes(filterString.toLocaleLowerCase())
-                  )
-                  .map((event) => {
-                    return (
-                      <Event event={event} collapse={true} standAlone={false} />
-                    );
-                  })
-              : events.map((event) => (
-                  <Event event={event} collapse={true} standAlone={false} />
-                ))}
-          </Container>
-        </>
-      ) : (
-        <ListItem
-          id="no-events"
-          style={{
-            // textAlign: "center !important",
-            display: "flex",
-            justifyContent: "center",
-            marginTop: "50%",
-            fontSize: "25px",
-          }}
-        >
-          This artist has no upcoming events!
-        </ListItem>
-      )}
-    </List>
+    <>
+      <Typography className={classes.header}>{displayName}</Typography>
+      <List dense className={classes.eventsListContainer} id="list-of-events">
+        {events.length ? (
+          <>
+            <Container className={classes.filterContainer}>
+              <EventsFilter setFilterStringFunc={setFilterString} />
+            </Container>
+            <Container className={classes.eventsList}>
+              {filterString
+                ? events
+                    .filter((event) =>
+                      event.location.city
+                        .toLowerCase()
+                        .includes(filterString.toLocaleLowerCase())
+                    )
+                    .map((event) => {
+                      return (
+                        <Event
+                          event={event}
+                          collapse={true}
+                          standAlone={false}
+                        />
+                      );
+                    })
+                : events.map((event) => (
+                    <Event event={event} collapse={true} standAlone={false} />
+                  ))}
+            </Container>
+          </>
+        ) : (
+          <ListItem
+            id="no-events"
+            style={{
+              // textAlign: "center !important",
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "50%",
+              fontSize: "25px",
+            }}
+          >
+            This artist has no upcoming events!
+          </ListItem>
+        )}
+      </List>
+    </>
   );
 };

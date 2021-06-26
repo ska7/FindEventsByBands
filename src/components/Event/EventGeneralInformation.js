@@ -1,4 +1,6 @@
 import React, { useContext, useState, useEffect } from "react";
+import { FavoritesContext } from "../context/favoritesContext";
+import { checkIfSaved, updateFavorites } from "../hooks/useFavorites";
 
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import {
@@ -8,15 +10,9 @@ import {
   Typography,
   useMediaQuery,
 } from "@material-ui/core";
-
-import ListItemSecondaryAction from "@material-ui/core/ListItemSecondaryAction";
-import ListItemText from "@material-ui/core/ListItemText";
 import Checkbox from "@material-ui/core/Checkbox";
 import Favorite from "@material-ui/icons/Favorite";
 import FavoriteBorder from "@material-ui/icons/FavoriteBorder";
-import { FavoritesContext } from "./context/favoritesContext";
-import { theme } from "./Theme";
-import { checkIfSaved, updateFavorites } from "./hooks/useFavorites";
 
 const useStyles = (isStandAlone) => {
   return makeStyles((theme) =>

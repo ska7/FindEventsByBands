@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { Container, createStyles, IconButton } from "@material-ui/core";
 import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
 import { Search } from "./Search/Search";
-import { Favorites } from "./Favorites";
+import { Favorites } from "./Favorites/Favorites";
 import { makeStyles } from "@material-ui/styles";
 
 const useCustomStyles = () => {

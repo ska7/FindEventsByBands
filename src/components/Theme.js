@@ -17,7 +17,6 @@ export const theme = createMuiTheme({
     fontFamily: `'Inconsolata', monospace`,
   },
   input: {
-    paddingLeft: "20px",
     background: "#eeeeee",
     borderTopRightRadius: "10px",
     borderTopLeftRadius: "10px",

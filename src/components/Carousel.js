@@ -1,12 +1,12 @@
 import React from "react";
 
-import Carousel from "react-material-ui-carousel";
-import { Container, Typography, useMediaQuery } from "@material-ui/core";
+import { Carousel as MaterialCarousel } from "react-material-ui-carousel";
+import { Container, useMediaQuery } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useFavorites } from "./hooks/useFavorites";
-import { EventDetails } from "./EventDetails";
 import { useTheme } from "@material-ui/styles";
 import backgroundImage from "../img/no-favorite-events.jpeg";
+import { Event } from "./Event/Event";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const EventsCarousel = () => {
+export const Carousel = () => {
   const { favorites } = useFavorites();
 
   const theme = useTheme();
@@ -69,7 +69,7 @@ export const EventsCarousel = () => {
 
   const classes = useStyles();
   return (
-    <Carousel
+    <MaterialCarousel
       className={classes.carousel}
       autoPlay={false}
       navButtonsAlwaysVisible
@@ -95,7 +95,14 @@ export const EventsCarousel = () => {
       }}
     >
       {favorites.length ? (
-        favorites.map((event) => <EventDetails event={event} />)
+        favorites.map((event) => (
+          <Event
+            event={event}
+            collapse={false}
+            hoverFocus={false}
+            isStandAlone={true}
+          />
+        ))
       ) : (
         <Container className={classes.noFavoriteEventsWrapper}>
           <span className={classes.noFavoriteEventsText}>
@@ -106,6 +113,6 @@ export const EventsCarousel = () => {
           </span>
         </Container>
       )}
-    </Carousel>
+    </MaterialCarousel>
   );
 };

@@ -5,10 +5,6 @@ import {
   Button,
   Container,
   createStyles,
-  List,
-  ListItem,
-  Paper,
-  Table,
   TableBody,
   TableCell,
   TableContainer,
@@ -20,7 +16,6 @@ import { IconButton, Link as MaterialLink, Collapse } from "@material-ui/core";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import ExpandLessIcon from "@material-ui/icons/ExpandLess";
 import TableRow from "@material-ui/core/TableRow";
-import { theme } from "./Theme";
 
 const useStyles = (isStandAlone) => {
   return makeStyles((theme) =>
@@ -371,22 +366,17 @@ export const EventLineUp = ({
   const lgScreen = useMediaQuery("(min-width: 1000px)");
   const mdScreen = useMediaQuery("(min-width: 451px) and (max-width: 999px)");
 
-  // If collapse prop is true, isUnfolded
+  // If collapse prop is true, the button should be clicked to unfold the lineup
   const [isUnfolded, setUnfolded] = useState(!collapse);
 
   useEffect(() => {
     const height = document.getElementById("event-lineup").offsetHeight;
-    // console.log(height);
     setLineUpHeight(height);
   }, [lineUpHeight]);
 
   const classes = useStyles(isStandAlone)();
   return (
-    <Container
-      className={classes.unfolded}
-      id="event-lineup"
-      onTouchStart={() => setUnfolded(!collapse)}
-    >
+    <Container className={classes.unfolded} id="event-lineup">
       {collapse && (
         <Container className={classes.iconWrapper}>
           <IconButton
@@ -412,16 +402,11 @@ export const EventLineUp = ({
           ) : (
             <MaterialLink
               href={eventURL}
-              // onClick={(e) => e.preventDefault()}
               rel="noopener"
               target="_blank"
               className={`${classes.link} ${classes.removeDecoration}`}
             >
-              <Button
-                // variant=""
-                color="secondary"
-                className={classes.btnPurchase}
-              >
+              <Button color="secondary" className={classes.btnPurchase}>
                 Buy Tickets
               </Button>
             </MaterialLink>

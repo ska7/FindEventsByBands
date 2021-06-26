@@ -1,6 +1,6 @@
+import { Event } from "components/Event/Event";
 import React, { useState, useEffect } from "react";
-import { EventDetails } from "./EventDetails";
-import { useFavorites } from "./hooks/useFavorites";
+import { useFavorites } from "../hooks/useFavorites";
 
 export const FavoriteEvent = (props) => {
   const { match } = props;
@@ -16,8 +16,11 @@ export const FavoriteEvent = (props) => {
   }, [match]);
 
   return (
-    <>
-      <EventDetails event={event} />
-    </>
+    <Event
+      event={event}
+      collapse={false}
+      hoverFocus={false}
+      isStandAlone={true}
+    />
   );
 };

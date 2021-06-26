@@ -5,7 +5,7 @@ import { fetchBandImage, useSpotify } from "./hooks/useSpotify";
 import { Card, CardContent, Container, Typography } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Loader } from "./Loader";
-import { Events } from "./Events";
+import { EventList } from "./Event/EventList";
 
 const customStyles = (image) => {
   return makeStyles((theme) =>
@@ -19,7 +19,6 @@ const customStyles = (image) => {
           margin: "0px auto 0px auto",
           height: "100vh !important",
           width: "100vw",
-          // border: "1px solid green",
         },
         [theme.breakpoints.up("xs")]: {
           height: "65vh",
@@ -29,7 +28,7 @@ const customStyles = (image) => {
           padding: 0,
         },
       },
-      bandWrapper: {
+      artistEventsWrapper: {
         height: "100%",
         backgroundSize: "cover",
         background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, .8) 100%) ,url(
@@ -64,13 +63,6 @@ const customStyles = (image) => {
           boxShadow: "0px 0px 25px 10px black",
         },
       },
-      subHeader: {
-        background: "rgba(0,0,0,0.8)",
-        color: "white",
-        textAlign: "center",
-        paddingBottom: "20px",
-        fontSize: "20px",
-      },
       input: {
         background: "white",
         padding: "0px 5px",
@@ -79,7 +71,7 @@ const customStyles = (image) => {
   );
 };
 
-export const Band = (props) => {
+export const Artist = (props) => {
   const { match, location } = props;
 
   const [events, setEvents] = useState([]);
@@ -126,11 +118,12 @@ export const Band = (props) => {
           }}
         />
       ) : (
-        <Card className={classes.bandWrapper}>
-          <Typography className={classes.header}>
-            {match.params.bandName}
-          </Typography>
-          <Events events={events} {...props} />
+        <Card className={classes.artistEventsWrapper}>
+          <EventList
+            events={events}
+            displayName={match.params.bandName}
+            {...props}
+          />
         </Card>
       )}
     </Container>

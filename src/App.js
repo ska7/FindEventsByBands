@@ -3,12 +3,12 @@ import React from "react";
 import "./App.scss";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Search } from "./components/Search/Search";
-import { Favorites } from "./components/Favorites";
+import { Favorites } from "./components/Favorites/Favorites";
 import { FavoritesContextProvider } from "./components/context/favoritesContext";
-import { EventsCarousel } from "./components/EventsCarousel";
-import { FavoriteEvent } from "./components/FavoriteEvent";
+import { Carousel } from "./components/Carousel";
+import { FavoriteEvent } from "./components/Event/FavoriteEvent";
 import { theme } from "./components/Theme";
-import { Band } from "./components/Band";
+import { Artist } from "./components/Artist";
 import { Location } from "./components/Location";
 import { MobileTopBar } from "./components/MobileTopBar";
 
@@ -98,7 +98,7 @@ const App = () => {
                         <Favorites />
                       </>
                     )}
-                    <EventsCarousel />
+                    <Carousel />
                   </FavoritesContextProvider>
                 </>
               )}
@@ -117,7 +117,7 @@ const App = () => {
                         <Favorites />
                       </>
                     )}
-                    <Band {...props} />
+                    <Artist {...props} />
                   </FavoritesContextProvider>
                 </>
               )}
