@@ -1,16 +1,14 @@
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { Container, Input, List, useMediaQuery } from "@material-ui/core";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef, useState } from "react";
 import { MatchedResults } from "./MatchedResults";
-import { theme } from "./Theme";
 
 const useStyles = makeStyles((theme) =>
   createStyles({
     searchInputListContainer: {
       position: "relative",
       gridArea: "search",
-      // border: "1px solid red",
       [theme.breakpoints.down("xs")]: {
         height: "90px",
         width: "60vw",
@@ -70,6 +68,7 @@ const useStyles = makeStyles((theme) =>
         },
         "&:focus-within": {
           paddingLeft: "40px",
+          fontSize: "16px",
         },
       },
     },
@@ -92,10 +91,7 @@ export const Search = (props) => {
   const classes = useStyles();
   return (
     <Container className={classes.searchInputListContainer}>
-      <List
-        className={classes.searchInputList}
-        // onBlur={xsScreen ? () => setInputValue("") : null}
-      >
+      <List className={classes.searchInputList}>
         <Input
           className={classes.input}
           classes={{

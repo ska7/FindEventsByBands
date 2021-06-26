@@ -8,9 +8,6 @@ import { EventDetails } from "./EventDetails";
 import { useTheme } from "@material-ui/styles";
 import backgroundImage from "../img/no-favorite-events.jpeg";
 
-import MicIcon from "@material-ui/icons/Mic";
-import { Icon } from "@material-ui/core";
-
 const useStyles = makeStyles((theme) =>
   createStyles({
     carousel: {
@@ -30,14 +27,12 @@ const useStyles = makeStyles((theme) =>
     noFavoriteEventsWrapper: {
       ...theme.card,
       background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 1) 100%), url(${backgroundImage})`,
-      backgroundSize: "cove",
+      backgroundSize: "cover",
       backgroundPosition: "center",
+      backgroundRepeat: "no-repeat",
       color: "white",
       display: "flex",
       justifyContent: "center",
-      // alignItems: "center",
-
-      // fontFamily: "Inconsolata, monospace",
       [theme.breakpoints.down("xs")]: {
         paddingTop: "50%",
         width: "100vw",
@@ -97,7 +92,6 @@ export const EventsCarousel = () => {
             : "1px solid #676563",
           background: "rgb(39, 38, 43)",
         },
-        // className: classes.carouselButtons,
       }}
     >
       {favorites.length ? (

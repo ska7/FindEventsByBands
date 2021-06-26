@@ -1,8 +1,6 @@
 import React from "react";
-import { useSpotify } from "./hooks/useSpotify";
 import { Link } from "react-router-dom";
 
-// import { Link } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import LocationOnIcon from "@material-ui/icons/LocationOn";
 import MicIcon from "@material-ui/icons/Mic";
@@ -11,14 +9,12 @@ import { Icon } from "@material-ui/core";
 const useStyles = makeStyles((theme) =>
   createStyles({
     link: {
-      // ...theme.centerColumn,
       display: "flex",
       flexDirection: "column",
       fontFamily: "Inconsolata, monospace",
       textDecoration: "none",
       width: "100%",
       height: "70px",
-      // textAlign: "left",
       padding: "20px 40px 20px 15px",
       background: "#dddddd",
       color: "#504f4f",
@@ -53,7 +49,6 @@ const useStyles = makeStyles((theme) =>
     },
     locationIcon: {
       paddingRight: "50px",
-      // border: "1px solid red",
     },
     alignRow: {
       display: "flex",
@@ -79,7 +74,7 @@ const formatArtistName = (name) => {
   }
 };
 
-export const SearchResultsList = ({ artists, locations, clearInput }) => {
+export const MatchedResultsList = ({ artists, locations, clearInput }) => {
   const classes = useStyles();
   return (
     <>

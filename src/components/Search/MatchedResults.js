@@ -1,9 +1,9 @@
 import React, { useState, useRef, useEffect } from "react";
-import { Link } from "react-router-dom";
 import { throttle } from "lodash";
 import axios from "axios";
-import { Loader } from "./Loader";
-import { SearchResultsList } from "./SearchResultsList";
+import { Loader } from "../Loader";
+import { MatchedResultsList } from "./MatchedResultsList";
+
 import { useMediaQuery } from "@material-ui/core";
 
 export const MatchedResults = ({ searchString, onClick }) => {
@@ -88,7 +88,7 @@ export const MatchedResults = ({ searchString, onClick }) => {
           size={xsScreen ? "35px" : "50px"}
         />
       ) : (
-        <SearchResultsList
+        <MatchedResultsList
           clearInput={onClick}
           artists={artists}
           locations={locations}

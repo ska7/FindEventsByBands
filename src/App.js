@@ -1,33 +1,19 @@
-import react, { useEffect } from "react";
+import React from "react";
 
 import "./App.scss";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import { Search } from "./components/Search";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Search } from "./components/Search/Search";
 import { Favorites } from "./components/Favorites";
-import { SimilarBands } from "./components/SimilarBands";
 import { FavoritesContextProvider } from "./components/context/favoritesContext";
 import { EventsCarousel } from "./components/EventsCarousel";
 import { FavoriteEvent } from "./components/FavoriteEvent";
 import { theme } from "./components/Theme";
 import { Band } from "./components/Band";
-
-import {
-  Container,
-  Grid,
-  Hidden,
-  ThemeProvider,
-  useMediaQuery,
-  useTheme,
-} from "@material-ui/core";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
-
-import { IconButton } from "@material-ui/core";
+import { Location } from "./components/Location";
 import { MobileTopBar } from "./components/MobileTopBar";
 
-// TEST HOME ICON
-
-import HomeOutlinedIcon from "@material-ui/icons/HomeOutlined";
-import { Location } from "./components/Location";
+import { Grid, ThemeProvider, useMediaQuery } from "@material-ui/core";
+import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const useCustomStyles = () => {
   return makeStyles((theme) =>
@@ -88,9 +74,6 @@ const App = () => {
 
   const smScreen = useMediaQuery("(max-width: 550px)");
 
-  useEffect(() => {
-    // console.log(theme.breakpoints.values);
-  }, []);
   return (
     <ThemeProvider theme={theme}>
       <Grid
