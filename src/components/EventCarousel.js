@@ -1,6 +1,6 @@
 import React from "react";
 
-import { Carousel as MaterialCarousel } from "react-material-ui-carousel";
+import Carousel from "react-material-ui-carousel";
 import { Container, useMediaQuery } from "@material-ui/core";
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 import { useFavorites } from "./hooks/useFavorites";
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const Carousel = () => {
+export const EventCarousel = () => {
   const { favorites } = useFavorites();
 
   const theme = useTheme();
@@ -69,7 +69,7 @@ export const Carousel = () => {
 
   const classes = useStyles();
   return (
-    <MaterialCarousel
+    <Carousel
       className={classes.carousel}
       autoPlay={false}
       navButtonsAlwaysVisible
@@ -113,6 +113,6 @@ export const Carousel = () => {
           </span>
         </Container>
       )}
-    </MaterialCarousel>
+    </Carousel>
   );
 };

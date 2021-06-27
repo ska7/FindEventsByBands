@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Search } from "./components/Search/Search";
 import { Favorites } from "./components/Favorites/Favorites";
 import { FavoritesContextProvider } from "./components/context/favoritesContext";
-import { Carousel } from "./components/Carousel";
+import { EventCarousel } from "./components/EventCarousel";
 import { FavoriteEvent } from "./components/Event/FavoriteEvent";
 import { theme } from "./components/Theme";
 import { Artist } from "./components/Artist";
@@ -98,7 +98,7 @@ const App = () => {
                         <Favorites />
                       </>
                     )}
-                    <Carousel />
+                    <EventCarousel />
                   </FavoritesContextProvider>
                 </>
               )}
