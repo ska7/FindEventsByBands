@@ -108,7 +108,7 @@ export const MatchedResultsList = ({ artists, locations, clearInput }) => {
               <Link
                 className={`${classes.link} ${classes.alignArtist}`}
                 key={band.id}
-                to={`/band/${band.displayName}?bandID=${band.id}`}
+                to={`/artist/${band.displayName}?artistID=${band.id}`}
                 onClick={clearInput}
               >
                 <Icon className={classes.locationIcon}>

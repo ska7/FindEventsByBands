@@ -71,34 +71,38 @@ const customStyles = (image) => {
   );
 };
 
+const getEvents = async (artistID) => {
+  return await axios
+    .get(
+      `https://api.songkick.com/api/3.0/artists/${artistID}/calendar.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
+    )
+    .then((res) => {
+      const events = res.data.resultsPage.results.event;
+      if (events !== undefined) {
+        return events;
+      } else {
+        return [];
+      }
+    })
+    .catch((e) => console.log("error", e));
+};
+
 export const Artist = (props) => {
   const { match, location } = props;
 
   const [events, setEvents] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  const [artistImage, setArtistImage] = useSpotify(match.params.bandName);
+  const [artistImage, setArtistImage] = useSpotify(match.params.artistName);
 
   useEffect(() => {
-    const bandID = new URLSearchParams(location.search).get("bandID");
-    setLoading(true);
-    setArtistImage("");
-
     const init = async () => {
-      await axios
-        .get(
-          `https://api.songkick.com/api/3.0/artists/${bandID}/calendar.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}`
-        )
-        .then((res) => {
-          const events = res.data.resultsPage.results.event;
-          if (events !== undefined) {
-            setEvents(events);
-          }
-        })
-        .catch((e) => console.log("error", e))
-        .finally(() => {
-          setLoading(false);
-        });
+      setArtistImage("");
+      setLoading(true);
+      const artistID = new URLSearchParams(location.search).get("artistID");
+      const artistEvents = await getEvents(artistID);
+      setEvents(artistEvents);
+      setLoading(false);
     };
 
     init();
@@ -107,7 +111,7 @@ export const Artist = (props) => {
   const classes = customStyles(artistImage)();
   return (
     <Container className={classes.mainContainer} disableGutters>
-      {loading & !artistImage ? (
+      {loading || artistImage === "" ? (
         <Loader
           customPosition={{
             margin: "auto",
@@ -121,7 +125,7 @@ export const Artist = (props) => {
         <Card className={classes.artistEventsWrapper}>
           <EventList
             events={events}
-            displayName={match.params.bandName}
+            displayName={match.params.artistName}
             {...props}
           />
         </Card>

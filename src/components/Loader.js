@@ -1,9 +1,7 @@
-import { Container } from "@material-ui/core";
-import React, { useState, useEffect } from "react";
+import React from "react";
 import loader from "../img/loader-red.png";
 
 import { makeStyles, createStyles } from "@material-ui/core/styles";
-import { Fade } from "@material-ui/core";
 
 const customStyles = (customPosition, size) => {
   return makeStyles((theme) =>
@@ -31,13 +29,7 @@ const customStyles = (customPosition, size) => {
 
 export const Loader = ({ customPosition = {}, size = "130px" }) => {
   const classes = customStyles(customPosition, size)();
-  const [isLoading, setLoading] = useState(true);
 
-  useEffect(() => {
-    return () => {
-      setLoading(false);
-    };
-  }, []);
   return (
     <img
       className={`${classes.loader} ${classes.customPosition}`}

@@ -110,7 +110,6 @@ export const Location = (props) => {
           `https://api.songkick.com/api/3.0/events.json?apikey=${process.env.REACT_APP_SONGKICK_API_KEY}&location=sk:${locationID}`
         )
         .then((res) => {
-          //   console.log("loca", res.data.resultsPage.results.event);
           setEvents(res.data.resultsPage.results.event);
         })
         .catch((e) => console.log(e))
@@ -123,7 +122,7 @@ export const Location = (props) => {
   const classes = customStyles(locationImage)();
   return (
     <Container className={classes.mainContainer} disableGutters>
-      {loading ? (
+      {loading || locationImage === "" ? (
         <Loader
           customPosition={{
             margin: "auto",

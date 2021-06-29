@@ -102,7 +102,7 @@ const useStyles = (eventsListHeight) => {
 };
 
 export const EventList = (props) => {
-  const { events, match, location, displayName } = props;
+  const { events, displayName } = props;
   const [filterString, setFilterString] = useState("");
   const [eventsNumber, setEventsNumber] = useState("");
   const [eventsListHeight, setEventsListHeight] = useState(0);
@@ -150,14 +150,13 @@ export const EventList = (props) => {
           <ListItem
             id="no-events"
             style={{
-              // textAlign: "center !important",
               display: "flex",
               justifyContent: "center",
               marginTop: "50%",
               fontSize: "25px",
             }}
           >
-            This artist has no upcoming events!
+            No upcoming events here!
           </ListItem>
         )}
       </List>

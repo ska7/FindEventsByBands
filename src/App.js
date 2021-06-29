@@ -105,7 +105,7 @@ const App = () => {
             />
             <Route
               exact
-              path="/band/:bandName"
+              path="/artist/:artistName"
               render={(props) => (
                 <>
                   <FavoritesContextProvider>

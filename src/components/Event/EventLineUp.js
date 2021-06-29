@@ -322,7 +322,7 @@ const createTableRow = (artists, classes, artistsPerRow) => {
           {chunk.map((artist) => (
             <TableCell align="center" className={classes.artist}>
               <Link
-                to={`/band/${artist.name}?bandID=${artist.id}`}
+                to={`/artist/${artist.name}?artistID=${artist.id}`}
                 className={classes.link}
               >
                 {artist.name}

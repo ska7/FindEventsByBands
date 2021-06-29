@@ -4,12 +4,12 @@ import { EventGeneralInformation } from "./EventGeneralInformation";
 
 import { createStyles, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
-import { useSpotify } from "../hooks/useSpotify";
 
 const useStyles = (image) => {
   return makeStyles((theme) =>
     createStyles({
       standAloneStyles: {
+        position: "relative",
         ...theme.card,
         display: "flex",
         flexDirection: "column",
@@ -20,8 +20,6 @@ const useStyles = (image) => {
         backgroundSize: "cover",
         backgroundPosition: "center",
         transition: "all 0.5s ease",
-        // borderTop: "1px solid rgba(255, 255, 255, 0.0)",
-        // borderBottom: "1px solid rgba(255, 255, 255, 0)",
         overflowY: "auto",
         overflowX: "hidden",
         "&:hover": {
@@ -34,13 +32,18 @@ const useStyles = (image) => {
           borderRadius: "0px",
           margin: 0,
           "&::-webkit-scrollbar": {
+            position: "absolute",
+            right: 0,
             "-webkitAppearance": "none",
           },
           "&::-webkit-scrollbar:vertical": {
+            position: "absolute",
             width: "4px",
             background: "transparent",
           },
           "&::-webkit-scrollbar-thumb": {
+            right: 0,
+            position: "absolute",
             borderRadius: "4px",
             backgroundColor: "grey",
           },
@@ -71,12 +74,13 @@ const useStyles = (image) => {
   );
 };
 
-export const Event = ({ event, collapse = true, isStandAlone }) => {
-  const [artistImage, setArtistImage] = useSpotify(
-    isStandAlone ? event.performance[0].displayName : ""
-  );
-
-  const classes = useStyles(artistImage)();
+export const Event = ({
+  event,
+  collapse = true,
+  isStandAlone,
+  backgroundImage,
+}) => {
+  const classes = useStyles(backgroundImage)();
   return (
     <ListItem
       key={event.id}

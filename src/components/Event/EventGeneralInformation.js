@@ -28,14 +28,18 @@ const useStyles = (isStandAlone) => {
               width: "100%",
               padding: "20px",
               // border: "1px solid red",
-              // background: `linear-gradient(top, rgba(0, 0, 0, 0.8) 0%, rgba(0, 0, 0, 0.9) 59%, rgba(0, 0, 0, 0.8) 100%)`,
-              // boxShadow: "0px 0px 20px 10px black",
+              background: `linear-gradient(top, rgba(0, 0, 0, 0.6) 0%, rgba(0, 0, 0, 0.8) 59%, rgba(0, 0, 0, 0.6) 100%)`,
+              boxShadow: "0px 0px 20px 10px black",
               [theme.breakpoints.down("sm")]: {
                 // marginDown: "20px",
               },
               [theme.breakpoints.up("md")]: {
                 marginTop: "100px",
-                padding: "0px 40px",
+                padding: "30px 40px",
+              },
+              [theme.breakpoints.up("lg")]: {
+                marginTop: "0px",
+                paddingTop: "50px",
               },
             },
             eventTime: {
@@ -81,7 +85,7 @@ const useStyles = (isStandAlone) => {
                 fontSize: "23px",
               },
               [theme.breakpoints.up("lg")]: {
-                fontSize: "27px",
+                fontSize: "33px",
               },
             },
             date: {
@@ -103,6 +107,9 @@ const useStyles = (isStandAlone) => {
               justifyContent: "center",
               alignItems: "center",
               width: "100%",
+              [theme.breakpoints.up("sm")]: {
+                padding: "0px 20px",
+              },
             },
             checkbox: {
               "&:hover": {
@@ -120,6 +127,7 @@ const useStyles = (isStandAlone) => {
               ...theme.links,
             },
             eventDate: {
+              textAlign: "right",
               width: "10%",
               padding: "0",
               margin: "0",
@@ -146,13 +154,14 @@ const useStyles = (isStandAlone) => {
               [theme.breakpoints.down("xs")]: {
                 padding: "0px 20px",
               },
+              [theme.breakpoints.up("sm")]: {
+                padding: "0px 15px",
+              },
             },
             date: {
               fontWeight: "900",
             },
             favoriteBtn: {
-              // height: "40px",
-              // width: "40px",
               [theme.breakpoints.down("xs")]: {
                 margin: 0,
               },
@@ -195,10 +204,6 @@ const formatTime = (time) => {
   return `${hours}:${minutes}`;
 };
 
-// const formatName = (name) => {
-//   return name.length > 40 ? `${name.slice(0, 40)}...` : name;
-// };
-
 export const EventGeneralInformation = ({ event, isStandAlone }) => {
   const classes = useStyles(isStandAlone)();
 
@@ -212,7 +217,11 @@ export const EventGeneralInformation = ({ event, isStandAlone }) => {
   }, [favorites]);
 
   return (
-    <Container className={classes.mainContainer} id="event-general-information">
+    <Container
+      className={classes.mainContainer}
+      id="event-general-information"
+      disableGutters
+    >
       <Container className={classes.eventDate}>
         <Typography color="secondary" className={classes.date}>
           {formatDate(event.start.date)}

@@ -31,7 +31,7 @@ const useStyles = makeStyles((theme) =>
   })
 );
 
-export const FavoriteItem = ({ event, isXsScreen }) => {
+export const FavoriteItem = ({ event }) => {
   const { favorites, setFavorites } = useContext(FavoritesContext);
   const classes = useStyles();
   return (
