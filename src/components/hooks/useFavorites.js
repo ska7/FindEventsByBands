@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react";
 
-export const getSavedFavorites = () => {
-  const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
+const storageEvents = localStorage.getItem("favorites");
+
+export const getSavedFavorites = (storageEvents) => {
+  const savedFavorites = JSON.parse(storageEvents);
 
   // If there are saved favorites
   if (savedFavorites) return savedFavorites.favorites;
@@ -29,7 +31,9 @@ export const updateFavorites = (event, favorites, setFavorites) => {
 };
 
 export const useFavorites = () => {
-  const [favorites, setFavorites] = useState(() => getSavedFavorites());
+  const [favorites, setFavorites] = useState(() =>
+    getSavedFavorites(storageEvents)
+  );
 
   useEffect(() => {
     localStorage.setItem(
@@ -40,49 +44,3 @@ export const useFavorites = () => {
 
   return { favorites, setFavorites };
 };
-
-// import { useState, useEffect } from "react";
-
-// export const checkIfSaved = (eventID, favorites) => {
-//   return favorites.find((event) => event.id === eventID);
-// };
-
-// const getUpdatedFavorites = (event, favorites) => {
-//   console.log("Got updated favorites");
-//   const isPresent = checkIfSaved(event.id, favorites);
-
-//   if (isPresent) {
-//     return favorites.filter((favoriteEvent) => favoriteEvent.id !== event.id);
-//   } else {
-//     return [...favorites, event];
-//   }
-// };
-
-// export const getSavedFavorites = () => {
-//   const savedFavorites = JSON.parse(localStorage.getItem("favorites"));
-
-//   // If there are saved favorites
-//   if (savedFavorites) return savedFavorites.favorites;
-
-//   // If there are no saved favorites
-//   return [];
-// };
-
-// export const useFavorites = () => {
-//   const [event, setEvent] = useState({});
-//   const [favorites, setFavorites] = useState(() => getSavedFavorites());
-
-//   useEffect(() => {
-//     if (event && Object.keys(event).length) {
-//       const x = getUpdatedFavorites(event, favorites)
-//       console.log(x)
-//       setFavorites(getUpdatedFavorites(event, favorites));
-//       localStorage.setItem(
-//         "favorites",
-//         JSON.stringify({ favorites: [...favorites] })
-//       );
-//     }
-//   }, [event]);
-
-//   return { favorites, setEvent };
-// };

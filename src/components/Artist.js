@@ -91,7 +91,7 @@ export const Artist = (props) => {
   const { match, location } = props;
 
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const [artistImage, setArtistImage] = useSpotify(match.params.artistName);
 
@@ -111,7 +111,7 @@ export const Artist = (props) => {
   const classes = customStyles(artistImage)();
   return (
     <Container className={classes.mainContainer} disableGutters>
-      {loading || artistImage === "" ? (
+      {isLoading || artistImage === "" ? (
         <Loader
           customPosition={{
             margin: "auto",

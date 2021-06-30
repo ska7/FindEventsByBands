@@ -91,7 +91,7 @@ export const Location = (props) => {
 
   const [locationImage, setLocationImage] = useState("");
   const [events, setEvents] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   useEffect(() => {
     const locationID = new URLSearchParams(location.search).get("locationID");
@@ -122,7 +122,7 @@ export const Location = (props) => {
   const classes = customStyles(locationImage)();
   return (
     <Container className={classes.mainContainer} disableGutters>
-      {loading || locationImage === "" ? (
+      {isLoading || locationImage === "" ? (
         <Loader
           customPosition={{
             margin: "auto",

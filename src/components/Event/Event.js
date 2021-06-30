@@ -4,6 +4,7 @@ import { EventGeneralInformation } from "./EventGeneralInformation";
 
 import { createStyles, ListItem } from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
+import { useSpotify } from "components/hooks/useSpotify";
 
 const useStyles = (image) => {
   return makeStyles((theme) =>
@@ -74,13 +75,12 @@ const useStyles = (image) => {
   );
 };
 
-export const Event = ({
-  event,
-  collapse = true,
-  isStandAlone,
-  backgroundImage,
-}) => {
-  const classes = useStyles(backgroundImage)();
+export const Event = ({ event, collapse = true, isStandAlone }) => {
+  const [artistImage, setArtistImage] = useSpotify(
+    isStandAlone ? event.performance[0].displayName : ""
+  );
+
+  const classes = useStyles(artistImage)();
   return (
     <ListItem
       key={event.id}

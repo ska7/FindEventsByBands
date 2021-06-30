@@ -9,7 +9,7 @@ import { useMediaQuery } from "@material-ui/core";
 export const MatchedResults = ({ searchString, onClick }) => {
   const [artists, setArtists] = useState([]);
   const [locations, setLocations] = useState([]);
-  const [loading, setLoading] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const xsScreen = useMediaQuery("(max-width: 450px)");
 
@@ -79,7 +79,7 @@ export const MatchedResults = ({ searchString, onClick }) => {
 
   return (
     <>
-      {loading ? (
+      {isLoading ? (
         <Loader
           customPosition={
             xsScreen
